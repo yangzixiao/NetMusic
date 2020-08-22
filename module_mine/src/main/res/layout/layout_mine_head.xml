@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_collapseMode="none">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorBlack" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivHead"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/edg"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="30dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/layout_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@color/colorImg" />
+
+    <com.noober.background.view.BLTextView
+       app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivHead"
+        app:layout_constraintBottom_toBottomOf="@id/ivHead"
+        android:layout_marginEnd="@dimen/edg"
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:paddingStart="@dimen/dim_10"
+        android:paddingEnd="@dimen/dim_10"
+        android:text="立即登录"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/dim_textsize_12"
+        app:bl_corners_radius="15dp"
+        app:bl_stroke_color="@color/colorWhite"
+        app:bl_stroke_width="1dp" />
+
+    <LinearLayout
+        android:id="@+id/llUserInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_10"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/ivHead"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/ivHead"
+        app:layout_constraintTop_toTopOf="@+id/ivHead">
+
+        <TextView
+            android:id="@+id/tvNickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/dim_textsize_16"
+            tools:layout_editor_absoluteX="143dp"
+            tools:layout_editor_absoluteY="96dp"
+            tools:text="昵称" />
+
+        <com.noober.background.view.BLTextView
+            android:id="@+id/tvLevel"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/dim_5"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/dim_textsize_10"
+            android:textStyle="bold|italic"
+            app:bl_corners_radius="10dp"
+            app:bl_solid_color="#33ffffff"
+            tools:layout_editor_absoluteX="143dp"
+            tools:layout_editor_absoluteY="96dp"
+            tools:text="LV.9" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edg"
+        android:layout_marginEnd="@dimen/edg"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.yzx.lib_base.widget.ImgTitleView
+            android:id="@+id/itv_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:itv_img="@drawable/ic_local_music"
+            app:itv_red_point_color="@color/colorRedPoint"
+            app:itv_red_point_size="@dimen/dim_red_point_size"
+            app:itv_title="@string/LocalMusic"
+            app:itv_title_color="@color/colorWhite"
+            app:itv_title_size="@dimen/dim_textsize_12" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.yzx.lib_base.widget.ImgTitleView
+            android:id="@+id/itv_download_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:itv_img="@drawable/ic_download_manager"
+            app:itv_red_point_color="@color/colorRedPoint"
+            app:itv_red_point_size="@dimen/dim_red_point_size"
+            app:itv_title="@string/DownloadManager"
+            app:itv_title_color="@color/colorWhite"
+            app:itv_title_size="@dimen/dim_textsize_12" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.yzx.lib_base.widget.ImgTitleView
+            android:id="@+id/itv_my_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:itv_img="@drawable/ic_my_radio"
+            app:itv_red_point_color="@color/colorRedPoint"
+            app:itv_red_point_size="@dimen/dim_red_point_size"
+            app:itv_title="@string/MyRadio"
+            app:itv_title_color="@color/colorWhite"
+            app:itv_title_size="@dimen/dim_textsize_12" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.yzx.lib_base.widget.ImgTitleView
+            android:id="@+id/itv_my_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:itv_img="@drawable/ic_my_collection"
+            app:itv_red_point_color="@color/colorRedPoint"
+            app:itv_red_point_size="@dimen/dim_red_point_size"
+            app:itv_title="@string/MyCollection"
+            app:itv_title_color="@color/colorWhite"
+            app:itv_title_size="@dimen/dim_textsize_12" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.yzx.lib_base.widget.ImgTitleView
+            android:id="@+id/itv_focus_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:itv_img="@drawable/ic_focus_new"
+            app:itv_red_point_color="@color/colorRedPoint"
+            app:itv_red_point_size="@dimen/dim_red_point_size"
+            app:itv_title="@string/FocusNew"
+            app:itv_title_color="@color/colorWhite"
+            app:itv_title_size="@dimen/dim_textsize_12" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

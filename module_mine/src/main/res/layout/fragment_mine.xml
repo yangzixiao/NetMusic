@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/smartRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.yzx.lib_base.widget.MaskImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:scaleType="centerCrop"
+            tools:background="@drawable/cbh" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:elevation="0dp"
+            android:orientation="vertical"
+            app:elevation="0dp">
+
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                <include
+                    android:id="@+id/layout_mine_head"
+                    layout="@layout/layout_mine_head" />
+
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolBarHeight"
+                    app:layout_collapseMode="pin" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <TableLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/colorTransparent">
+
+                <com.noober.background.view.BLImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:bl_corners_topLeftRadius="10dp"
+                    app:bl_corners_topRightRadius="10dp"
+                    app:bl_solid_color="@color/colorWhite" />
+
+            </TableLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_playlist"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="30dp" />
+
+        <ImageView
+            android:id="@+id/iv2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="start|bottom"
+            android:layout_margin="30dp" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

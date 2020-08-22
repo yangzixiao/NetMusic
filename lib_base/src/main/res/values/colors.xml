@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorDivider">#33ffffff</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorDarkWhite">#99ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorLightBlack">#88000000</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorRed">#DB2C1F</color>
+    <color name="dividerColor">#999999</color>
+    <color name="colorImg">#EEEEEE</color>
+    <color name="colorRedPoint">@color/colorRed</color>
+
+</resources>

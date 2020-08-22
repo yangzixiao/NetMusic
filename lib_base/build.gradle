@@ -1,0 +1,15 @@
+apply from: rootProject.file("library.gradle")
+apply from: rootProject.file("koin.gradle")
+apply plugin: 'kotlin-kapt'
+dependencies {
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+    implementation 'com.alibaba:arouter-api:1.5.0'
+    implementation 'com.tencent:mmkv-static:1.1.1'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'androidx.palette:palette-ktx:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "com.bytedance.boost_multidex:boost_multidex:1.0.0"
+}

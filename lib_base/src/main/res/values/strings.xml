@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ljcw">连接错误,请检查网络</string>
+    <string name="wlyc">网络异常,请稍后重试</string>
+    <string name="ljcs">连接超时，请稍后重试</string>
+    <string name="jscw">数据解析错误，这是一个意料之外的bug</string>
+    <string name="wzcw">哎呀，碰到一个莫名其妙的错误</string>
+</resources>

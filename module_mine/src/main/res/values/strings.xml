@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">module_mine</string>
+    <string name="LocalMusic">本地音乐</string>
+    <string name="DownloadManager">下载管理</string>
+    <string name="MyRadio">我的电台</string>
+    <string name="MyCollection">我的收藏</string>
+    <string name="FocusNew">关注新歌</string>
+</resources>

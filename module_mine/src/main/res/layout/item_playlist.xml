@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/edg"
+        android:paddingTop="@dimen/dim_10"
+        android:paddingEnd="@dimen/edg"
+        android:paddingBottom="@dimen/dim_10">
+
+
+        <com.yzx.lib_base.widget.rcimagevuew.RCImageView
+            android:id="@+id/ivSongSheetPost"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@color/colorLightBlack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:round_corner="3dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim_10"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/ivSongSheetPost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/ivSongSheetPost"
+            app:layout_constraintTop_toTopOf="@+id/ivSongSheetPost">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="标题"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dim_textsize_12" />
+
+            <TextView
+                android:id="@+id/tvSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_5"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="副标题"
+                android:textColor="@color/colorLightBlack"
+                android:textSize="@dimen/dim_textsize_10" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

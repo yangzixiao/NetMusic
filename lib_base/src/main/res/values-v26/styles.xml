@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.Launcher" parent="AppTheme.NoTitle">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--&lt;!&ndash;<item name="android:windowTranslucentStatus">true</item>&ndash;&gt;-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+        <!--<item name="android:windowBackground">@drawable/ic_splash</item>-->
+    </style>
+</resources>

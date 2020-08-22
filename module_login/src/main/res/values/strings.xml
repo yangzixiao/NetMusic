@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">module_login</string>
+    <string name="PhoneNumLogin">手机号登录</string>
+    <string name="Agree">同意</string>
+    <string name="UserAgreement">《用户协议》</string>
+    <string name="PrivacyAgreement">《隐私协议》</string>
+    <string name="ChildPrivacyAgreement">《儿童隐私协议》</string>
+    <string name="TryItNow">立即体验</string>
+    <string name="InputPhoneNum">请输入手机号</string>
+    <string name="InputPassword">请输入密码</string>
+    <string name="Login">登录</string>
+    <string name="ForgetPassword">忘记密码？</string>
+    <string name="InputRightPhoneNum">请输入正确的手机号</string>
+</resources>

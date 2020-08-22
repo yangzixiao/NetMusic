@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#ffffff</item>
+        <item name="colorAccent">@color/colorWhite</item>
+    </style>
+
+
+    <!--无ActionBar-->
+    <style name="AppTheme.NoTitle" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+
+    <!--透明状态栏-->
+    <style name="AppTheme.Transparent" parent="AppTheme.NoTitle">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <!--透明状态栏-->
+    <style name="AppTheme.TransparentCompat" parent="AppTheme.NoTitle">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="AppTheme.Launcher" parent="AppTheme.NoTitle">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <!--透明状态栏-->
+    <style name="AppTheme.Pay" parent="Theme.AppCompat.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+
+    <style name="popMenu_under_actionBar" parent="@style/ThemeOverlay.AppCompat.Light">
+        <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <!--<item name="android:layout_marginRight">5dp</item>-->
+        <!--&lt;!&ndash; 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar &ndash;&gt;-->
+        <!--<item name="android:dropDownHorizontalOffset">10dp</item>-->
+        <!--<item name="android:dropDownVerticalOffset">10dp</item>-->
+<!--        <item name="android:textColor">@color/colorBlack333230</item>-->
+        <item name="android:textSize">16sp</item>
+        <!--<item name="android:tint">@color/colorTitleBlack</item>-->
+        <!--修改Menu右上角三个点图标-->
+        <item name="android:actionOverflowButtonStyle">@style/OverflowStyle</item>
+    </style>
+
+    <!--修改Menu右上角三个点图标-->
+    <style name="OverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+<!--        <item name="android:src">@drawable/ic_add</item>-->
+    </style>
+
+
+    <style name="WaterEffect">
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+
+    <style name="SingleLine_End">
+        <item name="singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SingleLine_Marquee">
+        <item name="singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+    </style>
+
+
+</resources>

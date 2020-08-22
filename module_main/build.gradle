@@ -1,0 +1,5 @@
+apply from:rootProject.file("module.gradle")
+
+dependencies {
+    implementation project(path: ':magicindicator')
+}

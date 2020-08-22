@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:elevation="0dp"
+        android:stateListAnimator="@animator/raise"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp">
+
+
+        <com.yzx.lib_base.widget.MaskImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:paddingBottom="@dimen/edg"
+            android:paddingTop="@dimen/edg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvRecommend"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="推荐"
+                android:textSize="@dimen/dim_textsize_10" />
+
+
+            <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/be_"
+                tools:tint="@color/colorBlack" />
+
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="私人FM"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dim_textsize_12" />
+
+            <TextView
+                android:id="@+id/tvDes"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                tools:text="推荐描述"
+                android:textSize="@dimen/dim_textsize_10" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

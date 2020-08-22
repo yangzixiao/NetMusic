@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.yzx.lib_base.widget.rcimagevuew.RCImageView
+        android:id="@+id/ivSongPost"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/dim_10"
+        android:layout_marginTop="@dimen/dim_5"
+        android:layout_marginBottom="@dimen/dim_5"
+        android:src="@color/colorBlack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:round_corner="3dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/ivSongPost"
+        app:layout_constraintEnd_toStartOf="@+id/ivPlayPause"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/ivSongPost"
+        app:layout_constraintTop_toTopOf="@id/ivSongPost">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSongName"
+            android:textColor="@color/colorBlack"
+            style="@style/SingleLine_Marquee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="小幸运" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSingerName"
+            style="@style/SingleLine_Marquee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            tools:text="杨子晓" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dividerHeight"
+        android:src="@color/colorDivider"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_marginEnd="@dimen/dim_10"
+        android:id="@+id/ivPlayPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivMenu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+    <ImageView
+        android:layout_marginEnd="@dimen/dim_10"
+        android:id="@+id/ivMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,8 @@
+include ':module_mine'
+include ':module_login'
+include ':module_main'
+include ':multitype-adapter'
+include ':magicindicator'
+include ':lib_base'
+include ':app'
+rootProject.name = "NetMusic"

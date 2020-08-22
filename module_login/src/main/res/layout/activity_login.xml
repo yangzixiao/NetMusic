@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        app:navigationIcon="@drawable/bhr"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvToolBarTitle"
+            android:translationX="-20dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/toolbar_title_size"
+            android:text="@string/PhoneNumLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingTop="30dp"
+        android:paddingStart="@dimen/edg"
+        android:paddingEnd="@dimen/edg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:inputType="number"
+            android:lines="1"
+            android:textSize="14sp"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingStart="@dimen/dim_10"
+            android:hint="@string/InputPhoneNum"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/etPhoneNum"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toStartOf="@id/ivClearPhoneNum"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="69dp"
+            tools:ignore="TextFields" />
+
+
+        <ImageView
+            android:visibility="invisible"
+            android:src="@drawable/amr"
+            android:id="@+id/ivClearPhoneNum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/etPhoneNum"
+            app:layout_constraintStart_toEndOf="@id/etPhoneNum"
+            app:layout_constraintTop_toTopOf="@id/etPhoneNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:background="@color/dividerColor"
+            android:layout_marginTop="@dimen/dim_5"
+            app:layout_constraintTop_toBottomOf="@id/etPhoneNum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dividerHeight"/>
+
+
+        <EditText
+            android:inputType="textPassword"
+            android:lines="1"
+            android:textSize="14sp"
+            android:layout_marginTop="30dp"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingStart="@dimen/dim_10"
+            android:hint="@string/InputPassword"
+            app:layout_constraintTop_toBottomOf="@id/etPhoneNum"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/etPassword"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toStartOf="@id/tvForgetPassword"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="69dp" />
+
+
+        <TextView
+            android:textSize="10sp"
+            android:textColor="@color/colorBlue"
+            android:text="@string/ForgetPassword"
+            android:id="@+id/tvForgetPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/etPassword"
+            app:layout_constraintStart_toEndOf="@id/etPassword"
+            app:layout_constraintTop_toTopOf="@id/etPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="SmallSp" />
+
+        <ImageView
+            android:id="@+id/ivDivider"
+            android:background="@color/dividerColor"
+            android:layout_marginTop="@dimen/dim_5"
+            app:layout_constraintTop_toBottomOf="@id/etPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dividerHeight"/>
+
+
+
+        <com.noober.background.view.BLTextView
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toBottomOf="@id/ivDivider"
+            android:id="@+id/tvLogin"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="@string/Login"
+            android:textColor="@color/colorWhite"
+            app:bl_corners_radius="20dp"
+            app:bl_stroke_width="1px"
+            app:bl_pressed_solid_color="@color/colorPressedRed"
+            app:bl_unPressed_solid_color="@color/colorRed"
+            app:bl_stroke_color="@color/colorWhite" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yzx.module_login" >
+
+    <application>
+        <activity android:name=".LoginGuideActivity" />
+        <activity android:name=".LoginActivity" />
+    </application>
+</manifest>

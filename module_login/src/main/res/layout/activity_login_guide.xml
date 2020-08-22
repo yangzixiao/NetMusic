@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorRed"
+    android:paddingStart="50dp"
+    android:paddingEnd="50dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:src="@drawable/bug"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/layoutProtocol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/edg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorDarkWhite"
+            android:checked="false"
+            android:scaleX="0.4"
+            android:scaleY="0.4" />
+
+        <TextView
+            android:translationX="-10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Agree"
+            android:textColor="@color/colorDarkWhite"
+            android:textSize="8sp"
+            tools:ignore="SmallSp" />
+
+
+        <TextView
+            android:translationX="-10dp"
+            android:id="@+id/tvUserAgreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/UserAgreement"
+            android:textColor="@color/colorWhite"
+            android:textSize="8sp"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:translationX="-10dp"
+            android:id="@+id/tvPrivacyAgreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PrivacyAgreement"
+            android:textColor="@color/colorWhite"
+            android:textSize="8sp"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:translationX="-10dp"
+            android:id="@+id/tvChildPrivacyAgreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ChildPrivacyAgreement"
+            android:textColor="@color/colorWhite"
+            android:textSize="8sp"
+            tools:ignore="SmallSp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/layoutProtocol"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <com.noober.background.view.BLImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bl_pressed_drawable="@drawable/buk"
+            app:bl_unPressed_drawable="@drawable/buj" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dim_10"
+            android:layout_weight="1" />
+
+        <com.noober.background.view.BLImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bl_pressed_drawable="@drawable/atv"
+            app:bl_unPressed_drawable="@drawable/atu" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dim_10"
+            android:layout_weight="1" />
+
+        <com.noober.background.view.BLImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bl_pressed_drawable="@drawable/bui"
+            app:bl_unPressed_drawable="@drawable/buh" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dim_10"
+            android:layout_weight="1" />
+
+        <com.noober.background.view.BLImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bl_pressed_drawable="@drawable/bue"
+            app:bl_unPressed_drawable="@drawable/bud" />
+    </LinearLayout>
+
+    <com.noober.background.view.BLTextView
+        android:id="@+id/tvTry"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:text="@string/TryItNow"
+        android:textColor="@color/colorWhite"
+        app:bl_corners_radius="20dp"
+        app:bl_stroke_width="1px"
+        app:bl_pressed_solid_color="@color/colorDarkWhite"
+        app:bl_unPressed_solid_color="@color/colorTransparent"
+        app:bl_stroke_color="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout" />
+
+    <com.noober.background.view.BLTextView
+        android:id="@+id/tvPhoneNumLogin"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/PhoneNumLogin"
+        android:textColor="@color/colorRed"
+        app:bl_corners_radius="20dp"
+        app:bl_pressed_solid_color="@color/colorDarkWhite"
+        app:bl_unPressed_solid_color="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@+id/tvTry"
+        tools:layout_editor_absoluteX="50dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
