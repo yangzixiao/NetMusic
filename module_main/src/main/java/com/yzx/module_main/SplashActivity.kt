@@ -36,7 +36,5 @@ class SplashActivity : BaseActivity<CommonVIewModel>() {
             ARouterNavUtils.normalNav(if (UserInfoManager.userInfoLiveData.value!!.isLoggedIn or UserInfoManager.isTourist) ARouterPath.MAIN else ARouterPath.LOGIN_GUIDE)
             finish()
         }, 1500)
-
-
     }
 }

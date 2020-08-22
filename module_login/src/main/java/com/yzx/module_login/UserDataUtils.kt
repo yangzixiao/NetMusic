@@ -15,25 +15,28 @@ import com.yzx.module_login.model.Profile
 object UserDataUtils {
 
     private var userDataBean = UserDataBean()
-    fun initUserInfo(loginResponse: LoginResponse) {
+    fun initUserInfo(loginResponse: LoginResponse? = null) {
 
-        loginResponse.profile.apply {
-            userDataBean.isLoggedIn=true
-            userDataBean.uid = userId
-            userDataBean.nickName = nickname
-            userDataBean.avatarUrl = avatarUrl
-            userDataBean.backgroundUrl = backgroundUrl
+        if (loginResponse == null) {
+            UserInfoManager.userInfoLiveData.value = userDataBean
+            return
+        }else{
+            loginResponse.profile.apply {
+                userDataBean.isLoggedIn = true
+                userDataBean.uid = userId
+                userDataBean.nickName = nickname
+                userDataBean.avatarUrl = avatarUrl
+                userDataBean.backgroundUrl = backgroundUrl
+            }
+            UserInfoManager.userInfoLiveData.value = userDataBean
+            MmkvUtils.put(Constants.KEY_LOGIN_RESPONSE, JsonUtils.objectToString(loginResponse))
         }
 
-        UserInfoManager.userInfoLiveData.value= userDataBean
-
-        MmkvUtils.put(Constants.KEY_LOGIN_RESPONSE, JsonUtils.objectToString(loginResponse))
     }
 
-    fun updateTouristState(isTourist:Boolean){
-        UserInfoManager.isTourist=isTourist
+    fun updateTouristState(isTourist: Boolean) {
+        UserInfoManager.isTourist = isTourist
         MmkvUtils.put(Constants.KEY_IS_TOURIST, isTourist)
-
     }
 
 

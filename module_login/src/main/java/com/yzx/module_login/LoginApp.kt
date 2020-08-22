@@ -38,6 +38,7 @@ class LoginApp : BaseApplication() {
             UserDataUtils.updateTouristState(isTourist)
             LogUtils.e(TAG, "initModuleData用户数据初始化完成$loginResponse")
         } else {
+            UserDataUtils.initUserInfo(null)
             LogUtils.e(TAG, "initModuleData用户未登录")
 
         }
