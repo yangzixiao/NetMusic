@@ -15,12 +15,9 @@ interface LoginApi {
      * 手机号登录
      */
     @GET("login/cellphone")
-    suspend fun login(@Query("phone") phone: String, @Query("password") password: String):LoginResponse
-
-    /**
-     * 手机号登录
-     */
-    @GET("user/playlist")
-    suspend fun getPlayList(@Query("uid") uid: String):LoginResponse
+    suspend fun login(
+        @Query("phone") phone: String,
+        @Query("password") password: String
+    ): LoginResponse
 
 }

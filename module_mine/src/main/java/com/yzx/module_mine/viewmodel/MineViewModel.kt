@@ -4,14 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yzx.lib_base.base.BaseViewModel
 import com.yzx.lib_base.http.BaseResult
-import com.yzx.lib_base.model.CommonPlayListBean
 import com.yzx.module_mine.api.MineApi
 import com.yzx.module_mine.model.MinePagerData
 import com.yzx.module_mine.model.net.MinePagerRecommendPlayListResponse
 import com.yzx.module_mine.model.net.PersonalFMResponse
 import com.yzx.module_mine.model.net.PlayListResponse
-import com.yzx.module_mine.model.net.PlaylistBean
-import com.yzx.module_mine.model.net.Result
 import kotlinx.coroutines.*
 
 /**
