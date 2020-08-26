@@ -9,7 +9,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.yzx.lib_base.ARouter.ARouterNavUtils
 import com.yzx.lib_base.ARouter.ARouterPath
 import com.yzx.lib_base.BaseBottomSongInfoActivity
-import com.yzx.lib_base.CommonVIewModel
 import com.yzx.lib_base.utils.StatusUtils
 import com.yzx.module_main.adapter.MainFragmentPagerAdapter
 import com.yzx.module_main.databinding.ActivityMainBinding
@@ -29,7 +28,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  * MainActivity
  */
 @Route(path = ARouterPath.MAIN)
-class MainActivity : BaseBottomSongInfoActivity<CommonVIewModel>() {
+class MainActivity : BaseBottomSongInfoActivity() {
 
     private lateinit var mainBinding: ActivityMainBinding
 

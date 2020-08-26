@@ -1,4 +1,4 @@
-package com.yzx.module_login
+package com.yzx.module_login.ui
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,13 +10,14 @@ import com.yzx.lib_base.ARouter.ARouterNavUtils
 import com.yzx.lib_base.ARouter.ARouterPath.LOGIN
 import com.yzx.lib_base.ARouter.ARouterPath.MAIN
 import com.yzx.lib_base.base.BaseActivity
-import com.yzx.lib_base.mmkv.MmkvUtils
-import com.yzx.lib_base.model.UserDataBean
+import com.yzx.lib_base.ext.getContent
+import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.utils.FormatUtil
-import com.yzx.lib_base.utils.JsonUtils
-import com.yzx.module_login.Constants.KEY_IS_TOURIST
-import com.yzx.module_login.Constants.KEY_LOGIN_RESPONSE
+import com.yzx.module_login.viewmodel.LoginViewModel
+import com.yzx.module_login.R
+import com.yzx.module_login.UserDataUtils
 import com.yzx.module_login.databinding.ActivityLoginBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 /**
@@ -25,8 +26,11 @@ import com.yzx.module_login.databinding.ActivityLoginBinding
  * Description 登录页面
  */
 @Route(path = LOGIN)
-class LoginActivity : BaseActivity<LoginViewModel>() {
+class LoginActivity : BaseActivity() {
     private lateinit var loginBinding: ActivityLoginBinding
+
+    val viewModel: LoginViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStatusDarkFont()
@@ -37,7 +41,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
 
             if (it.code==200) {
                 UserDataUtils.updateTouristState(false)
-                UserDataUtils.initUserInfo( it)
+                UserDataUtils.initUserInfo(it)
             }
             ARouterNavUtils.normalNav(MAIN)
             finish()
@@ -51,8 +55,8 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
             loginBinding.etPhoneNum.text = null
         }
         loginBinding.tvLogin.setOnClickListener {
-            val phoneNum = getEditContent(loginBinding.etPhoneNum)
-            if (phoneNum.isNullOrBlank()) {
+            val phoneNum = loginBinding.etPhoneNum.getContent()
+            if (phoneNum.isBlank()) {
                 toast(getString(R.string.InputPhoneNum))
                 return@setOnClickListener
             }
@@ -62,8 +66,8 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
                 return@setOnClickListener
             }
 
-            val password = getEditContent(loginBinding.etPassword)
-            if (password.isNullOrBlank()) {
+            val password = loginBinding.etPassword.getContent()
+            if (password.isBlank()) {
                 toast(getString(R.string.InputPassword))
                 return@setOnClickListener
             }

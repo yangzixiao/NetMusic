@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.ARouter.ARouterNavUtils
 import com.yzx.lib_base.ARouter.ARouterPath
 import com.yzx.lib_base.ARouter.ARouterPath.LOGIN_GUIDE
-import com.yzx.lib_base.CommonVIewModel
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.mmkv.MmkvUtils
@@ -22,7 +21,7 @@ import com.yzx.module_login.databinding.ActivityLoginGuideBinding
  * Description 登陆引导
  */
 @Route(path = LOGIN_GUIDE)
-class LoginGuideActivity : BaseActivity<CommonVIewModel>() {
+class LoginGuideActivity : BaseActivity() {
 
     /**
      * 协议是否勾选
@@ -66,7 +65,6 @@ class LoginGuideActivity : BaseActivity<CommonVIewModel>() {
             ARouterNavUtils.normalNav(ARouterPath.MAIN)
             MmkvUtils.put(Constants.KEY_IS_TOURIST,true)
             UserInfoManager.isTourist=true
-
             finish()
         }
 

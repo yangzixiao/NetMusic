@@ -10,14 +10,18 @@ import com.yzx.lib_base.Constant
 import com.yzx.lib_base.app.AppConfig
 import com.yzx.lib_base.app.BaseApplication
 import com.yzx.lib_base.app.MusicCommonApplication
+import com.yzx.lib_base.di.networkModule
 import com.yzx.lib_base.http.RetrofitHelper
 import com.yzx.lib_base.utils.LogUtils
+import com.yzx.module_login.di.loginModule
+import com.yzx.module_mine.di.mineModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 
-class MusicApplication:BaseApplication() {
+class MusicApplication : BaseApplication() {
 
     override fun initModuleApp(application: Application?) {
 
@@ -63,6 +67,7 @@ class MusicApplication:BaseApplication() {
             androidContext(this@MusicApplication)
             androidFileProperties()
         }
+        loadKoinModules(listOf(networkModule, loginModule,mineModule))
 
         MMKV.initialize(this)
         ARouter.init(this)
@@ -71,7 +76,6 @@ class MusicApplication:BaseApplication() {
             ARouter.openLog()
             ARouter.openDebug()
         }
-        RetrofitHelper.getInstance().init(Constant.BASE_URL)
 
         initModuleApp(this)
         initModuleData(this)

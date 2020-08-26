@@ -2,15 +2,14 @@ package com.yzx.lib_base
 
 import android.widget.TextView
 import com.yzx.lib_base.base.BaseActivity
-import com.yzx.lib_base.base.BaseViewModel
-import com.yzx.lib_base.mvvm.MvvmModel
+
 
 /**
  * @author yzx
  * @date 2020/4/22
  * Description 底部有
  */
-open class BaseBottomSongInfoActivity<VM : BaseViewModel> : BaseActivity<VM>() {
+open class BaseBottomSongInfoActivity: BaseActivity() {
 
     private var tvSongName: TextView? = null
     private var tvSingerName: TextView? = null

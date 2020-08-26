@@ -3,7 +3,6 @@ package com.yzx.module_main
 import android.os.Bundle
 import com.yzx.lib_base.ARouter.ARouterNavUtils
 import com.yzx.lib_base.ARouter.ARouterPath
-import com.yzx.lib_base.CommonVIewModel
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.module_main.databinding.ActivitySplashBinding
@@ -13,7 +12,7 @@ import com.yzx.module_main.databinding.ActivitySplashBinding
  * @date 2020/5/11
  * Description 闪屏
  */
-class SplashActivity : BaseActivity<CommonVIewModel>() {
+class SplashActivity : BaseActivity() {
 
 
     override fun getActivityEnterAnim(): Int {

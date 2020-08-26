@@ -3,6 +3,6 @@
 
     <application>
         <activity android:name=".LoginGuideActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".ui.LoginActivity" />
     </application>
 </manifest>

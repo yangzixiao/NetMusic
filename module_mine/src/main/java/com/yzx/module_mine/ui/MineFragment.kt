@@ -27,6 +27,7 @@ import com.yzx.lib_base.ARouter.ARouterNavUtils
 import com.yzx.lib_base.ARouter.ARouterPath
 import com.yzx.lib_base.base.BaseFragment
 import com.yzx.lib_base.manager.UserInfoManager
+import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
 import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
@@ -45,6 +46,7 @@ import com.yzx.module_mine.databinding.FragmentMineBinding
 import com.yzx.module_mine.model.MinePagerData
 import com.yzx.module_mine.model.MyMusicBean
 import kotlinx.coroutines.isActive
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 import kotlin.math.abs
@@ -55,7 +57,7 @@ import kotlin.math.abs
  * Description
  */
 @Route(path = ARouterPath.FRAGMENT_MINE)
-class MineFragment : BaseFragment<MineViewModel>() {
+class MineFragment : BaseFragment() {
 
     companion object {
         const val TAG = "MineFragment"
@@ -65,11 +67,12 @@ class MineFragment : BaseFragment<MineViewModel>() {
     private var mineAdapter: MultiTypeAdapter? = null
     private var keyColor: Int = 0x00000000
 
-//    var viewModel1 by viewModes<MineViewModel>()
-    private val viewModel2 by viewModels<MineViewModel>()
+    val viewModel:MineViewModel by viewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         this.mineBinding = FragmentMineBinding.inflate(inflater)
         return mineBinding.root
     }
@@ -82,7 +85,7 @@ class MineFragment : BaseFragment<MineViewModel>() {
         mineBinding.iv1.setOnClickListener {
             UserInfoManager.reset()
         }
-        viewModel.minePagerLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
         })
 
@@ -93,7 +96,7 @@ class MineFragment : BaseFragment<MineViewModel>() {
      */
     override fun lazyLoad() {
         super.lazyLoad()
-        UserInfoManager.userInfoLiveData.observe(viewLifecycleOwner, Observer {
+        userInfoLiveData.observe(viewLifecycleOwner, {
             onUserStateChanged(it)
         })
     }
@@ -115,11 +118,11 @@ class MineFragment : BaseFragment<MineViewModel>() {
         }
     }
 
-    override fun onLoadingStateChanged(loadingState: Boolean) {
-        if (!loadingState) {
-            mineBinding.smartRefreshLayout.finishRefresh()
-        }
-    }
+//    override fun onLoadingStateChanged(loadingState: Boolean) {
+//        if (!loadingState) {
+//            mineBinding.smartRefreshLayout.finishRefresh()
+//        }
+//    }
 
     private fun setupData(minePagerData: MinePagerData) {
         if (mineAdapter == null) {
@@ -128,10 +131,12 @@ class MineFragment : BaseFragment<MineViewModel>() {
         }
 
         val myMusicBeans =
-            listOf(MyMusicBean(R.drawable.ic_like, "我喜爱的音乐", "心动模式", keyColor = keyColor),
+            listOf(
+                MyMusicBean(R.drawable.ic_like, "我喜爱的音乐", "心动模式", keyColor = keyColor),
                 MyMusicBean(R.drawable.ic_personal_fm, "私人FM", "来这里找好歌", keyColor = keyColor),
                 MyMusicBean(R.drawable.ccx, "推歌精选", "云贝助力好歌", keyColor = keyColor),
-                MyMusicBean(R.drawable.ic_classical, "古典专区", "专业古典大全", keyColor = keyColor)).map {
+                MyMusicBean(R.drawable.ic_classical, "古典专区", "专业古典大全", keyColor = keyColor)
+            ).map {
                 MyMusicItemBinder(it)
             }
         val myMusicBinder = MyMusicBinder(listOf("我的音乐"), myMusicBeans)
@@ -146,7 +151,7 @@ class MineFragment : BaseFragment<MineViewModel>() {
             val collectionPlayListBinders = arrayListOf<ItemPlayListBinder>()
             playlist!!.filter { it != playlist[0] }.forEach {
 
-                if (it.creator.userId == UserInfoManager.userInfoLiveData.value!!.uid) {
+                if (it.creator.userId == userInfoLiveData.value!!.uid) {
                     createPlayListBinders.add(ItemPlayListBinder(it))
                 } else {
                     collectionPlayListBinders.add(ItemPlayListBinder(it))
@@ -156,8 +161,12 @@ class MineFragment : BaseFragment<MineViewModel>() {
             binders.apply {
                 add(myMusicBinder)
                 add(PlayListBinder(listOf("最近播放"), listOf(ItemPlayListBinder(playlist[0]))))
-                add(PlayListBinder(listOf("创建歌单", "收藏歌单"), createPlayListBinders,
-                    collectionPlayListBinders))
+                add(
+                    PlayListBinder(
+                        listOf("创建歌单", "收藏歌单"), createPlayListBinders,
+                        collectionPlayListBinders
+                    )
+                )
             }
         } else {
             binders.apply {
@@ -195,12 +204,16 @@ class MineFragment : BaseFragment<MineViewModel>() {
                     ARouterNavUtils.normalNav(ARouterPath.LOGIN)
                 }
             }
-            GlideUtils.loadImg(if (loggedIn) userDataBean.avatarUrl else R.color.colorImg,
-                GlideUtils.TYPE_HEAD, ivHead)
+            GlideUtils.loadImg(
+                if (loggedIn) userDataBean.avatarUrl else R.color.colorImg,
+                GlideUtils.TYPE_HEAD, ivHead
+            )
         }
 
-        GlideUtils.loadBitmap(userDataBean.backgroundUrl, R.drawable.cbh, mineBinding.ivBackground,
-            true) { bitmap, color ->
+        GlideUtils.loadBitmap(
+            userDataBean.backgroundUrl, R.drawable.cbh, mineBinding.ivBackground,
+            true
+        ) { bitmap, color ->
             setupBackground(bitmap, color)
         }
     }

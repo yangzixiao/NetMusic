@@ -18,10 +18,6 @@ open class MvvmModel : ViewModel(), LifecycleObserver {
         const val TAG = "MvvmModel"
     }
 
-    protected val retrofit: Retrofit by lazy {
-        RetrofitHelper.getInstance().retrofit
-    }
-
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(){

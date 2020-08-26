@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.yzx.lib_base.base.BaseFragment
-import com.yzx.lib_base.base.BaseViewModel
 import com.yzx.lib_base.widget.viewpager.BaseLazyLoadFragmentPagerAdapter
 import com.yzx.module_main.databinding.FragmentDiscoverBinding
 
-class TestFragment : BaseFragment<BaseViewModel>() {
+class TestFragment : BaseFragment() {
 
     private lateinit var binding: FragmentDiscoverBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

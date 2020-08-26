@@ -9,6 +9,7 @@ import com.yzx.module_mine.model.MinePagerData
 import com.yzx.module_mine.model.net.MinePagerRecommendPlayListResponse
 import com.yzx.module_mine.model.net.PersonalFMResponse
 import com.yzx.module_mine.model.net.PlayListResponse
+import com.yzx.module_mine.repository.MineRepository
 import kotlinx.coroutines.*
 
 /**
@@ -16,15 +17,12 @@ import kotlinx.coroutines.*
  * @date 2020/7/17
  * Description mineViewModel
  */
-open class MineViewModel : BaseViewModel() {
+open class MineViewModel(private val mineRepository: MineRepository) : BaseViewModel() {
 
     companion object {
         const val TAG = "MineViewModel"
     }
 
-    private val mineApi by lazy {
-        retrofit.create(MineApi::class.java)
-    }
     val minePagerLiveData: MutableLiveData<MinePagerData> = MutableLiveData()
 //    private val minePagerData = MinePagerData()
 
@@ -32,6 +30,7 @@ open class MineViewModel : BaseViewModel() {
      *
      */
     fun getMinePagerData(uid: String) {
+        val mineApi = mineRepository.getApi()
         viewModelScope.launch(coroutineExceptionHandler) {
             val playListAsync = async {
                 mineApi.getUserPlayLists(uid, 1000)
@@ -44,6 +43,7 @@ open class MineViewModel : BaseViewModel() {
     }
 
     fun getMinePagerData() {
+        val mineApi = mineRepository.getApi()
         viewModelScope.launch(coroutineExceptionHandler) {
             val personalFMAsync = async {
                 mineApi.getPersonalFM()

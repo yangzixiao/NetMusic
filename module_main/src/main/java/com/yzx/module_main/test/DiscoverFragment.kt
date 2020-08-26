@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.yzx.lib_base.base.BaseFragment
 import com.yzx.lib_base.base.BaseViewModel
+import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.widget.viewpager.BaseLazyLoadFragmentPagerAdapter
 import com.yzx.module_main.databinding.FragmentTestBinding
 
@@ -19,7 +20,7 @@ import com.yzx.module_main.databinding.FragmentTestBinding
  * @date 2020/5/15
  * Description
  */
-class DiscoverFragment : BaseFragment<BaseViewModel>() {
+class DiscoverFragment : BaseFragment() {
     private lateinit var binding: FragmentTestBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {

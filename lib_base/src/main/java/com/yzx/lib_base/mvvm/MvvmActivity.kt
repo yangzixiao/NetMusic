@@ -10,22 +10,6 @@ import java.lang.reflect.ParameterizedType
  * @date 2020/3/25
  * Description
  */
-open class MvvmActivity<VM : MvvmModel> : StatusCompatActivity() {
+open class MvvmActivity : StatusCompatActivity() {
 
-    protected lateinit var viewModel: VM
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        createViewModel()
-    }
-
-    private fun createViewModel() {
-        val type = javaClass.genericSuperclass
-        //如果是泛型
-        if (type is ParameterizedType) {
-            val tp = type.actualTypeArguments[0]
-            val tClass = tp as? Class<VM> ?: MvvmModel::class.java
-            viewModel = ViewModelProvider(this).get(tClass) as VM
-            lifecycle.addObserver(viewModel)
-        }
-    }
 }
