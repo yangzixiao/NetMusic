@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:name="com.yzx.lib_base.app.MusicApplication"
+        android:name=".MusicApplication"
         android:theme="@style/AppTheme.NoTitle">
 
     </application>

@@ -7,7 +7,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="com.yzx.lib_base.app.MusicApplication"
+        android:name="com.yzx.lib_base.app.MusicCommonApplication"
         android:theme="@style/AppTheme.NoTitle">
 
         <activity

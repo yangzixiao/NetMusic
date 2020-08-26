@@ -9,22 +9,19 @@ import com.yzx.lib_base.BuildConfig
 import com.yzx.lib_base.Constant
 import com.yzx.lib_base.http.RetrofitHelper
 import com.yzx.lib_base.utils.LogUtils
-import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
 
 /**
  * @author yzx
  * @date 2020/3/30
  * Description
  */
-class MusicApplication : BaseApplication() {
+class MusicCommonApplication : BaseApplication() {
     companion object {
-        const val TAG = "MusicApplication"
+        const val TAG = "MusicCommonApplication"
     }
 
     override fun initModuleApp(application: Application?) {
@@ -71,7 +68,7 @@ class MusicApplication : BaseApplication() {
             androidLogger()
 
             // use the Android context given there
-            androidContext(this@MusicApplication)
+            androidContext(this@MusicCommonApplication)
 
             // load properties from assets/koin.properties file
             androidFileProperties()
