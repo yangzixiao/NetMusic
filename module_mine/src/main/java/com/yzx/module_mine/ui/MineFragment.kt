@@ -67,7 +67,7 @@ class MineFragment : BaseFragment() {
     private var mineAdapter: MultiTypeAdapter? = null
     private var keyColor: Int = 0x00000000
 
-    val viewModel:MineViewModel by viewModel()
+    val viewModel: MineViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,7 +82,7 @@ class MineFragment : BaseFragment() {
 
         setupToolbar()
         setupSwipeRefreshLayout()
-        mineBinding.iv1.setOnClickListener {
+        this.mineBinding.iv1.setOnClickListener {
             UserInfoManager.reset()
         }
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
@@ -213,20 +213,19 @@ class MineFragment : BaseFragment() {
         GlideUtils.loadBitmap(
             userDataBean.backgroundUrl, R.drawable.cbh, mineBinding.ivBackground,
             true
-        ) { bitmap, color ->
-            setupBackground(bitmap, color)
+        ) { _, color ->
+            setupBackground(color)
         }
     }
 
-    private fun setupBackground(bitmap: Bitmap, color: Int) {
+    private fun setupBackground(color: Int) {
 
         //处理获取的颜色可能出现透明度为0的情况
-        val dealedColor = ColorUtils.getColorByAlpha(color, 255)
-        this.keyColor = dealedColor
-//        mineBinding.iv1.setBackgroundColor(dealedColor)
+        val handledColor = ColorUtils.getColorByAlpha(color, 255)
+        this.keyColor = handledColor
         mineBinding.apply {
-            toolbar.setBackgroundColor(dealedColor)
-            ivBackground.setMaskColor(ColorUtils.getColorByAlpha(dealedColor, 255 / 2))
+            toolbar.setBackgroundColor(handledColor)
+            ivBackground.setMaskColor(ColorUtils.getColorByAlpha(handledColor, 255 / 2))
         }
     }
 

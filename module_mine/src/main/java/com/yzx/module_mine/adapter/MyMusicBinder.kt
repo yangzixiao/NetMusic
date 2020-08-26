@@ -60,7 +60,7 @@ class MyMusicItemBinder(var myMusicBean: MyMusicBean) : MultiTypeBinder<ItemChil
                     R.drawable.b02,
                     ivBackground
                 ) { bitmap, color ->
-                    ivBackground.setImageBitmap(bitmap)
+//                    ivBackground.setImageBitmap(bitmap)
                     ivBackground.setMaskColor(ColorUtils.getColorByAlpha(color, 0.5f))
                     val colorWhite = Color.WHITE
                     tvTitle.setTextColor(colorWhite)
