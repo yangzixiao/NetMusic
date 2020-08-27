@@ -30,22 +30,19 @@ open class MineViewModel(private val mineRepository: MineRepository) : BaseViewM
      * 根据登录状态获取不同数据
      */
     fun getMinePagerData(uid: String? = null) {
-        val mineApi = mineRepository.getApi()
         viewModelScope.launch(coroutineExceptionHandler) {
+
+            val personalFMAsync = async {
+                mineRepository.getPersonalFM()
+            }
             if (uid.isNullOrBlank()) {
-                val personalFMAsync = async {
-                    mineApi.getPersonalFM()
-                }
                 val recommendPlayListsAsync = async {
-                    mineApi.getRecommendPlayLists(6)
+                    mineRepository.getRecommendPlayLists()
                 }
                 dealResponse(awaitAll(recommendPlayListsAsync, personalFMAsync))
             } else {
                 val playListAsync = async {
-                    mineApi.getUserPlayLists(uid, 1000)
-                }
-                val personalFMAsync = async {
-                    mineApi.getPersonalFM()
+                    mineRepository.getUserPlayLists(uid)
                 }
                 dealResponse(awaitAll(playListAsync, personalFMAsync))
             }

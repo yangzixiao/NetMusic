@@ -1,22 +1,22 @@
 package com.yzx.module_mine.repository
 
-import com.yzx.module_mine.api.MineApi
-import com.yzx.module_mine.model.MinePagerData
+import com.yzx.module_mine.model.net.MinePagerRecommendPlayListResponse
+import com.yzx.module_mine.model.net.PersonalFMResponse
+import com.yzx.module_mine.model.net.PlayListResponse
 import com.yzx.module_mine.provider.MineApiProvider
 
 class MineRepository(private val mineApiProvider: MineApiProvider) {
 
-    fun getApi(): MineApi {
-        return mineApiProvider.getMineApi()
+
+    suspend fun getPersonalFM(): PersonalFMResponse {
+        return mineApiProvider.getMineApi().getPersonalFM()
     }
 
-    fun getMinePagerData(uid: String? = null): MinePagerData {
-        val minePagerData = MinePagerData()
-        if (uid.isNullOrEmpty()) {
+    suspend fun getRecommendPlayLists(): MinePagerRecommendPlayListResponse {
+        return mineApiProvider.getMineApi().getRecommendPlayLists(6)
+    }
 
-        } else {
-
-        }
-        return minePagerData
+    suspend fun getUserPlayLists(uid: String): PlayListResponse {
+        return mineApiProvider.getMineApi().getUserPlayLists(uid, 1000)
     }
 }
