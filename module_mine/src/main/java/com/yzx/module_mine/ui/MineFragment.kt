@@ -17,6 +17,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.multitype.adapter.MultiTypeAdapter
 import com.multitype.adapter.binder.MultiTypeBinder
 import com.multitype.adapter.createMultiTypeAdapter
@@ -79,7 +80,7 @@ class MineFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        mineBinding.layoutMineHead.ivHead.shapeAppearanceModel= ShapeAppearanceModel.builder().setAllCornerSizes(ShapeAppearanceModel.PILL).build()
         setupToolbar()
         setupSwipeRefreshLayout()
         this.mineBinding.iv1.setOnClickListener {
@@ -88,7 +89,6 @@ class MineFragment : BaseFragment() {
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
         })
-
     }
 
     /**
@@ -213,7 +213,8 @@ class MineFragment : BaseFragment() {
         GlideUtils.loadBitmap(
             userDataBean.backgroundUrl, R.drawable.cbh, mineBinding.ivBackground,
             true
-        ) { _, color ->
+        ) { bitmap, color ->
+            mineBinding.ivBackground.setImageBitmap(bitmap)
             setupBackground(color)
         }
     }

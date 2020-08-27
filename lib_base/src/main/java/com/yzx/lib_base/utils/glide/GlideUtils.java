@@ -83,10 +83,9 @@ public class GlideUtils {
     }
 
     public static void loadBitmap(Object resource, @DrawableRes final int placeholder, final ImageView target, final boolean needColor, final CallBack callBack) {
-        Glide.with(target).asBitmap().placeholder(placeholder).load(resource).into(new SimpleTarget<Bitmap>() {
+        Glide.with(target.getContext()).asBitmap().placeholder(placeholder).load(resource).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
-                loadImg(bitmap,target);
                 if (needColor) {
                     getColor(bitmap, callBack);
                 } else {
@@ -97,28 +96,23 @@ public class GlideUtils {
             @Override
             public void onLoadFailed(@Nullable Drawable errorDrawable) {
                 super.onLoadFailed(errorDrawable);
-                loadImg(errorDrawable,target);
-                BitmapDrawable bitmapDrawable = (BitmapDrawable) errorDrawable;
-                Bitmap bitmap = bitmapDrawable.getBitmap();
+                Bitmap bitmap = BitmapFactory.decodeResource(target.getContext().getApplicationContext().getResources(), placeholder);
                 if (needColor) {
                     getColor(bitmap, callBack);
                 } else {
                     callBack.onCallBack(bitmap, 0x00000000);
                 }
-
             }
         });
     }
 
     private static void getColor(final Bitmap resource, final CallBack callBack) {
         Palette.from(resource)
-                .generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(@Nullable Palette palette) {
-                        int vibrantColor = palette.getVibrantColor(0x212121);
-                        if (callBack != null) {
-                            callBack.onCallBack(resource, vibrantColor);
-                        }
+                .generate(palette -> {
+                    if (palette == null) {
+                        callBack.onCallBack(resource, 0x212121);
+                    } else {
+                        callBack.onCallBack(resource, palette.getVibrantColor(0x212121));
                     }
                 });
     }

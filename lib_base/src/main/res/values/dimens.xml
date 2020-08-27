@@ -2,7 +2,9 @@
 <resources>
     <dimen name="toolBarHeight">64dp</dimen>
     <dimen name="statusHeight">20dp</dimen>
+
     <dimen name="dividerHeight">0.5dp</dimen>
+
     <dimen name="edg">16dp</dimen>
     <dimen name="dim_5">5dp</dimen>
     <dimen name="dim_10">10dp</dimen>
@@ -10,4 +12,6 @@
     <dimen name="dim_textsize_10">10sp</dimen>
     <dimen name="dim_textsize_12">12sp</dimen>
     <dimen name="dim_red_point_size">5dp</dimen>
+    <dimen name="dim_round_image_corner">3dp</dimen>
+    <dimen name="dim_stroke_width">1px</dimen>
 </resources>

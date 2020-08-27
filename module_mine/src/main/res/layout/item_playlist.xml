@@ -16,14 +16,18 @@
         android:paddingBottom="@dimen/dim_10">
 
 
-        <com.yzx.lib_base.widget.rcimagevuew.RCImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            style="@style/RoundShapeImageView"
+            app:shapeAppearance="?shapeAppearanceMediumComponent"
+            app:cornerSize="@dimen/dim_round_image_corner"
+            app:strokeColor="@color/dividerColor"
+            app:strokeWidth="@dimen/dim_stroke_width"
             android:id="@+id/ivSongSheetPost"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@color/colorLightBlack"
+            app:srcCompat="@color/colorLightBlack"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:round_corner="3dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="0dp"
