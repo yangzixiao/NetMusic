@@ -1,8 +1,8 @@
 package com.yzx.module_main
 
 import android.os.Bundle
-import com.yzx.lib_base.ARouter.ARouterNavUtils
-import com.yzx.lib_base.ARouter.ARouterPath
+import com.yzx.lib_base.arouter.ARouterNavUtils
+import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.module_main.databinding.ActivitySplashBinding

@@ -3,9 +3,7 @@ package com.yzx.lib_base.utils.glide;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
@@ -21,10 +19,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.yzx.lib_base.R;
-
-import java.util.concurrent.ExecutionException;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author yzx
@@ -61,20 +55,10 @@ public class GlideUtils {
 
         requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
         requestOptions.placeholder(drawableResource).error(drawableResource);
-        RequestBuilder<Drawable> apply = requestBuilder
+        requestBuilder
                 .transition(new DrawableTransitionOptions().crossFade(500))
-                .apply(requestOptions);
-
-        if (target instanceof CircleImageView) {
-            apply.into(new SimpleTarget<Drawable>() {
-                @Override
-                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                    target.setImageDrawable(resource);
-                }
-            });
-        } else {
-            apply.into(target);
-        }
+                .apply(requestOptions)
+                .into(target);
     }
 
 

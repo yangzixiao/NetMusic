@@ -2,11 +2,11 @@ package com.yzx.module_mine.adapter
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.multitype.adapter.binder.MultiTypeBinder
 import com.multitype.adapter.createMultiTypeAdapter
-import com.yzx.lib_base.utils.ColorUtils
+import com.yzx.lib_base.ext.visible
+import com.yzx.lib_base.utils.ColorUtils.getColorByAlpha
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.lib_base.widget.recyclerview.ExtraLinearItemDecoration
@@ -51,35 +51,27 @@ class MyMusicItemBinder(var myMusicBean: MyMusicBean) : MultiTypeBinder<ItemChil
         binding.apply {
             tvTitle.text = myMusicBean.title
             tvDes.text = myMusicBean.des
-
             GlideUtils.simpleLoadImg(myMusicBean.icon, ivIcon)
             if (myMusicBean.background != null) {
-                tvRecommend.visibility = View.INVISIBLE
-                GlideUtils.loadBitmap(
-                    myMusicBean.background,
-                    R.drawable.b02,
-                    ivBackground,true
-                ) { bitmap, color ->
-                    ivBackground.setImageBitmap(bitmap)
-                    ivBackground.setMaskColor(ColorUtils.getColorByAlpha(color, 0.5f))
-                    val colorWhite = Color.WHITE
-                    tvTitle.setTextColor(colorWhite)
-                    val colorLightColor = ColorUtils.getColorByAlpha(colorWhite, 0.5f)
-                    tvRecommend.setTextColor(colorLightColor)
-                    tvDes.setTextColor(colorLightColor)
-                }
+                tvRecommend.visible()
+                GlideUtils.loadImg(myMusicBean.background, ivBackground)
+                ivBackground.setMaskColor(getColorByAlpha(0x212121, 0.5f))
+                val colorWhite = Color.WHITE
+                tvTitle.setTextColor(colorWhite)
+                val colorLightColor = getColorByAlpha(colorWhite, 0.5f)
+                tvRecommend.setTextColor(colorLightColor)
+                tvDes.setTextColor(colorLightColor)
             } else {
-                tvRecommend.visibility = View.VISIBLE
+                tvRecommend.visible()
                 val color = myMusicBean.keyColor
                 tvTitle.setTextColor(color)
-                val colorByAlpha = ColorUtils.getColorByAlpha(color, 0.33f)
+                val colorByAlpha = getColorByAlpha(color, 0.33f)
                 tvDes.setTextColor(colorByAlpha)
                 tvRecommend.setTextColor(colorByAlpha)
-                ivBackground.setMaskColor(ColorUtils.getColorByAlpha(color, 0.2f))
+                ivBackground.setMaskColor(getColorByAlpha(color, 0.2f))
                 ivIcon.imageTintList = ColorStateList.valueOf(color)
             }
         }
-
     }
 
 }

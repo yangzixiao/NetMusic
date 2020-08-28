@@ -6,16 +6,15 @@ import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
-import com.yzx.lib_base.ARouter.ARouterNavUtils
-import com.yzx.lib_base.ARouter.ARouterPath
 import com.yzx.lib_base.BaseBottomSongInfoActivity
+import com.yzx.lib_base.arouter.ARouterNavUtils
+import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.utils.StatusUtils
 import com.yzx.module_main.adapter.MainFragmentPagerAdapter
 import com.yzx.module_main.databinding.ActivityMainBinding
 import com.yzx.module_main.test.DiscoverFragment
 import com.yzx.module_main.test.TestFragment
 import com.yzx.module_main.widget.MainTitleView
-
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter

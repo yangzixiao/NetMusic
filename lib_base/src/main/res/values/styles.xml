@@ -48,7 +48,7 @@
         <!--&lt;!&ndash; 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar &ndash;&gt;-->
         <!--<item name="android:dropDownHorizontalOffset">10dp</item>-->
         <!--<item name="android:dropDownVerticalOffset">10dp</item>-->
-<!--        <item name="android:textColor">@color/colorBlack333230</item>-->
+        <!--        <item name="android:textColor">@color/colorBlack333230</item>-->
         <item name="android:textSize">16sp</item>
         <!--<item name="android:tint">@color/colorTitleBlack</item>-->
         <!--修改Menu右上角三个点图标-->
@@ -57,7 +57,7 @@
 
     <!--修改Menu右上角三个点图标-->
     <style name="OverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">
-<!--        <item name="android:src">@drawable/ic_add</item>-->
+        <!--        <item name="android:src">@drawable/ic_add</item>-->
     </style>
 
 
@@ -77,5 +77,28 @@
         <item name="android:ellipsize">marquee</item>
     </style>
 
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize3" parent="">
+        <item name="cornerSize">@dimen/dim_round_image_corner</item>
+    </style>
+
+
+    <style name="CircleShapeImageView" parent="Widget.MaterialComponents.ShapeableImageView">
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.CornerSize50Percent
+        </item>
+    </style>
+
+
+    <style name="RoundShapeImageView" parent="Widget.MaterialComponents.ShapeableImageView">
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.CornerSize3</item>
+
+    </style>
 
 </resources>

@@ -1,55 +1,42 @@
 package com.yzx.module_mine.ui
 
-import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.Color
+
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
-import com.google.android.material.shape.ShapeAppearanceModel
 import com.multitype.adapter.MultiTypeAdapter
 import com.multitype.adapter.binder.MultiTypeBinder
 import com.multitype.adapter.createMultiTypeAdapter
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.api.RefreshHeader
-import com.yzx.lib_base.ARouter.ARouterNavUtils
-
-import com.yzx.lib_base.ARouter.ARouterPath
+import com.yzx.lib_base.arouter.ARouterNavUtils
+import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseFragment
+import com.yzx.lib_base.ext.gone
+import com.yzx.lib_base.ext.visible
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
 import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
-import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.lib_base.utils.StatusUtils
-
-import com.yzx.module_mine.viewmodel.MineViewModel
+import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_mine.R
 import com.yzx.module_mine.adapter.ItemPlayListBinder
 import com.yzx.module_mine.adapter.MyMusicBinder
 import com.yzx.module_mine.adapter.MyMusicItemBinder
 import com.yzx.module_mine.adapter.PlayListBinder
 import com.yzx.module_mine.databinding.FragmentMineBinding
-
-
 import com.yzx.module_mine.model.MinePagerData
 import com.yzx.module_mine.model.MyMusicBean
-import kotlinx.coroutines.isActive
+import com.yzx.module_mine.viewmodel.MineViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-
 import kotlin.math.abs
 
 /**
@@ -80,7 +67,6 @@ class MineFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mineBinding.layoutMineHead.ivHead.shapeAppearanceModel= ShapeAppearanceModel.builder().setAllCornerSizes(ShapeAppearanceModel.PILL).build()
         setupToolbar()
         setupSwipeRefreshLayout()
         this.mineBinding.iv1.setOnClickListener {
@@ -88,6 +74,7 @@ class MineFragment : BaseFragment() {
         }
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
+            mineBinding.smartRefreshLayout.finishRefresh()
         })
     }
 
@@ -117,12 +104,6 @@ class MineFragment : BaseFragment() {
             autoRefresh()
         }
     }
-
-//    override fun onLoadingStateChanged(loadingState: Boolean) {
-//        if (!loadingState) {
-//            mineBinding.smartRefreshLayout.finishRefresh()
-//        }
-//    }
 
     private fun setupData(minePagerData: MinePagerData) {
         if (mineAdapter == null) {
@@ -181,6 +162,9 @@ class MineFragment : BaseFragment() {
     }
 
 
+    /**
+     * 设置SmartRefreshLayout头布局
+     */
     private fun setupSwipeRefreshLayout() {
         val materialHeader = MaterialHeader(context)
         materialHeader.setColorSchemeResources(R.color.colorRed)
@@ -197,11 +181,13 @@ class MineFragment : BaseFragment() {
         val loggedIn = userDataBean.isLoggedIn
 
         mineBinding.layoutMineHead.apply {
-            llUserInfo.visibility = if (loggedIn) View.VISIBLE else View.GONE
-            tvLogin.visibility = if (loggedIn) View.GONE else View.VISIBLE
+            if (loggedIn) llUserInfo.visible() else llUserInfo.gone()
+            if (loggedIn) tvLogin.gone() else tvLogin.visible()
+
             if (!loggedIn) {
                 tvLogin.setOnClickListener {
-                    ARouterNavUtils.normalNav(ARouterPath.LOGIN)
+                    ARouterNavUtils.getPostcard(ARouterPath.LOGIN)
+                        .withBoolean("isFromLoginGuide", false).navigation()
                 }
             }
             GlideUtils.loadImg(

@@ -1,8 +1,8 @@
 package com.yzx.module_mine
 
 import android.os.Bundle
-import com.yzx.lib_base.ARouter.ARouterNavUtils
-import com.yzx.lib_base.ARouter.ARouterPath.FRAGMENT_MINE
+import com.yzx.lib_base.arouter.ARouterNavUtils
+import com.yzx.lib_base.arouter.ARouterPath.FRAGMENT_MINE
 import com.yzx.lib_base.R
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.module_mine.databinding.ActivityMineMainBinding

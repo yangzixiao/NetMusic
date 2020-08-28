@@ -1,4 +1,4 @@
-package com.yzx.lib_base.ARouter
+package com.yzx.lib_base.arouter
 
 /**
  * @author yzx

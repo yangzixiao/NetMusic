@@ -17,17 +17,16 @@
 
 
         <com.google.android.material.imageview.ShapeableImageView
-            style="@style/RoundShapeImageView"
-            app:shapeAppearance="?shapeAppearanceMediumComponent"
-            app:cornerSize="@dimen/dim_round_image_corner"
-            app:strokeColor="@color/dividerColor"
-            app:strokeWidth="@dimen/dim_stroke_width"
             android:id="@+id/ivSongSheetPost"
+            style="@style/RoundShapeImageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@color/colorLightBlack"
+            app:strokeWidth="@dimen/dim_stroke_width"
+            app:strokeColor="@color/dividerColor"
+            android:src="@color/colorLightBlack"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@color/colorLightBlack" />
 
         <LinearLayout
             android:layout_width="0dp"

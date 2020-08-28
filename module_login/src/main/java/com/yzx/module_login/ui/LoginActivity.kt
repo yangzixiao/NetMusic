@@ -5,10 +5,11 @@ import android.text.TextUtils
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.yzx.lib_base.ARouter.ARouterNavUtils
-import com.yzx.lib_base.ARouter.ARouterPath.LOGIN
-import com.yzx.lib_base.ARouter.ARouterPath.MAIN
+import com.yzx.lib_base.arouter.ARouterNavUtils
+import com.yzx.lib_base.arouter.ARouterPath.LOGIN
+import com.yzx.lib_base.arouter.ARouterPath.MAIN
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.getContent
 import com.yzx.lib_base.ext.toast
@@ -27,6 +28,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 @Route(path = LOGIN)
 class LoginActivity : BaseActivity() {
+
+    @Autowired
+    @JvmField
+    var isFromLoginGuide: Boolean = true
+
     private lateinit var loginBinding: ActivityLoginBinding
 
     val viewModel: LoginViewModel by viewModel()
@@ -39,11 +45,11 @@ class LoginActivity : BaseActivity() {
 
         viewModel.loginResponseLiveData.observe(this, Observer {
 
-            if (it.code==200) {
-                UserDataUtils.updateTouristState(false)
-                UserDataUtils.initUserInfo(it)
+            UserDataUtils.updateTouristState(false)
+            UserDataUtils.initUserInfo(it)
+            if (isFromLoginGuide) {
+                ARouterNavUtils.normalNav(MAIN)
             }
-            ARouterNavUtils.normalNav(MAIN)
             finish()
         })
 

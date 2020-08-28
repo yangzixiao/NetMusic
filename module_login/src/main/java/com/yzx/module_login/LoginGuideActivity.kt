@@ -7,9 +7,9 @@ import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.yzx.lib_base.ARouter.ARouterNavUtils
-import com.yzx.lib_base.ARouter.ARouterPath
-import com.yzx.lib_base.ARouter.ARouterPath.LOGIN_GUIDE
+import com.yzx.lib_base.arouter.ARouterNavUtils
+import com.yzx.lib_base.arouter.ARouterPath
+import com.yzx.lib_base.arouter.ARouterPath.LOGIN_GUIDE
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.mmkv.MmkvUtils
@@ -44,7 +44,8 @@ class LoginGuideActivity : BaseActivity() {
         loginGuideBinding.tvPhoneNumLogin.setOnClickListener {
 
             if (isAgreementChecked) {
-                ARouterNavUtils.normalNav(ARouterPath.LOGIN)
+                ARouterNavUtils.getPostcard(ARouterPath.LOGIN)
+                    .withBoolean("isFromLoginGuide", true).navigation()
                 finish()
             } else {
                 shakeAgreementLayout(loginGuideBinding.layoutProtocol)
