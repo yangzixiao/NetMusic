@@ -3,7 +3,6 @@ package com.yzx.module_login
 import android.app.Application
 import com.yzx.lib_base.app.BaseApplication
 import com.yzx.lib_base.mmkv.MmkvUtils
-import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.JsonUtils
 import com.yzx.lib_base.utils.LogUtils
 import com.yzx.module_login.model.LoginResponse
@@ -32,15 +31,17 @@ class LoginApp : BaseApplication() {
         val loginResponseString = MmkvUtils.get(Constants.KEY_LOGIN_RESPONSE, "")
         val isTourist = MmkvUtils.get(Constants.KEY_IS_TOURIST, false)
         if (loginResponseString.isNotEmpty()) {
-            val loginResponse = JsonUtils.stringToObject(loginResponseString,
-                LoginResponse::class.java) as LoginResponse
+            val loginResponse = JsonUtils.stringToObject(
+                loginResponseString,
+                LoginResponse::class.java
+            ) as LoginResponse
             UserDataUtils.initUserInfo(loginResponse)
             UserDataUtils.updateTouristState(isTourist)
             LogUtils.e(TAG, "initModuleData用户数据初始化完成$loginResponse")
         } else {
             UserDataUtils.initUserInfo(null)
+            UserDataUtils.updateTouristState(isTourist)
             LogUtils.e(TAG, "initModuleData用户未登录")
-
         }
     }
 }

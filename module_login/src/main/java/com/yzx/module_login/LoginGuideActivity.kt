@@ -5,12 +5,14 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
-import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ARouterPath.LOGIN_GUIDE
+import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
+import com.yzx.lib_base.ext.simpleGetString
+import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.mmkv.MmkvUtils
 import com.yzx.module_login.databinding.ActivityLoginGuideBinding
@@ -35,6 +37,7 @@ class LoginGuideActivity : BaseActivity() {
     override fun getActivityExitAnim(): Int {
         return R.anim.slide_out_bottom
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val loginGuideBinding = ActivityLoginGuideBinding.inflate(layoutInflater)
@@ -45,17 +48,20 @@ class LoginGuideActivity : BaseActivity() {
 
             if (isAgreementChecked) {
                 ARouterNavUtils.getPostcard(ARouterPath.LOGIN)
-                    .withBoolean("isFromLoginGuide", true).navigation()
+                    .withBoolean(ArouterNavKey.KEY_IS_FROM_Login_GUIDE, true).navigation()
                 finish()
             } else {
                 shakeAgreementLayout(loginGuideBinding.layoutProtocol)
-                Toast.makeText(
-                    this, "请勾选${getString(R.string.Agree)}" +
-                            "${getString(R.string.UserAgreement)}${getString(R.string.PrivacyAgreement)}${getString(
-                                R.string.ChildPrivacyAgreement
-                            )}", Toast.LENGTH_SHORT
+                toast(
+                    "请勾选${
+                        simpleGetString(
+                            R.string.Agree,
+                            R.string.UserAgreement,
+                            R.string.PrivacyAgreement,
+                            R.string.ChildPrivacyAgreement
+                        )
+                    }"
                 )
-                    .show()
             }
         }
         loginGuideBinding.checkBox.setOnCheckedChangeListener { _, isChecked ->
@@ -64,8 +70,8 @@ class LoginGuideActivity : BaseActivity() {
 
         loginGuideBinding.tvTry.setOnClickListener {
             ARouterNavUtils.normalNav(ARouterPath.MAIN)
-            MmkvUtils.put(Constants.KEY_IS_TOURIST,true)
-            UserInfoManager.isTourist=true
+            MmkvUtils.put(Constants.KEY_IS_TOURIST, true)
+            UserInfoManager.isTourist = true
             finish()
         }
 

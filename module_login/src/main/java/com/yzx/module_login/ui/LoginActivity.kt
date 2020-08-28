@@ -1,23 +1,23 @@
 package com.yzx.module_login.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
-import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath.LOGIN
 import com.yzx.lib_base.arouter.ARouterPath.MAIN
+import com.yzx.lib_base.arouter.ArouterNavKey.KEY_IS_FROM_Login_GUIDE
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.getContent
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.utils.FormatUtil
-import com.yzx.module_login.viewmodel.LoginViewModel
 import com.yzx.module_login.R
 import com.yzx.module_login.UserDataUtils
 import com.yzx.module_login.databinding.ActivityLoginBinding
+import com.yzx.module_login.viewmodel.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -29,25 +29,22 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 @Route(path = LOGIN)
 class LoginActivity : BaseActivity() {
 
-    @Autowired
-    @JvmField
-    var isFromLoginGuide: Boolean = true
-
     private lateinit var loginBinding: ActivityLoginBinding
 
     val viewModel: LoginViewModel by viewModel()
 
+    @SuppressLint("LogNotTimber")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStatusDarkFont()
+
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(loginBinding.root)
 
-        viewModel.loginResponseLiveData.observe(this, Observer {
-
+        viewModel.loginResponseLiveData.observe(this, {
             UserDataUtils.updateTouristState(false)
             UserDataUtils.initUserInfo(it)
-            if (isFromLoginGuide) {
+            if (intent.getBooleanExtra(KEY_IS_FROM_Login_GUIDE,false)) {
                 ARouterNavUtils.normalNav(MAIN)
             }
             finish()

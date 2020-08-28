@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath
+import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseFragment
 import com.yzx.lib_base.ext.gone
 import com.yzx.lib_base.ext.visible
@@ -186,8 +187,11 @@ class MineFragment : BaseFragment() {
 
             if (!loggedIn) {
                 tvLogin.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putBoolean("aaa",false)
                     ARouterNavUtils.getPostcard(ARouterPath.LOGIN)
-                        .withBoolean("isFromLoginGuide", false).navigation()
+                        .with(bundle)
+                        .withBoolean(ArouterNavKey.KEY_IS_FROM_Login_GUIDE, false).navigation()
                 }
             }
             GlideUtils.loadImg(
