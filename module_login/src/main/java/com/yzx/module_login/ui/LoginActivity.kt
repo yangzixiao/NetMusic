@@ -42,6 +42,7 @@ class LoginActivity : BaseActivity() {
         setContentView(loginBinding.root)
 
         viewModel.loginResponseLiveData.observe(this, {
+            hideLoadingDialog()
             UserDataUtils.updateTouristState(false)
             UserDataUtils.initUserInfo(it)
             if (intent.getBooleanExtra(KEY_IS_FROM_Login_GUIDE,false)) {
@@ -74,7 +75,7 @@ class LoginActivity : BaseActivity() {
                 toast(getString(R.string.InputPassword))
                 return@setOnClickListener
             }
-
+            showLoadingDialog()
             viewModel.login(phoneNum, password)
         }
 
