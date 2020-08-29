@@ -77,19 +77,26 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-        <ImageView
-            android:id="@+id/iv1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_margin="30dp" />
+            android:layout_margin="@dimen/edg"
+            android:background="@color/colorRed"
+            android:text="添加"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/iv2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/mSwitch"
+            android:padding="@dimen/dim_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
-            android:layout_margin="30dp" />
+            android:layout_margin="30dp"
+            android:background="@color/colorRed"
+            android:text="登录/退出登录" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

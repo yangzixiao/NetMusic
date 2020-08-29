@@ -1,10 +1,12 @@
 package com.yzx.module_mine.ui
 
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
@@ -53,8 +55,10 @@ class MineFragment : BaseFragment() {
     }
 
     private lateinit var mineBinding: FragmentMineBinding
-    private var mineAdapter: MultiTypeAdapter? = null
+    private lateinit var mineAdapter: MultiTypeAdapter
+    private val binders = arrayListOf<MultiTypeBinder<*>>()
     private var keyColor: Int = 0x00000000
+    private var userDataBean: UserDataBean? = null
 
     val viewModel: MineViewModel by viewModel()
 
@@ -70,9 +74,15 @@ class MineFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         setupSwipeRefreshLayout()
-        this.mineBinding.iv1.setOnClickListener {
-            UserInfoManager.reset()
-        }
+        mineAdapter =
+            createMultiTypeAdapter(mineBinding.recyclerView, LinearLayoutManager(context))
+        this.mineBinding.mSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener() { compoundButton: CompoundButton, b: Boolean ->
+            if (b) {
+                UserInfoManager.userInfoLiveData.value = userDataBean
+            } else {
+                UserInfoManager.reset()
+            }
+        })
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
             mineBinding.smartRefreshLayout.finishRefresh()
@@ -85,6 +95,9 @@ class MineFragment : BaseFragment() {
     override fun lazyLoad() {
         super.lazyLoad()
         userInfoLiveData.observe(viewLifecycleOwner, {
+            if (it.isLoggedIn) {
+                this.userDataBean = it
+            }
             onUserStateChanged(it)
         })
     }
@@ -107,11 +120,8 @@ class MineFragment : BaseFragment() {
     }
 
     private fun setupData(minePagerData: MinePagerData) {
-        if (mineAdapter == null) {
-            mineAdapter =
-                createMultiTypeAdapter(mineBinding.recyclerView, LinearLayoutManager(context))
-        }
 
+        binders.clear()
         val myMusicBeans =
             listOf(
                 MyMusicBean(R.drawable.ic_like, "我喜爱的音乐", "心动模式", keyColor = keyColor),
@@ -124,7 +134,7 @@ class MineFragment : BaseFragment() {
         val myMusicBinder = MyMusicBinder(listOf("我的音乐"), myMusicBeans)
         myMusicBeans[1].myMusicBean.background = minePagerData.personalFM!!.album.picUrl
 
-        val binders = arrayListOf<MultiTypeBinder<*>>()
+
         if (minePagerData.recommendPlaylist == null) {
             myMusicBeans[0].myMusicBean.background = minePagerData.playlist!![0].coverImgUrl
 
@@ -158,8 +168,7 @@ class MineFragment : BaseFragment() {
                 }))
             }
         }
-
-        mineAdapter!!.notifyAdapterChanged(binders)
+        mineAdapter.notifyAdapterChanged(binders)
     }
 
 
@@ -187,10 +196,7 @@ class MineFragment : BaseFragment() {
 
             if (!loggedIn) {
                 tvLogin.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putBoolean("aaa",false)
                     ARouterNavUtils.getPostcard(ARouterPath.LOGIN)
-                        .with(bundle)
                         .withBoolean(ArouterNavKey.KEY_IS_FROM_Login_GUIDE, false).navigation()
                 }
             }
@@ -215,7 +221,7 @@ class MineFragment : BaseFragment() {
         val handledColor = ColorUtils.getColorByAlpha(color, 255)
         this.keyColor = handledColor
         mineBinding.apply {
-            toolbar.setBackgroundColor(handledColor)
+            toolbar.background = ColorDrawable(handledColor)
             ivBackground.setMaskColor(ColorUtils.getColorByAlpha(handledColor, 255 / 2))
         }
     }

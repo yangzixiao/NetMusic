@@ -38,7 +38,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/be8"
-                android:tint="@color/colorLightBlack" />
+                app:tint="@color/colorLightBlack" />
 
 
             <ImageView

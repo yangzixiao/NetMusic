@@ -11,6 +11,6 @@ class OkHttpClientProvider(val loggingInterceptor: HttpLoggingInterceptor) {
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor).build()
+            .addInterceptor(loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)).build()
     }
 }

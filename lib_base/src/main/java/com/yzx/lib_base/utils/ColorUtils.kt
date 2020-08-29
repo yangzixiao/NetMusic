@@ -2,6 +2,7 @@ package com.yzx.lib_base.utils
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Log
 import androidx.annotation.CheckResult
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
@@ -11,9 +12,6 @@ import androidx.palette.graphics.Palette
 object ColorUtils {
 
 
-
-
-
     private const val IS_LIGHT = 0
     private const val IS_DARK = 1
     private const val LIGHTNESS_UNKNOWN = 2
@@ -21,13 +19,26 @@ object ColorUtils {
     private const val TAG = "ColorUtils"
 
 
-    fun getColorByAlpha(color: Int,@IntRange(from = 0, to = 255) alpha: Int): Int {
+    /**
+     * log颜色RGB
+     */
+    fun logColorRGB(color: Int) {
+        Log.e(
+            TAG,
+            "logColorRGB: -a-${Color.alpha(color)}-r-${Color.red(color)}-g-${Color.green(color)}-b-${
+                Color.blue(color)
+            }"
+        )
+    }
+
+    fun getColorByAlpha(color: Int, @IntRange(from = 0, to = 255) alpha: Int): Int {
         return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color))
     }
 
-    fun getColorByAlpha(color: Int,@FloatRange(from = 0.0, to = 1.0) alpha: Float):Int{
-        return getColorByAlpha(color,(255*alpha).toInt())
+    fun getColorByAlpha(color: Int, @FloatRange(from = 0.0, to = 1.0) alpha: Float): Int {
+        return getColorByAlpha(color, (255 * alpha).toInt())
     }
+
     /**
      * Set the alpha component of `color` to be `alpha`.
      */
