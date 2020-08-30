@@ -46,7 +46,6 @@
                     android:layout_height="@dimen/toolBarHeight"
                     app:layout_collapseMode="pin" />
 
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             <TableLayout
@@ -72,9 +71,9 @@
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:spanCount="2"
-            tools:listitem="@layout/item_playlist"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            tools:listitem="@layout/item_playlist" />
 
 
         <TextView
@@ -90,12 +89,12 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/mSwitch"
-            android:padding="@dimen/dim_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
             android:layout_margin="30dp"
             android:background="@color/colorRed"
+            android:padding="@dimen/dim_10"
             android:text="登录/退出登录" />
 
 

@@ -18,6 +18,13 @@ object ColorUtils {
 
     private const val TAG = "ColorUtils"
 
+    fun getColorAlpha(color: Int): Int {
+        return Color.alpha(color)
+    }
+
+    fun isColorAlphaIs0(color: Int): Boolean {
+        return getColorAlpha(color) <= 0
+    }
 
     /**
      * log颜色RGB

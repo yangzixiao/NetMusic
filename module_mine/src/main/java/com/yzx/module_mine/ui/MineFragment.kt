@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
@@ -72,17 +73,21 @@ class MineFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar()
-        setupSwipeRefreshLayout()
+        mineBinding.apply {
+            initToolBar()
+            setAppBarLayoutScrollListener()
+            setupSwipeRefreshLayout()
+        }
+
         mineAdapter =
             createMultiTypeAdapter(mineBinding.recyclerView, LinearLayoutManager(context))
-        this.mineBinding.mSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener() { compoundButton: CompoundButton, b: Boolean ->
+        this.mineBinding.mSwitch.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
             if (b) {
                 UserInfoManager.userInfoLiveData.value = userDataBean
             } else {
                 UserInfoManager.reset()
             }
-        })
+        }
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
             mineBinding.smartRefreshLayout.finishRefresh()
@@ -97,6 +102,7 @@ class MineFragment : BaseFragment() {
         userInfoLiveData.observe(viewLifecycleOwner, {
             if (it.isLoggedIn) {
                 this.userDataBean = it
+                mineBinding.mSwitch.isChecked = true
             }
             onUserStateChanged(it)
         })
@@ -120,7 +126,6 @@ class MineFragment : BaseFragment() {
     }
 
     private fun setupData(minePagerData: MinePagerData) {
-
         binders.clear()
         val myMusicBeans =
             listOf(
@@ -133,11 +138,8 @@ class MineFragment : BaseFragment() {
             }
         val myMusicBinder = MyMusicBinder(listOf("我的音乐"), myMusicBeans)
         myMusicBeans[1].myMusicBean.background = minePagerData.personalFM!!.album.picUrl
-
-
         if (minePagerData.recommendPlaylist == null) {
             myMusicBeans[0].myMusicBean.background = minePagerData.playlist!![0].coverImgUrl
-
             val playlist = minePagerData.playlist
             val createPlayListBinders = arrayListOf<ItemPlayListBinder>()
             val collectionPlayListBinders = arrayListOf<ItemPlayListBinder>()
@@ -175,10 +177,9 @@ class MineFragment : BaseFragment() {
     /**
      * 设置SmartRefreshLayout头布局
      */
-    private fun setupSwipeRefreshLayout() {
+    private fun FragmentMineBinding.setupSwipeRefreshLayout() {
         val materialHeader = MaterialHeader(context)
         materialHeader.setColorSchemeResources(R.color.colorRed)
-        val smartRefreshLayout = mineBinding.smartRefreshLayout
         smartRefreshLayout.setRefreshHeader(materialHeader as RefreshHeader)
     }
 
@@ -189,7 +190,6 @@ class MineFragment : BaseFragment() {
     private fun setupUserInfo(userDataBean: UserDataBean) {
 
         val loggedIn = userDataBean.isLoggedIn
-
         mineBinding.layoutMineHead.apply {
             if (loggedIn) llUserInfo.visible() else llUserInfo.gone()
             if (loggedIn) tvLogin.gone() else tvLogin.visible()
@@ -200,9 +200,9 @@ class MineFragment : BaseFragment() {
                         .withBoolean(ArouterNavKey.KEY_IS_FROM_Login_GUIDE, false).navigation()
                 }
             }
+            val headResource = if (loggedIn) userDataBean.avatarUrl else R.color.colorImg
             GlideUtils.loadImg(
-                if (loggedIn) userDataBean.avatarUrl else R.color.colorImg,
-                GlideUtils.TYPE_HEAD, ivHead
+                headResource, GlideUtils.TYPE_HEAD, ivHead
             )
         }
 
@@ -216,39 +216,47 @@ class MineFragment : BaseFragment() {
     }
 
     private fun setupBackground(color: Int) {
-
         //处理获取的颜色可能出现透明度为0的情况
-        val handledColor = ColorUtils.getColorByAlpha(color, 255)
-        this.keyColor = handledColor
+        this.keyColor = ColorUtils.getColorByAlpha(color, 255)
         mineBinding.apply {
-            toolbar.background = ColorDrawable(handledColor)
-            ivBackground.setMaskColor(ColorUtils.getColorByAlpha(handledColor, 255 / 2))
+            ViewCompat.setBackground(toolbar, ColorDrawable(keyColor))
+            ivBackground.setMaskColor(ColorUtils.getColorByAlpha(keyColor, 255 / 2))
         }
     }
 
-    private fun setupToolbar() {
+    private fun FragmentMineBinding.setAppBarLayoutScrollListener() {
 
-        mineBinding.apply {
-            toolbar.alpha = 0f
-            val layoutParams =
-                LayoutParams(-1, StatusUtils.getStateBarHeight(context) + dip2px(context, 64f))
-            layoutParams.collapseMode = COLLAPSE_MODE_PIN
-            toolbar.layoutParams = layoutParams
+        appBarLayout.addOnOffsetChangedListener(
+            AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+                //计算appBarLayout滑动比重
+                val totalScrollRange = appBarLayout.totalScrollRange
+                val movePercent = abs(verticalOffset).toDouble() / totalScrollRange.toDouble()
 
-            appBarLayout.addOnOffsetChangedListener(
-                AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+                toolbar.alpha = movePercent.toFloat()
+                ivBackground.translationY = verticalOffset.toFloat()
+                if (movePercent >= 1) {
+                    tabLayout.background = toolbar.background
+                } else {
+                    tabLayout.setBackgroundResource(R.color.colorTransparent)
+                }
+            })
 
-                    val totalScrollRange = appBarLayout.totalScrollRange
-                    val movePercent = abs(verticalOffset).toDouble() / totalScrollRange.toDouble()
-                    toolbar.alpha = movePercent.toFloat()
-                    ivBackground.translationY = verticalOffset.toFloat()
+    }
 
-                    if (movePercent >= 1) {
-                        tabLayout.background = toolbar.background
-                    } else {
-                        tabLayout.setBackgroundResource(R.color.colorTransparent)
-                    }
-                })
-        }
+    /**
+     * 初始化toolbar
+     */
+    private fun FragmentMineBinding.initToolBar() {
+        toolbar.alpha = 0f
+        val layoutParams =
+            LayoutParams(-1, StatusUtils.getStateBarHeight(context) + dip2px(context, 64f))
+        layoutParams.collapseMode = COLLAPSE_MODE_PIN
+        toolbar.layoutParams = layoutParams
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //部分机型出现background丢失问题
+        ViewCompat.setBackground(mineBinding.toolbar, ColorDrawable(keyColor))
     }
 }
