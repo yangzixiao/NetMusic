@@ -1,9 +1,8 @@
 package com.yzx.module_main
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
-import android.widget.TextView
-import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.yzx.lib_base.BaseBottomSongInfoActivity
@@ -50,14 +49,9 @@ class MainActivity : BaseBottomSongInfoActivity() {
         setTransparentStatus()
         setupViewPagerAndIndicator()
 
-        //
-        setStatusWhiteFont()
-        mainBinding.viewPager.currentItem = 0
-        mainBinding.magicIndicator.onPageSelected(0)
-
-//        setStatusDarkFont()
-//        mainBinding.viewPager.currentItem = 1
-//        mainBinding.magicIndicator.onPageSelected(1)
+        setStatusDarkFont()
+        mainBinding.viewPager.currentItem = 1
+        mainBinding.magicIndicator.onPageSelected(1)
         setSongInfo("呜啦啦", "嘿嘿哈哈", "")
     }
 
@@ -71,28 +65,27 @@ class MainActivity : BaseBottomSongInfoActivity() {
         }
 
         val fragment = ARouterNavUtils.getFragment(ARouterPath.FRAGMENT_MINE)
-        val elements = DiscoverFragment()
-        val bundle = Bundle()
-        bundle.putString("111", "1")
-        elements.arguments = bundle
         mainFragmentPagerAdapter.fragments =
-            listOf(fragment, elements,
+            listOf(
+                fragment, DiscoverFragment(),
                 TestFragment(),
-                TestFragment())
+                TestFragment()
+            )
         mainFragmentPagerAdapter.notifyDataSetChanged()
 
 
         val commonNavigator = CommonNavigator(this)
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
-                val mainTitleView = MainTitleView(context)
-
-                mainTitleView.textSize = 18f
-                mainTitleView.text = titles[index]
-                mainTitleView.setOnClickListener {
+                val titleView = MainTitleView(context)
+                titleView.normalColor = Color.GRAY
+                titleView.selectedColor = Color.BLACK
+                titleView.textSize = 18f
+                titleView.text = titles[index]
+                titleView.setOnClickListener {
                     mainBinding.viewPager.currentItem = index
                 }
-                return mainTitleView
+                return titleView
             }
 
             override fun getCount(): Int {
@@ -107,25 +100,6 @@ class MainActivity : BaseBottomSongInfoActivity() {
 
         }
         mainBinding.magicIndicator.navigator = commonNavigator
-        mainBinding.viewPager.addOnPageChangeListener(object :
-            ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                if (position == 0) setStatusWhiteFont() else setStatusDarkFont()
-//                mainBinding.titleContent.setBackgroundColor(resources.getColor(if (position == 0) R.color.colorTransparent else R.color.colorWhite))
-
-                if (position == 0) {
-                    val title2 = commonNavigator.getPagerTitleView(2) as TextView
-                    val title3 = commonNavigator.getPagerTitleView(3) as TextView
-                    title2.setTextColor(simpleGetColor(R.color.colorDarkWhite))
-                    title3.setTextColor(simpleGetColor(R.color.colorDarkWhite))
-                } else if (position == 1) {
-                    val title2 = commonNavigator.getPagerTitleView(2) as TextView
-                    val title3 = commonNavigator.getPagerTitleView(3) as TextView
-                    title2.setTextColor(simpleGetColor(R.color.colorLightBlack))
-                    title3.setTextColor(simpleGetColor(R.color.colorLightBlack))
-                }
-            }
-        })
         ViewPagerHelper.bind(mainBinding.magicIndicator, mainBinding.viewPager)
     }
 

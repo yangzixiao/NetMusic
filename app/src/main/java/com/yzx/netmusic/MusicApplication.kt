@@ -6,12 +6,10 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.bytedance.boost_multidex.BoostMultiDex
 import com.tencent.mmkv.MMKV
 import com.yzx.lib_base.BuildConfig
-import com.yzx.lib_base.Constant
 import com.yzx.lib_base.app.AppConfig
 import com.yzx.lib_base.app.BaseApplication
 import com.yzx.lib_base.app.MusicCommonApplication
 import com.yzx.lib_base.di.networkModule
-import com.yzx.lib_base.http.RetrofitHelper
 import com.yzx.lib_base.utils.LogUtils
 import com.yzx.module_login.di.loginModule
 import com.yzx.module_mine.di.mineModule
@@ -70,12 +68,13 @@ class MusicApplication : BaseApplication() {
         loadKoinModules(listOf(networkModule, loginModule,mineModule))
 
         MMKV.initialize(this)
-        ARouter.init(this)
+
 
         if (BuildConfig.DEBUG) {
             ARouter.openLog()
             ARouter.openDebug()
         }
+        ARouter.init(this)
 
         initModuleApp(this)
         initModuleData(this)
