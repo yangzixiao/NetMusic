@@ -1,6 +1,7 @@
 package com.yzx.module_mine.ui
 
 
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -61,7 +62,7 @@ class MineFragment : BaseFragment() {
     private var keyColor: Int = 0x00000000
     private var userDataBean: UserDataBean? = null
 
-    val viewModel: MineViewModel by viewModel()
+    private val viewModel: MineViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,9 +82,9 @@ class MineFragment : BaseFragment() {
 
         mineAdapter =
             createMultiTypeAdapter(mineBinding.recyclerView, LinearLayoutManager(context))
-        this.mineBinding.mSwitch.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+        this.mineBinding.mSwitch.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
             if (b) {
-                UserInfoManager.userInfoLiveData.value = userDataBean
+                userInfoLiveData.value = userDataBean
             } else {
                 UserInfoManager.reset()
             }
@@ -234,11 +235,7 @@ class MineFragment : BaseFragment() {
 
                 toolbar.alpha = movePercent.toFloat()
                 ivBackground.translationY = verticalOffset.toFloat()
-                if (movePercent >= 1) {
-                    tabLayout.background = toolbar.background
-                } else {
-                    tabLayout.setBackgroundResource(R.color.colorTransparent)
-                }
+                tabLayout.setBackgroundColor(if (movePercent >= 1) keyColor else Color.TRANSPARENT)
             })
 
     }

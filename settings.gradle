@@ -1,3 +1,4 @@
+include ':module_common'
 include ':module_mine'
 include ':module_login'
 include ':module_main'

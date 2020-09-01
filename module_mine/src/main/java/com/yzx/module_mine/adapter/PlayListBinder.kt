@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.multitype.adapter.binder.MultiTypeBinder
 import com.multitype.adapter.createMultiTypeAdapter
+import com.yzx.lib_base.arouter.ARouterNavUtils
+import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_mine.R
 import com.yzx.module_mine.databinding.ItemPlaylistBinding
@@ -68,7 +70,10 @@ class ItemPlayListBinder(var playlistBean: Any) : MultiTypeBinder<ItemPlaylistBi
                 binding.tvTitle.text = name
                 binding.tvSubTitle.text = "推荐歌单"
             }
+        }
 
+        binding.root.setOnClickListener {
+            ARouterNavUtils.normalNav(ARouterPath.COMMON_PLAYLIST_DETAIL)
         }
 
 

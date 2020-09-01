@@ -1,6 +1,5 @@
 package com.yzx.lib_base.manager
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yzx.lib_base.model.UserDataBean
 

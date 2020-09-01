@@ -56,6 +56,7 @@ dependencies {
     implementation 'com.tencent:mmkv-static:1.1.1'
     implementation 'com.alibaba:arouter-api:1.5.0'
     implementation project(path: ':lib_base')
+    implementation project(path: ':module_common')
 
 
     if (IS_MODULE.toBoolean()) {
