@@ -15,8 +15,8 @@ import com.yzx.module_mine.databinding.ItemChildMyMusicBinding
 import com.yzx.module_mine.databinding.ItemTitleRecyclerviewBinding
 import com.yzx.module_mine.model.MyMusicBean
 
-class MyMusicBinder(titles: List<String>, var data: List<MyMusicItemBinder>) :
-    CommonBinder(titles) {
+class MyMusicBinder(title: String, var data: List<MyMusicItemBinder>) :
+    CommonBinder(title) {
     override fun areContentsTheSame(other: Any): Boolean {
         return true
     }

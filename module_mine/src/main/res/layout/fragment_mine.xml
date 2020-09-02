@@ -67,14 +67,13 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="@dimen/dim_5"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:spanCount="2"
+            tools:spanCount="2"
             tools:listitem="@layout/item_playlist" />
 
 

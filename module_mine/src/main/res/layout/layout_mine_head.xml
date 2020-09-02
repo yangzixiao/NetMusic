@@ -15,7 +15,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="@dimen/edg"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="120dp"
         android:layout_marginBottom="30dp"
         android:scaleType="centerCrop"
         android:src="@color/colorBlack"
@@ -95,6 +95,10 @@
 
 
     <com.yzx.lib_base.widget.bl.BLRecyclerView
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:itemCount="4"
+        app:spanCount="2"
+        tools:listitem="@layout/item_mine_head_menu"
         android:id="@+id/rv_mine_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

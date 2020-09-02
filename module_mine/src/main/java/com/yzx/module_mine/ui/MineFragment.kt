@@ -25,7 +25,6 @@ import com.yzx.lib_base.ext.getColor
 import com.yzx.lib_base.ext.gone
 import com.yzx.lib_base.ext.visible
 import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
-import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
 import com.yzx.lib_base.utils.StatusUtils
@@ -56,8 +55,7 @@ class MineFragment : BaseFragment() {
     private lateinit var mineBinding: FragmentMineBinding
     private lateinit var mineAdapter: MultiTypeAdapter
     private val binders = arrayListOf<MultiTypeBinder<*>>()
-    private lateinit var userDataBean: UserDataBean
-    private var keyColor: Int = 0x00000000
+    private var userDataBean = userInfoLiveData.value!!
 
     private val viewModel: MineViewModel by viewModel()
 
@@ -71,12 +69,14 @@ class MineFragment : BaseFragment() {
     }
 
     private fun initView() {
+
         mineBinding.apply {
             initToolBar()
             initHeadMenu()
             setAppBarLayoutScrollListener()
             setupSwipeRefreshLayout()
         }
+        setupUserInfo()
         mineAdapter =
             createMultiTypeAdapter(mineBinding.recyclerView, LinearLayoutManager(context))
 
@@ -166,19 +166,19 @@ class MineFragment : BaseFragment() {
             binders.apply {
                 add(
                     HorizontalPlayListBinder(
-                        listOf("创建歌单(${createPlayListBinders.size}个)"), createPlayListBinders
+                        "创建歌单(${createPlayListBinders.size}个)", createPlayListBinders
                     )
                 )
                 add(
                     HorizontalPlayListBinder(
-                        listOf("收藏歌单(${collectionPlayListBinders.size}个)"),
+                        "收藏歌单(${collectionPlayListBinders.size}个)",
                         collectionPlayListBinders
                     )
                 )
             }
         } else {
             binders.apply {
-                add(HorizontalPlayListBinder(listOf("推荐歌单"), minePagerData.recommendPlaylist!!.map {
+                add(HorizontalPlayListBinder("推荐歌单", minePagerData.recommendPlaylist!!.map {
                     ItemPlayListBinder(it)
                 }))
             }
@@ -230,15 +230,13 @@ class MineFragment : BaseFragment() {
 
     private fun setupBackground(color: Int) {
         //处理获取的颜色可能出现透明度为0的情况
-        this.keyColor = ColorUtils.getColorByAlpha(color, 255)
+        val handledColor = ColorUtils.getColorByAlpha(color, 255)
         mineBinding.apply {
-//            DrawableCreator.Builder().setGradientAngle(90).setGradientColor(color,Color.WHITE).build()
-
             ivBackground.setImageDrawable(
                 DrawableCreator.Builder().setGradientAngle(90)
                     .setGradientColor(
                         getColor(R.color.colorTransparent),
-                        ColorUtils.getColorByAlpha(color, 0.3f)
+                        ColorUtils.getColorByAlpha(handledColor, 0.3f)
                     )
                     .build()
             )

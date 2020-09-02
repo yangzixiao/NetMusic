@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
     <com.noober.background.view.BLLinearLayout
-        android:layout_marginStart="@dimen/edg"
-        android:layout_marginEnd="@dimen/edg"
-        android:layout_marginBottom="@dimen/edg"
-        android:padding="@dimen/dim_10"
-        app:bl_corners_radius="@dimen/dim_round_layout_corner"
-        app:bl_solid_color="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginStart="@dimen/edg"
+        android:layout_marginTop="@dimen/dim_10"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="@dimen/edg"
+        android:orientation="vertical"
+        android:padding="@dimen/dim_10"
+        app:bl_corners_radius="@dimen/dim_round_layout_corner"
+        app:bl_solid_color="@color/colorWhite">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/edg"
-            android:paddingEnd="@dimen/edg">
+            android:orientation="horizontal">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/titleTabLayout"
+            <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorTransparent"
-                android:textColor="@color/colorBlack"
-                app:tabBackground="@null"
-                app:tabIndicatorHeight="0dp"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/colorBlack" />
+                android:textColor="@color/colorSubTitle"
+                android:textSize="@dimen/dim_textsize_12"
+                tools:text="标题" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/be8"
                 app:tint="@color/colorLightBlack" />
 
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
