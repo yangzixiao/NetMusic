@@ -11,4 +11,11 @@
     <color name="colorImg">#EEEEEE</color>
     <color name="colorRedPoint">@color/colorRed</color>
 
+
+    <color name="colorTitle">#000000</color>
+    <color name="colorSubTitle">#2C2929</color>
+
+    <color name="colorTabSelected">#000000</color>
+    <color name="colorTabNormal">#212121</color>
+    <color name="colorGreyBackground">#11000000</color>
 </resources>

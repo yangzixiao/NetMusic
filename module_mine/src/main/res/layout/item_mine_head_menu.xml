@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dim_10"
+    android:paddingBottom="@dimen/dim_10"
+    android:theme="@style/Theme.MaterialComponents">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivIcon"
+        style="@style/CircleShapeImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@color/colorRed" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dim_5"
+        android:textColor="@color/colorSubTitle"
+        android:textSize="@dimen/dim_textsize_12"
+        tools:text="标题biaoti" />
+
+</LinearLayout>

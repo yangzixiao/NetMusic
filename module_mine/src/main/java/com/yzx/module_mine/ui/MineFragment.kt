@@ -1,13 +1,11 @@
 package com.yzx.module_mine.ui
 
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
@@ -16,15 +14,16 @@ import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.C
 import com.multitype.adapter.MultiTypeAdapter
 import com.multitype.adapter.binder.MultiTypeBinder
 import com.multitype.adapter.createMultiTypeAdapter
+import com.noober.background.drawable.DrawableCreator
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseFragment
+import com.yzx.lib_base.ext.getColor
 import com.yzx.lib_base.ext.gone
 import com.yzx.lib_base.ext.visible
-import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
 import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.ColorUtils
@@ -32,13 +31,12 @@ import com.yzx.lib_base.utils.DenistyUtils.dip2px
 import com.yzx.lib_base.utils.StatusUtils
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_mine.R
+import com.yzx.module_mine.adapter.HorizontalPlayListBinder
 import com.yzx.module_mine.adapter.ItemPlayListBinder
-import com.yzx.module_mine.adapter.MyMusicBinder
-import com.yzx.module_mine.adapter.MyMusicItemBinder
-import com.yzx.module_mine.adapter.PlayListBinder
+import com.yzx.module_mine.adapter.MineHeadMenuAdapter
 import com.yzx.module_mine.databinding.FragmentMineBinding
+import com.yzx.module_mine.model.MineHeadMenuBean
 import com.yzx.module_mine.model.MinePagerData
-import com.yzx.module_mine.model.MyMusicBean
 import com.yzx.module_mine.viewmodel.MineViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
@@ -58,40 +56,66 @@ class MineFragment : BaseFragment() {
     private lateinit var mineBinding: FragmentMineBinding
     private lateinit var mineAdapter: MultiTypeAdapter
     private val binders = arrayListOf<MultiTypeBinder<*>>()
+    private lateinit var userDataBean: UserDataBean
     private var keyColor: Int = 0x00000000
-    private var userDataBean: UserDataBean? = null
 
-    val viewModel: MineViewModel by viewModel()
+    private val viewModel: MineViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         this.mineBinding = FragmentMineBinding.inflate(inflater)
+        initView()
         return mineBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun initView() {
         mineBinding.apply {
             initToolBar()
+            initHeadMenu()
             setAppBarLayoutScrollListener()
             setupSwipeRefreshLayout()
         }
-
         mineAdapter =
             createMultiTypeAdapter(mineBinding.recyclerView, LinearLayoutManager(context))
-        this.mineBinding.mSwitch.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
-            if (b) {
-                UserInfoManager.userInfoLiveData.value = userDataBean
-            } else {
-                UserInfoManager.reset()
-            }
-        }
+
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
             mineBinding.smartRefreshLayout.finishRefresh()
         })
+    }
+
+    private fun FragmentMineBinding.initHeadMenu() {
+        layoutMineHead.rvMineMenu.apply {
+            layoutManager = GridLayoutManager(context, 4)
+            val mineHeadMenuAdapter = MineHeadMenuAdapter(getHeadMenuData())
+            adapter = mineHeadMenuAdapter
+        }
+    }
+
+    private fun getHeadMenuData(): MutableList<MineHeadMenuBean> {
+        return mutableListOf(
+            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+        )
+    }
+
+    private fun initTabLayout() {
+        val tabTitles = if (userDataBean.isLoggedIn) arrayListOf(
+            R.string.CreatePlayList,
+            R.string.CollectPlayList
+        ) else arrayListOf(R.string.RecommondPlayList)
+        val tabLayout = mineBinding.tabLayout
+        tabTitles.forEach {
+            tabLayout.addTab(tabLayout.newTab().setText(it))
+        }
     }
 
     /**
@@ -100,19 +124,17 @@ class MineFragment : BaseFragment() {
     override fun lazyLoad() {
         super.lazyLoad()
         userInfoLiveData.observe(viewLifecycleOwner, {
-            if (it.isLoggedIn) {
-                this.userDataBean = it
-                mineBinding.mSwitch.isChecked = true
-            }
-            onUserStateChanged(it)
+            userDataBean = it
+            onUserStateChanged()
         })
     }
 
     /**
      * 用户状态改变
      */
-    private fun onUserStateChanged(userDataBean: UserDataBean) {
-        setupUserInfo(userDataBean)
+    private fun onUserStateChanged() {
+        setupUserInfo()
+        initTabLayout()
         mineBinding.smartRefreshLayout.apply {
             setOnRefreshListener {
                 if (userDataBean.isLoggedIn) {
@@ -127,19 +149,8 @@ class MineFragment : BaseFragment() {
 
     private fun setupData(minePagerData: MinePagerData) {
         binders.clear()
-        val myMusicBeans =
-            listOf(
-                MyMusicBean(R.drawable.ic_like, "我喜爱的音乐", "心动模式", keyColor = keyColor),
-                MyMusicBean(R.drawable.ic_personal_fm, "私人FM", "来这里找好歌", keyColor = keyColor),
-                MyMusicBean(R.drawable.ccx, "推歌精选", "云贝助力好歌", keyColor = keyColor),
-                MyMusicBean(R.drawable.ic_classical, "古典专区", "专业古典大全", keyColor = keyColor)
-            ).map {
-                MyMusicItemBinder(it)
-            }
-        val myMusicBinder = MyMusicBinder(listOf("我的音乐"), myMusicBeans)
-        myMusicBeans[1].myMusicBean.background = minePagerData.personalFM!!.album.picUrl
+
         if (minePagerData.recommendPlaylist == null) {
-            myMusicBeans[0].myMusicBean.background = minePagerData.playlist!![0].coverImgUrl
             val playlist = minePagerData.playlist
             val createPlayListBinders = arrayListOf<ItemPlayListBinder>()
             val collectionPlayListBinders = arrayListOf<ItemPlayListBinder>()
@@ -153,19 +164,21 @@ class MineFragment : BaseFragment() {
             }
 
             binders.apply {
-                add(myMusicBinder)
-                add(PlayListBinder(listOf("最近播放"), listOf(ItemPlayListBinder(playlist[0]))))
                 add(
-                    PlayListBinder(
-                        listOf("创建歌单", "收藏歌单"), createPlayListBinders,
+                    HorizontalPlayListBinder(
+                        listOf("创建歌单(${createPlayListBinders.size}个)"), createPlayListBinders
+                    )
+                )
+                add(
+                    HorizontalPlayListBinder(
+                        listOf("收藏歌单(${collectionPlayListBinders.size}个)"),
                         collectionPlayListBinders
                     )
                 )
             }
         } else {
             binders.apply {
-                add(myMusicBinder)
-                add(PlayListBinder(listOf("推荐歌单"), minePagerData.recommendPlaylist!!.map {
+                add(HorizontalPlayListBinder(listOf("推荐歌单"), minePagerData.recommendPlaylist!!.map {
                     ItemPlayListBinder(it)
                 }))
             }
@@ -187,17 +200,25 @@ class MineFragment : BaseFragment() {
     /**
      * 设置用户信息
      */
-    private fun setupUserInfo(userDataBean: UserDataBean) {
-
+    private fun setupUserInfo() {
         val loggedIn = userDataBean.isLoggedIn
         mineBinding.layoutMineHead.apply {
             if (loggedIn) llUserInfo.visible() else llUserInfo.gone()
-            if (loggedIn) tvLogin.gone() else tvLogin.visible()
+            if (loggedIn) blLogin.gone() else blLogin.visible()
 
             if (!loggedIn) {
-                tvLogin.setOnClickListener {
+                blLogin.setOnClickListener {
                     ARouterNavUtils.getPostcard(ARouterPath.LOGIN)
                         .withBoolean(ArouterNavKey.KEY_IS_FROM_Login_GUIDE, false).navigation()
+                }
+            } else {
+                tvNickName.text = userDataBean.nickName
+                tvLevel.text = "Lv9"
+                GlideUtils.loadBitmap(
+                    userDataBean.backgroundUrl, R.drawable.cbh, mineBinding.ivBackground,
+                    true
+                ) { _, color ->
+                    setupBackground(color)
                 }
             }
             val headResource = if (loggedIn) userDataBean.avatarUrl else R.color.colorImg
@@ -205,22 +226,22 @@ class MineFragment : BaseFragment() {
                 headResource, GlideUtils.TYPE_HEAD, ivHead
             )
         }
-
-        GlideUtils.loadBitmap(
-            userDataBean.backgroundUrl, R.drawable.cbh, mineBinding.ivBackground,
-            true
-        ) { bitmap, color ->
-            mineBinding.ivBackground.setImageBitmap(bitmap)
-            setupBackground(color)
-        }
     }
 
     private fun setupBackground(color: Int) {
         //处理获取的颜色可能出现透明度为0的情况
         this.keyColor = ColorUtils.getColorByAlpha(color, 255)
         mineBinding.apply {
-            ViewCompat.setBackground(toolbar, ColorDrawable(keyColor))
-            ivBackground.setMaskColor(ColorUtils.getColorByAlpha(keyColor, 255 / 2))
+//            DrawableCreator.Builder().setGradientAngle(90).setGradientColor(color,Color.WHITE).build()
+
+            ivBackground.setImageDrawable(
+                DrawableCreator.Builder().setGradientAngle(90)
+                    .setGradientColor(
+                        getColor(R.color.colorTransparent),
+                        ColorUtils.getColorByAlpha(color, 0.3f)
+                    )
+                    .build()
+            )
         }
     }
 
@@ -232,13 +253,10 @@ class MineFragment : BaseFragment() {
                 val totalScrollRange = appBarLayout.totalScrollRange
                 val movePercent = abs(verticalOffset).toDouble() / totalScrollRange.toDouble()
 
-                toolbar.alpha = movePercent.toFloat()
+                toolbar.alpha =
+                    (abs(verticalOffset).toDouble() / dip2px(context, 140f).toDouble()).toFloat()
                 ivBackground.translationY = verticalOffset.toFloat()
-                if (movePercent >= 1) {
-                    tabLayout.background = toolbar.background
-                } else {
-                    tabLayout.setBackgroundResource(R.color.colorTransparent)
-                }
+                tabLayout.setBackgroundResource(if (movePercent >= 1) R.color.colorWhite else R.color.colorTransparent)
             })
 
     }
@@ -247,16 +265,11 @@ class MineFragment : BaseFragment() {
      * 初始化toolbar
      */
     private fun FragmentMineBinding.initToolBar() {
+        toolbar.layoutParams.width
         toolbar.alpha = 0f
         val layoutParams =
             LayoutParams(-1, StatusUtils.getStateBarHeight(context) + dip2px(context, 64f))
         layoutParams.collapseMode = COLLAPSE_MODE_PIN
         toolbar.layoutParams = layoutParams
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //部分机型出现background丢失问题
-        ViewCompat.setBackground(mineBinding.toolbar, ColorDrawable(keyColor))
     }
 }

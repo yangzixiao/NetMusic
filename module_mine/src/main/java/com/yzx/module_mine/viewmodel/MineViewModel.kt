@@ -4,13 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yzx.lib_base.base.BaseViewModel
 import com.yzx.lib_base.http.BaseResult
-import com.yzx.module_mine.api.MineApi
 import com.yzx.module_mine.model.MinePagerData
 import com.yzx.module_mine.model.net.MinePagerRecommendPlayListResponse
 import com.yzx.module_mine.model.net.PersonalFMResponse
 import com.yzx.module_mine.model.net.PlayListResponse
 import com.yzx.module_mine.repository.MineRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 
 /**
  * @author yzx
@@ -32,22 +31,25 @@ open class MineViewModel(private val mineRepository: MineRepository) : BaseViewM
     fun getMinePagerData(uid: String? = null) {
         viewModelScope.launch(coroutineExceptionHandler) {
 
-            val personalFMAsync = async {
-                mineRepository.getPersonalFM()
-            }
-            if (uid.isNullOrBlank()) {
-                val recommendPlayListsAsync = async {
-                    mineRepository.getRecommendPlayLists()
-                }
-                dealResponse(awaitAll(recommendPlayListsAsync, personalFMAsync))
-            } else {
-                val playListAsync = async {
-                    mineRepository.getUserPlayLists(uid)
-                }
-                dealResponse(awaitAll(playListAsync, personalFMAsync))
-            }
+//            val minePageData =
+            dealResponse(mineRepository.getMinePageData(uid))
+//            val personalFMAsync = async {
+//                mineRepository.getPersonalFM()
+//            }
+//            if (uid.isNullOrBlank()) {
+//                val recommendPlayListsAsync = async {
+//                    mineRepository.getRecommendPlayLists()
+//                }
+//                dealResponse(awaitAll(recommendPlayListsAsync, personalFMAsync))
+//            } else {
+//                val playListAsync = async {
+//                    mineRepository.getUserPlayLists(uid)
+//                }
+//                dealResponse(awaitAll(playListAsync, personalFMAsync))
+//           }
         }
     }
+
 
     override fun onSuccess(responses: List<BaseResult>) {
         super.onSuccess(responses)

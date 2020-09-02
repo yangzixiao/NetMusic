@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/Theme.MaterialComponents"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/smartRefreshLayout"
     android:layout_width="match_parent"
+    android:background="@color/colorGreyBackground"
     android:layout_height="match_parent">
 
 
@@ -15,7 +17,7 @@
         <com.yzx.lib_base.widget.MaskImageView
             android:id="@+id/ivBackground"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="170dp"
             android:scaleType="centerCrop"
             tools:background="@drawable/cbh" />
 
@@ -42,30 +44,30 @@
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
+                    android:alpha="0"
+                    android:background="@color/colorWhite"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/toolBarHeight"
                     app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <TableLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="@color/colorTransparent">
+                android:layout_height="40dp"
+                app:tabIndicator="@drawable/tab_indicator"
+                app:tabIndicatorColor="@color/colorRed"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="2dp"
+                app:tabSelectedTextColor="@color/colorTabSelected"
+                app:tabTextColor="@color/colorTabNormal" />
 
-                <com.noober.background.view.BLImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:bl_corners_topLeftRadius="10dp"
-                    app:bl_corners_topRightRadius="10dp"
-                    app:bl_solid_color="@color/colorWhite" />
-
-            </TableLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="@dimen/dim_5"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,28 +76,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:spanCount="2"
             tools:listitem="@layout/item_playlist" />
-
-
-        <TextView
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="@dimen/edg"
-            android:background="@color/colorRed"
-            android:text="添加"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/mSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:layout_margin="30dp"
-            android:background="@color/colorRed"
-            android:padding="@dimen/dim_10"
-            android:text="登录/退出登录" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

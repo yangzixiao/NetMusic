@@ -78,6 +78,8 @@
     </style>
 
 
+
+<!--    ShapeImageView-->
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>
@@ -99,6 +101,23 @@
         <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.CornerSize3</item>
 
+    </style>
+
+
+    <style name="MaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="background">@color/colorTransparent</item>
+        <item name="strokeColor">@color/colorBlack</item>
+        <item name="strokeWidth">@dimen/dim_stroke_width</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
     </style>
 
 </resources>

@@ -6,4 +6,10 @@
     <string name="MyRadio">我的电台</string>
     <string name="MyCollection">我的收藏</string>
     <string name="FocusNew">关注新歌</string>
+    <string name="LoginNow">立即登录</string>
+    <string name="MyFavoriteMusic">我喜爱的音乐</string>
+    <string name="LoveModel">心动模式</string>
+    <string name="CreatePlayList">创建歌单</string>
+    <string name="CollectPlayList">收藏歌单</string>
+    <string name="RecommondPlayList">推荐歌单</string>
 </resources>

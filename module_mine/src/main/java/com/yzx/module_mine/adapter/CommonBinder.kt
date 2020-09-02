@@ -5,7 +5,7 @@ import com.multitype.adapter.binder.MultiTypeBinder
 import com.yzx.module_mine.R
 import com.yzx.module_mine.databinding.ItemTitleRecyclerviewBinding
 
-abstract class CommonBinder(var titles: List<String>) :
+abstract class CommonBinder(private var titles: List<String>) :
     MultiTypeBinder<ItemTitleRecyclerviewBinding>() {
     override fun layoutId(): Int = R.layout.item_title_recyclerview
 

@@ -12,6 +12,9 @@
     <dimen name="dim_textsize_10">10sp</dimen>
     <dimen name="dim_textsize_12">12sp</dimen>
     <dimen name="dim_red_point_size">5dp</dimen>
-    <dimen name="dim_round_image_corner">3dp</dimen>
     <dimen name="dim_stroke_width">1px</dimen>
+
+    <!--    corner-->
+    <dimen name="dim_round_image_corner">3dp</dimen>
+    <dimen name="dim_round_layout_corner">6dp</dimen>
 </resources>
