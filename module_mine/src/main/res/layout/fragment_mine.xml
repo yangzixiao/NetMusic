@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/smartRefreshLayout"
     android:layout_width="match_parent"
-    android:background="@color/colorGreyBackground"
+    android:background="@color/colorBackground"
     android:layout_height="match_parent">
 
 
@@ -60,6 +60,7 @@
                 app:tabIndicatorColor="@color/colorRed"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorHeight="2dp"
+                app:tabTextAppearance="@style/TabLayout"
                 app:tabSelectedTextColor="@color/colorTabSelected"
                 app:tabTextColor="@color/colorTabNormal" />
 

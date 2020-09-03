@@ -6,12 +6,14 @@ import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.material.imageview.ShapeableImageView;
+
 /**
  * @author yzx
  * @date 2020/7/15
  * Description
  */
-public class MaskImageView extends androidx.appcompat.widget.AppCompatImageView {
+public class MaskImageView extends ShapeableImageView {
 
     private int maskColor=0x00000000;
 

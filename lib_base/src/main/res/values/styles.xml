@@ -89,6 +89,9 @@
         <item name="cornerSize">@dimen/dim_round_image_corner</item>
     </style>
 
+    <style name="TabLayout">
+        <item name="android:textSize">@dimen/dim_textsize_16</item>
+    </style>
 
     <style name="CircleShapeImageView" parent="Widget.MaterialComponents.ShapeableImageView">
         <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
@@ -106,7 +109,6 @@
 
     <style name="MaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="background">@color/colorTransparent</item>
-        <item name="strokeColor">@color/colorBlack</item>
         <item name="strokeWidth">@dimen/dim_stroke_width</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>

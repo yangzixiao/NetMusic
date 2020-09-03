@@ -1,8 +1,8 @@
 package com.yzx.module_mine.ui
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +28,7 @@ import com.yzx.lib_base.ext.getColor
 import com.yzx.lib_base.ext.gone
 import com.yzx.lib_base.ext.visible
 import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
+import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
 import com.yzx.lib_base.utils.StatusUtils
@@ -55,13 +56,15 @@ class MineFragment : BaseFragment() {
         const val TAG = "MineFragment"
     }
 
+    //第一次更新不需要调研
+    private var needRefresh = false
     private lateinit var mineBinding: FragmentMineBinding
     private lateinit var mineAdapter: MultiTypeAdapter
+    private lateinit var userDataBean: UserDataBean
     private val binders = arrayListOf<MultiTypeBinder<*>>()
     private val layoutManager: LinearLayoutManager by lazy {
         LinearLayoutManager(context)
     }
-    private var userDataBean = userInfoLiveData.value!!
 
     private val viewModel: MineViewModel by viewModel()
 
@@ -84,14 +87,34 @@ class MineFragment : BaseFragment() {
             setupSwipeRefreshLayout()
             bindingRecyclerViewAndTabLayout(recyclerView, tabLayout)
         }
-        setupUserInfo()
-
+        userInfoLiveData.observe(viewLifecycleOwner, {
+            userDataBean = it
+            onUserStateChanged()
+            if (needRefresh) {
+                mineBinding.smartRefreshLayout.autoRefresh()
+            }
+            needRefresh = true
+        })
 
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
+            updateMyFavoriteMusic(it)
+
             mineBinding.smartRefreshLayout.finishRefresh()
         })
     }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateMyFavoriteMusic(minePagerData: MinePagerData) {
+        mineBinding.layoutMineHead.apply {
+            if (userDataBean.isLoggedIn) {
+                val playlistBean = minePagerData.playlist!![0]
+                GlideUtils.loadImg(playlistBean.coverImgUrl, ivMyFavorite)
+                tvMyFavoriteDes.text = "${playlistBean.trackCount}首"
+            }
+        }
+    }
+
 
     private fun bindingRecyclerViewAndTabLayout(recyclerView: RecyclerView, tabLayout: TabLayout) {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -116,23 +139,24 @@ class MineFragment : BaseFragment() {
 
     private fun getHeadMenuData(): MutableList<MineHeadMenuBean> {
         return mutableListOf(
-            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
-            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
-            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
-            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
-            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
-            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
-            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
-            MineHeadMenuBean(R.drawable.at2, R.string.CollectPlayList),
+            MineHeadMenuBean(R.drawable.ic_local_music, R.string.LocalMusic),
+            MineHeadMenuBean(R.drawable.ic_net_pan, R.string.NetPan),
+            MineHeadMenuBean(R.drawable.ic_havd_buy, R.string.HadBuy),
+            MineHeadMenuBean(R.drawable.ic_recent_play, R.string.RecentPlay),
+            MineHeadMenuBean(R.drawable.ic_my_focus, R.string.MyFocus),
+            MineHeadMenuBean(R.drawable.ic_collect, R.string.CollectionAndLike),
+            MineHeadMenuBean(R.drawable.ic_my_radio, R.string.MyRadio),
+            MineHeadMenuBean(R.drawable.ic_add, R.string.MusicApp),
         )
     }
 
-    private fun initTabLayout() {
+    private fun updateTabLayout() {
         val tabTitles = if (userDataBean.isLoggedIn) arrayListOf(
             R.string.CreatePlayList,
             R.string.CollectPlayList
         ) else arrayListOf(R.string.RecommondPlayList)
         val tabLayout = mineBinding.tabLayout
+        tabLayout.removeAllTabs()
         tabTitles.forEachIndexed { index, title ->
             val newTab = tabLayout.newTab()
             newTab.setText(title)
@@ -150,11 +174,7 @@ class MineFragment : BaseFragment() {
      */
     override fun lazyLoad() {
         super.lazyLoad()
-        userInfoLiveData.observe(viewLifecycleOwner, {
-            Log.i(TAG, "lazyLoad: ${it.nickName}")
-            userDataBean = it
-            onUserStateChanged()
-        })
+        mineBinding.smartRefreshLayout.autoRefresh()
     }
 
     /**
@@ -162,22 +182,29 @@ class MineFragment : BaseFragment() {
      */
     private fun onUserStateChanged() {
         setupUserInfo()
-        initTabLayout()
-        mineBinding.smartRefreshLayout.apply {
-            setOnRefreshListener {
-                if (userDataBean.isLoggedIn) {
-                    viewModel.getMinePagerData(userDataBean.uid.toString())
-                } else {
-                    viewModel.getMinePagerData()
-                }
+        updateOnNotLogin()
+        updateTabLayout()
+    }
+
+    private fun updateOnNotLogin() {
+        if (!userDataBean.isLoggedIn) {
+            mineBinding.layoutMineHead.apply {
+                GlideUtils.simpleLoadImg(null, ivMyFavorite)
+                tvMyFavoriteDes.text = "0首"
             }
-            autoRefresh()
+        }
+    }
+
+    private fun getMinePagerData() {
+        if (userDataBean.isLoggedIn) {
+            viewModel.getMinePagerData(userDataBean.uid.toString())
+        } else {
+            viewModel.getMinePagerData()
         }
     }
 
     private fun setupData(minePagerData: MinePagerData) {
         binders.clear()
-
         if (minePagerData.recommendPlaylist == null) {
             val playlist = minePagerData.playlist
             val createPlayListBinders = arrayListOf<ItemPlayListBinder>()
@@ -216,12 +243,15 @@ class MineFragment : BaseFragment() {
 
 
     /**
-     * 设置SmartRefreshLayout头布局
+     * 设置SmartRefreshLayout
      */
     private fun FragmentMineBinding.setupSwipeRefreshLayout() {
         val materialHeader = MaterialHeader(context)
         materialHeader.setColorSchemeResources(R.color.colorRed)
         smartRefreshLayout.setRefreshHeader(materialHeader as RefreshHeader)
+        smartRefreshLayout.setOnRefreshListener {
+            getMinePagerData()
+        }
     }
 
 
@@ -264,7 +294,7 @@ class MineFragment : BaseFragment() {
                 DrawableCreator.Builder().setGradientAngle(90)
                     .setGradientColor(
                         getColor(R.color.colorTransparent),
-                        ColorUtils.getColorByAlpha(handledColor, 0.3f)
+                        ColorUtils.getColorByAlpha(handledColor, 0.5f)
                     )
                     .build()
             )

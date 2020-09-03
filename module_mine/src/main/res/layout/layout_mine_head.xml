@@ -40,10 +40,10 @@
         app:layout_constraintTop_toTopOf="@id/ivHead" />
 
     <LinearLayout
-        android:layout_marginEnd="@dimen/edg"
         android:id="@+id/llUserInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/edg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/ivHead"
@@ -79,7 +79,7 @@
                 android:textSize="@dimen/dim_textsize_10"
                 android:textStyle="bold|italic"
                 app:bl_corners_radius="10dp"
-                app:bl_solid_color="#33ffffff"
+                app:bl_solid_color="@color/colorBackgroundWhite"
                 tools:layout_editor_absoluteX="143dp"
                 tools:layout_editor_absoluteY="96dp"
                 tools:text="LV.9" />
@@ -95,19 +95,19 @@
 
 
     <com.yzx.lib_base.widget.bl.BLRecyclerView
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:itemCount="4"
-        app:spanCount="2"
-        tools:listitem="@layout/item_mine_head_menu"
         android:id="@+id/rv_mine_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/edg"
         android:padding="@dimen/dim_10"
         app:bl_corners_radius="@dimen/dim_round_layout_corner"
-        app:bl_solid_color="@color/colorWhite"
+        app:bl_solid_color="@color/colorBackgroundWhite"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivHead" />
+        app:layout_constraintTop_toBottomOf="@id/ivHead"
+        app:spanCount="2"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_mine_head_menu" />
 
 
     <com.noober.background.view.BLLinearLayout
@@ -117,15 +117,30 @@
         android:gravity="center_vertical"
         android:padding="@dimen/dim_10"
         app:bl_corners_radius="@dimen/dim_round_layout_corner"
-        app:bl_solid_color="@color/colorWhite"
+        app:bl_solid_color="@color/colorBackgroundWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_mine_menu">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            style="@style/RoundShapeImageView"
+        <FrameLayout
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@color/colorRed" />
+            android:layout_height="60dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivMyFavorite"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                style="@style/RoundShapeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color30Red"
+                android:scaleType="center"
+                android:src="@drawable/ic_like"
+                app:tint="@color/colorRed" />
+        </FrameLayout>
+
 
         <LinearLayout
             android:layout_width="0dp"
@@ -141,7 +156,7 @@
                 android:textColor="@color/colorTitle" />
 
             <TextView
-                android:id="@+id/tvDes"
+                android:id="@+id/tvMyFavoriteDes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_5"
@@ -162,11 +177,12 @@
             android:paddingBottom="5dp"
             android:text="@string/LoveModel"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/dim_textsize_12"
+            android:textSize="@dimen/dim_textsize_10"
             app:cornerRadius="50dp"
-            app:icon="@drawable/iv_next"
+            app:icon="@drawable/ic_heart_model"
             app:iconPadding="@dimen/dim_5"
-            app:iconTint="@color/colorRed" />
+            app:iconTint="@color/colorRed"
+            app:strokeColor="@color/colorStrokeColor" />
 
 
     </com.noober.background.view.BLLinearLayout>

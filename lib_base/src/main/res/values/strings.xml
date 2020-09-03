@@ -6,4 +6,7 @@
     <string name="jscw">数据解析错误，这是一个意料之外的bug</string>
     <string name="wzcw">哎呀，碰到一个莫名其妙的错误</string>
     <string name="loading">加载中...</string>
+    <string name="NetPan">云盘</string>
+    <string name="RecentPlay">最近播放</string>
+    <string name="MyFocus">我的关注</string>
 </resources>

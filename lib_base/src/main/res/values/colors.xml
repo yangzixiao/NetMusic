@@ -12,10 +12,21 @@
     <color name="colorRedPoint">@color/colorRed</color>
 
 
-    <color name="colorTitle">#000000</color>
-    <color name="colorSubTitle">#2C2929</color>
+    <color name="colorTitle">#323232</color>
+    <color name="colorSubTitle">#7B7B7B</color>
+    <color name="colorTitleLight">#636363</color>
 
-    <color name="colorTabSelected">#000000</color>
-    <color name="colorTabNormal">#212121</color>
+    <color name="colorTabSelected">#323232</color>
+    <color name="colorTabNormal">#636363</color>
+
+
     <color name="colorGreyBackground">#11000000</color>
+    <color name="color30Red">#33ff0000</color>
+
+
+    <color name="colorBackground">#F8F8F8</color>
+    <color name="colorBackgroundWhite">#ffffff</color>
+    <color name="colorIconTintGrey">#B3B3B3</color>
+    <color name="colorStrokeColor">#B3B3B3</color>
+
 </resources>

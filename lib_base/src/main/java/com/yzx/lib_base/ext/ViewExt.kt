@@ -2,6 +2,8 @@ package com.yzx.lib_base.ext
 
 import android.view.View
 import android.widget.EditText
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 
 /**
  * 获取EdiText内容
@@ -28,4 +30,9 @@ fun View.invisible() {
  */
 fun View.gone() {
     visibility = View.GONE
+}
+
+fun View.getColor(@ColorRes colorRes: Int): Int {
+    return if (context == null) 0x00000000
+    else ContextCompat.getColor(context!!, colorRes)
 }

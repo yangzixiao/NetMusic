@@ -12,4 +12,7 @@
     <string name="CreatePlayList">创建歌单</string>
     <string name="CollectPlayList">收藏歌单</string>
     <string name="RecommondPlayList">推荐歌单</string>
+    <string name="HadBuy">已购</string>
+    <string name="CollectionAndLike">收藏和赞</string>
+    <string name="MusicApp">音乐应用</string>
 </resources>

@@ -15,14 +15,15 @@
         style="@style/CircleShapeImageView"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:srcCompat="@color/colorRed" />
+        app:srcCompat="@color/colorRed"
+        app:tint="@color/colorRed" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dim_5"
-        android:textColor="@color/colorSubTitle"
+        android:textColor="@color/colorTitleLight"
         android:textSize="@dimen/dim_textsize_12"
         tools:text="标题biaoti" />
 
