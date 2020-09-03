@@ -2,15 +2,18 @@ package com.yzx.module_mine.ui
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
+import com.google.android.material.tabs.TabLayout
 import com.multitype.adapter.MultiTypeAdapter
 import com.multitype.adapter.binder.MultiTypeBinder
 import com.multitype.adapter.createMultiTypeAdapter
@@ -55,6 +58,9 @@ class MineFragment : BaseFragment() {
     private lateinit var mineBinding: FragmentMineBinding
     private lateinit var mineAdapter: MultiTypeAdapter
     private val binders = arrayListOf<MultiTypeBinder<*>>()
+    private val layoutManager: LinearLayoutManager by lazy {
+        LinearLayoutManager(context)
+    }
     private var userDataBean = userInfoLiveData.value!!
 
     private val viewModel: MineViewModel by viewModel()
@@ -69,20 +75,34 @@ class MineFragment : BaseFragment() {
     }
 
     private fun initView() {
-
+        mineAdapter =
+            createMultiTypeAdapter(mineBinding.recyclerView, layoutManager)
         mineBinding.apply {
             initToolBar()
             initHeadMenu()
             setAppBarLayoutScrollListener()
             setupSwipeRefreshLayout()
+            bindingRecyclerViewAndTabLayout(recyclerView, tabLayout)
         }
         setupUserInfo()
-        mineAdapter =
-            createMultiTypeAdapter(mineBinding.recyclerView, LinearLayoutManager(context))
+
 
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
             mineBinding.smartRefreshLayout.finishRefresh()
+        })
+    }
+
+    private fun bindingRecyclerViewAndTabLayout(recyclerView: RecyclerView, tabLayout: TabLayout) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val findFirstVisibleItemPosition =
+                    layoutManager.findFirstVisibleItemPosition()
+                tabLayout.setScrollPosition(findFirstVisibleItemPosition, 0f, true)
+
+            }
         })
     }
 
@@ -113,9 +133,16 @@ class MineFragment : BaseFragment() {
             R.string.CollectPlayList
         ) else arrayListOf(R.string.RecommondPlayList)
         val tabLayout = mineBinding.tabLayout
-        tabTitles.forEach {
-            tabLayout.addTab(tabLayout.newTab().setText(it))
+        tabTitles.forEachIndexed { index, title ->
+            val newTab = tabLayout.newTab()
+            newTab.setText(title)
+            newTab.view.setOnClickListener {
+                mineBinding.appBarLayout.setExpanded(false)
+                layoutManager.scrollToPositionWithOffset(index, 0)
+            }
+            tabLayout.addTab(newTab)
         }
+
     }
 
     /**
@@ -124,6 +151,7 @@ class MineFragment : BaseFragment() {
     override fun lazyLoad() {
         super.lazyLoad()
         userInfoLiveData.observe(viewLifecycleOwner, {
+            Log.i(TAG, "lazyLoad: ${it.nickName}")
             userDataBean = it
             onUserStateChanged()
         })
