@@ -111,6 +111,9 @@ class MineFragment : BaseFragment() {
                 val playlistBean = minePagerData.playlist!![0]
                 GlideUtils.loadImg(playlistBean.coverImgUrl, ivMyFavorite)
                 tvMyFavoriteDes.text = "${playlistBean.trackCount}首"
+                llMyFavorite.setOnClickListener {
+                    ARouterNavUtils.navToPlayListDetails(playlistBean.id)
+                }
             }
         }
     }

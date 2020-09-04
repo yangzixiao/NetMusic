@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.multitype.adapter.binder.MultiTypeBinder
 import com.multitype.adapter.createMultiTypeAdapter
+import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_mine.R
@@ -42,19 +43,27 @@ class ItemPlayListBinder(var playlistBean: Any) : MultiTypeBinder<ItemPlaylistBi
     override fun onBindViewHolder(binding: ItemPlaylistBinding) {
         super.onBindViewHolder(binding)
 
+        var playListId = 0L
         //我的歌单数据
         if (playlistBean is PlaylistBean) {
             (playlistBean as PlaylistBean).apply {
                 GlideUtils.loadImg(coverImgUrl, binding.ivSongSheetPost)
                 binding.tvTitle.text = name
-                binding.tvSubTitle.text =  if (creator.userId== UserInfoManager.userInfoLiveData.value!!.uid) "${trackCount}首" else "${trackCount}首 by ${creator.nickname}"
+                binding.tvSubTitle.text =
+                    if (creator.userId == UserInfoManager.userInfoLiveData.value!!.uid) "${trackCount}首" else "${trackCount}首 by ${creator.nickname}"
+                playListId = id
             }
         } else if (playlistBean is Result) {//推荐歌单数据
             (playlistBean as Result).apply {
                 GlideUtils.loadImg(picUrl, binding.ivSongSheetPost)
                 binding.tvTitle.text = name
                 binding.tvSubTitle.text = "推荐歌单"
+                playListId=id
             }
+        }
+
+        binding.root.setOnClickListener {
+            ARouterNavUtils.navToPlayListDetails(playListId)
         }
 
 

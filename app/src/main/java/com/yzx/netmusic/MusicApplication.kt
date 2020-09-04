@@ -10,6 +10,7 @@ import com.yzx.lib_base.app.AppConfig
 import com.yzx.lib_base.app.BaseApplication
 import com.yzx.lib_base.app.MusicCommonApplication
 import com.yzx.lib_base.di.networkModule
+import com.yzx.lib_base.manager.AppManager
 import com.yzx.lib_base.utils.LogUtils
 import com.yzx.module_login.di.loginModule
 import com.yzx.module_mine.di.mineModule
@@ -59,7 +60,7 @@ class MusicApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
+        AppManager.init(this)
         startKoin {
             androidLogger()
             androidContext(this@MusicApplication)

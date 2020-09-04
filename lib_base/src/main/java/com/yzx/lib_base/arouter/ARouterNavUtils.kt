@@ -23,15 +23,28 @@ object ARouterNavUtils {
      * 跳转
      */
     fun getPostcard(path: String): Postcard {
-       return ARouter.getInstance().build(path)
+        return ARouter.getInstance().build(path)
     }
 
 
     /**
      * 根据路径获取Fragment
      */
-    fun getFragment(path: String) :Fragment{
+    fun getFragment(path: String): Fragment {
 
         return ARouter.getInstance().build(path).navigation() as Fragment
+    }
+
+    /**
+     * 跳转到歌单详情
+     */
+    fun navToPlayListDetails(playListId: Long) {
+        if (playListId <= 0) {
+            return
+        }
+        getPostcard(ARouterPath.COMMON_PLAYLIST_DETAIL).withLong(
+            ArouterNavKey.KEY_PLAYLIST_ID,
+            playListId
+        ).navigation()
     }
 }

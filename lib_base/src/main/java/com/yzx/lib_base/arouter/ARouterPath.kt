@@ -28,4 +28,10 @@ object ARouterPath {
      */
 
     const val FRAGMENT_MINE="/mine/main"
+
+    //module_common
+    /**
+     * 歌单详情
+     */
+    const val COMMON_PLAYLIST_DETAIL="/common/playListDetail"
 }
