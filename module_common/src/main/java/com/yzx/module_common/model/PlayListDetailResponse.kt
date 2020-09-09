@@ -42,7 +42,7 @@ data class Playlist(
     val trackIds: List<TrackId>,
     val trackNumberUpdateTime: Long,
     val trackUpdateTime: Long,
-    val tracks: List<Track>,
+    var tracks: List<Track>,
     val updateFrequency: Any,
     val updateTime: Long,
     val userId: Long
@@ -117,56 +117,21 @@ data class TrackId(
     val v: Long
 )
 
-data class Track(
-    val a: Any,
-    val al: Al,
-    val alia: List<Any>,
-    val ar: List<Ar>,
-    val cd: String,
-    val cf: String,
-    val copyright: Long,
-    val cp: Long,
-    val crbt: Any,
-    val djId: Long,
-    val dt: Long,
-    val fee: Long,
-    val ftype: Long,
-    val id: Long,
 
-    val mark: Long,
-    val mst: Long,
-    val mv: Long,
-    val name: String,
-    val no: Long,
-    val noCopyrightRcmd: Any,
-    val originCoverType: Long,
-    val pop: Long,
-    val pst: Long,
-    val publishTime: Long,
-    val rt: String,
-    val rtUrl: Any,
-    val rtUrls: List<Any>,
-    val rtype: Long,
-    val rurl: Any,
-    val s_id: Long,
-    val st: Long,
-    val t: Long,
-    val v: Long
-)
 
-data class Al(
-    val id: Long,
-    val name: String,
-    val pic: Long,
-    val picUrl: String,
-    val pic_str: String,
-    val tns: List<Any>
-)
-
-data class Ar(
-    val alias: List<Any>,
-    val id: Long,
-    val name: String,
-    val tns: List<Any>
-)
+//data class Al(
+//    val id: Long,
+//    val name: String,
+//    val pic: Long,
+//    val picUrl: String,
+//    val pic_str: String,
+//    val tns: List<Any>
+//)
+//
+//data class Ar(
+//    val alias: List<Any>,
+//    val id: Long,
+//    val name: String,
+//    val tns: List<Any>
+//)
 

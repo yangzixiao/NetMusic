@@ -9,11 +9,41 @@ import kotlinx.coroutines.launch
 class PlayListDetailViewModel(private val playListDetailRepository: PlayListDetailRepository) :
     BaseViewModel() {
 
+    private val ids = StringBuilder()
     val playListDetailLiveData = MutableLiveData<PlayListDetailResponse>()
 
     fun getPlayListDetail(id: Long) {
         viewModelScope.launch(coroutineExceptionHandler) {
-            playListDetailLiveData.value = playListDetailRepository.getPlayListDetail(id)
+            val playListDetail = playListDetailRepository.getPlayListDetail(id)
+            if (playListDetail.code == 200) {
+                if (playListDetail.playlist.trackCount <= 10) {
+                    playListDetailLiveData.value = playListDetail
+                } else {
+                    getAllSongsByIds(playListDetail)
+                }
+            } else {
+                onFail(playListDetail.message)
+            }
+        }
+    }
+
+    private suspend fun getAllSongsByIds(playListDetail: PlayListDetailResponse) {
+
+        ids.clear()
+        val trackIds = playListDetail.playlist.trackIds
+        trackIds.forEachIndexed { index, trackId ->
+            ids.append(trackId.id)
+            if (trackIds.lastIndex != index) {
+                ids.append(",")
+            }
+        }
+
+        val playListSongsResponse = playListDetailRepository.getPlayListDetail(ids.toString())
+        if (playListSongsResponse.code == 200) {
+            playListDetail.playlist.tracks = playListSongsResponse.songs
+            playListDetailLiveData.value = playListDetail
+        } else {
+            onFail(playListSongsResponse.message)
         }
     }
 

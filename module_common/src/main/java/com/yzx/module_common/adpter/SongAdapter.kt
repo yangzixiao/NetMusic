@@ -3,7 +3,7 @@ package com.yzx.module_common.adpter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yzx.module_common.R
-import com.yzx.module_common.model.Ar
+import com.yzx.module_common.model.PlayListSinger
 import com.yzx.module_common.model.Track
 
 class SongAdapter(songs: MutableList<Track>? = null) :
@@ -21,7 +21,7 @@ class SongAdapter(songs: MutableList<Track>? = null) :
         }
     }
 
-    private fun getSingers(ar: List<Ar>, albumName: String): String {
+    private fun getSingers(ar: List<PlayListSinger>, albumName: String): String {
         if (ar.isNullOrEmpty()) {
             return ""
         }
