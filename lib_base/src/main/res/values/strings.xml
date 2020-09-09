@@ -9,4 +9,6 @@
     <string name="NetPan">云盘</string>
     <string name="RecentPlay">最近播放</string>
     <string name="MyFocus">我的关注</string>
+    <string name="Search">搜索</string>
+    <string name="PlayList">歌单</string>
 </resources>

@@ -19,7 +19,7 @@ import org.koin.core.context.startKoin
  * @date 2020/3/30
  * Description
  */
-class MusicCommonApplication : BaseApplication() {
+ abstract class MusicCommonApplication : BaseApplication() {
     companion object {
         const val TAG = "MusicCommonApplication"
     }
@@ -75,6 +75,8 @@ class MusicCommonApplication : BaseApplication() {
 
         }
 
+        loadModules()
+
         val startTime = System.currentTimeMillis()
         LogUtils.e(TAG, "onCreateStartTime$startTime")
         MMKV.initialize(this)
@@ -90,4 +92,6 @@ class MusicCommonApplication : BaseApplication() {
         initModuleApp(this)
         initModuleData(this)
     }
+
+    abstract fun loadModules()
 }

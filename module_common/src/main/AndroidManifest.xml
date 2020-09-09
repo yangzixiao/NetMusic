@@ -3,6 +3,6 @@
 
     /
     <application>
-        <activity android:name=".PlayListDetailActivity" />
+        <activity android:name=".playlistdetail.PlayListDetailActivity" />
     </application>
 </manifest>

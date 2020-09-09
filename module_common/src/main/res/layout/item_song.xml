@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/edg"
+    android:paddingTop="@dimen/dim_10"
+    android:paddingEnd="@dimen/edg"
+    android:paddingBottom="@dimen/dim_10"
+    android:theme="@style/Theme.MaterialComponents">
+
+
+    <TextView
+        android:id="@+id/tvIndex"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:textColor="@color/colorTitleLight"
+        android:textSize="@dimen/dim_textsize_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="100" />
+
+
+    <TextView
+        android:layout_marginEnd="@dimen/dim_10"
+        android:id="@+id/tvSongName"
+        style="@style/SingleLine_End"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_10"
+        android:textColor="@color/colorTitle"
+        android:textSize="@dimen/dim_textsize_16"
+        app:layout_constraintBottom_toTopOf="@id/llSongInfo"
+        app:layout_constraintEnd_toStartOf="@id/ivMV"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tvIndex"
+        app:layout_constraintTop_toTopOf="@id/tvIndex"
+        tools:text="歌名歌名歌名歌名歌名歌名" />
+
+    <LinearLayout
+        android:layout_marginEnd="@dimen/dim_10"
+        android:id="@+id/llSongInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dim_5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/tvIndex"
+        app:layout_constraintEnd_toStartOf="@id/ivMV"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="@id/tvSongName"
+        app:layout_constraintTop_toBottomOf="@id/tvSongName">
+
+        <TextView
+            android:id="@+id/tvSongSinger"
+            style="@style/SingleLine_End"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorSubTitle"
+            android:textSize="@dimen/dim_textsize_12"
+            tools:text="杨" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivMore"
+        app:layout_constraintStart_toEndOf="@id/tvSongName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_like" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_like" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

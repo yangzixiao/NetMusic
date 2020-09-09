@@ -12,9 +12,12 @@
     <color name="colorRedPoint">@color/colorRed</color>
 
 
+<!--    title相关-->
     <color name="colorTitle">#323232</color>
     <color name="colorSubTitle">#7B7B7B</color>
     <color name="colorTitleLight">#636363</color>
+    <color name="colorWhiteTitle">@color/colorWhite</color>
+
 
     <color name="colorTabSelected">#323232</color>
     <color name="colorTabNormal">#636363</color>

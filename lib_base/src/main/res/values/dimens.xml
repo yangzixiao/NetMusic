@@ -17,4 +17,9 @@
     <!--    corner-->
     <dimen name="dim_round_image_corner">3dp</dimen>
     <dimen name="dim_round_layout_corner">6dp</dimen>
+
+
+    <dimen name="titleTextSize">16sp</dimen>
+    <dimen name="subTitleTextSize">16sp</dimen>
+    <dimen name="dim_0">0dp</dimen>
 </resources>

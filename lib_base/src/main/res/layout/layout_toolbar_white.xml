@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:gravity="center_vertical"
+    app:contentInsetStart="@dimen/dim_0"
+    app:contentInsetStartWithNavigation="@dimen/dim_0"
+    app:layout_collapseMode="pin"
+    app:navigationIcon="@drawable/bhu"
+    tools:background="@color/colorRed">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            tools:text="jdskajkfjsdkajfksdkdksjgkajg艰苦奋斗撒刚开始打发大水哥还是大哥还是打火锅"
+            android:id="@+id/tvTitle"
+            style="@style/StyleWhiteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</com.google.android.material.appbar.MaterialToolbar>

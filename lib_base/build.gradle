@@ -10,6 +10,14 @@ android {
             }
         }
     }
+    //    ViewBinding
+    viewBinding{
+        enabled = true
+    }
+    //DataBinding
+    buildFeatures {
+        dataBinding true
+    }
 }
 dependencies {
     implementation "androidx.fragment:fragment-ktx:1.2.5"
@@ -20,7 +28,7 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
-
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
     //palette
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'

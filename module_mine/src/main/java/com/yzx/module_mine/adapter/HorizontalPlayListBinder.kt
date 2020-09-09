@@ -44,6 +44,7 @@ class ItemPlayListBinder(var playlistBean: Any) : MultiTypeBinder<ItemPlaylistBi
         super.onBindViewHolder(binding)
 
         var playListId = 0L
+        var coverUrl = ""
         //我的歌单数据
         if (playlistBean is PlaylistBean) {
             (playlistBean as PlaylistBean).apply {
@@ -52,18 +53,20 @@ class ItemPlayListBinder(var playlistBean: Any) : MultiTypeBinder<ItemPlaylistBi
                 binding.tvSubTitle.text =
                     if (creator.userId == UserInfoManager.userInfoLiveData.value!!.uid) "${trackCount}首" else "${trackCount}首 by ${creator.nickname}"
                 playListId = id
+                coverUrl = coverImgUrl
             }
         } else if (playlistBean is Result) {//推荐歌单数据
             (playlistBean as Result).apply {
                 GlideUtils.loadImg(picUrl, binding.ivSongSheetPost)
                 binding.tvTitle.text = name
                 binding.tvSubTitle.text = "推荐歌单"
-                playListId=id
+                playListId = id
+                coverUrl=picUrl
             }
         }
 
         binding.root.setOnClickListener {
-            ARouterNavUtils.navToPlayListDetails(playListId)
+            ARouterNavUtils.navToPlayListDetails(playListId,coverUrl)
         }
 
 

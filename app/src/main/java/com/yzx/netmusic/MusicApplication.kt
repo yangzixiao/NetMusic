@@ -12,6 +12,7 @@ import com.yzx.lib_base.app.MusicCommonApplication
 import com.yzx.lib_base.di.networkModule
 import com.yzx.lib_base.manager.AppManager
 import com.yzx.lib_base.utils.LogUtils
+import com.yzx.module_common.di.commonModule
 import com.yzx.module_login.di.loginModule
 import com.yzx.module_mine.di.mineModule
 import org.koin.android.ext.koin.androidContext
@@ -66,7 +67,7 @@ class MusicApplication : BaseApplication() {
             androidContext(this@MusicApplication)
             androidFileProperties()
         }
-        loadKoinModules(listOf(networkModule, loginModule,mineModule))
+        loadKoinModules(listOf(networkModule, loginModule,mineModule,commonModule))
 
         MMKV.initialize(this)
 

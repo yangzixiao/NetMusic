@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams
-import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
 import com.google.android.material.tabs.TabLayout
 import com.multitype.adapter.MultiTypeAdapter
 import com.multitype.adapter.binder.MultiTypeBinder
@@ -25,6 +23,7 @@ import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseFragment
 import com.yzx.lib_base.ext.getColor
+import com.yzx.lib_base.ext.getToolBarSize
 import com.yzx.lib_base.ext.gone
 import com.yzx.lib_base.ext.visible
 import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
@@ -112,7 +111,7 @@ class MineFragment : BaseFragment() {
                 GlideUtils.loadImg(playlistBean.coverImgUrl, ivMyFavorite)
                 tvMyFavoriteDes.text = "${playlistBean.trackCount}首"
                 llMyFavorite.setOnClickListener {
-                    ARouterNavUtils.navToPlayListDetails(playlistBean.id)
+                    ARouterNavUtils.navToPlayListDetails(playlistBean.id, playlistBean.coverImgUrl)
                 }
             }
         }
@@ -324,11 +323,10 @@ class MineFragment : BaseFragment() {
      * 初始化toolbar
      */
     private fun FragmentMineBinding.initToolBar() {
-        toolbar.layoutParams.width
         toolbar.alpha = 0f
-        val layoutParams =
-            LayoutParams(-1, StatusUtils.getStateBarHeight(context) + dip2px(context, 64f))
-        layoutParams.collapseMode = COLLAPSE_MODE_PIN
+        val layoutParams = toolbar.layoutParams
+        layoutParams.height =
+            StatusUtils.getStateBarHeight(context) + requireContext().getToolBarSize()
         toolbar.layoutParams = layoutParams
     }
 }

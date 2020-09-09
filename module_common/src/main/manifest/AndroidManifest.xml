@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yzx.module_mine">
 
+
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:name=".app.ModuleMineApp"
+        android:name="com.yzx.module_common.app.ModuleCommonApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,8 +13,8 @@
         android:theme="@style/AppTheme.NoTitle">
 
         <activity
-            android:name=".MineMainActivity"
-            android:theme="@style/AppTheme.Launcher">
+            android:name="com.yzx.module_common.playlistdetail.PlayListDetailActivity"
+            android:theme="@style/AppTheme.NoTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
