@@ -1,87 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundWhite"
     tools:theme="@style/Theme.MaterialComponents">
 
 
+    <com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
+        android:id="@+id/qMUINestScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout>
     <com.yzx.lib_base.widget.MaskImageView
-        android:id="@+id/ivBackground"
+        android:alpha="0"
+        android:id="@+id/ivToolbarBackground"
         android:layout_width="match_parent"
-        android:layout_height="340dp"
-        android:scaleType="centerCrop" />
+        android:layout_height="@dimen/toolBarHeight"
+        android:scaleType="centerCrop"
+        android:src="@color/colorRed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/layoutToolBar"
+        layout="@layout/layout_toolbar_white" />
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/colorTransparent"-->
+<!--        android:elevation="0dp"-->
+<!--        app:elevation="0dp">-->
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorTransparent"
-        android:elevation="0dp"
-        app:elevation="0dp">
+<!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
+<!--            android:id="@+id/collapsingToolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+<!--            app:titleEnabled="false">-->
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="false">
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="300dp">-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="300dp">
+<!--                <com.google.android.material.imageview.ShapeableImageView-->
 
-                <com.google.android.material.imageview.ShapeableImageView
+<!--                    android:id="@+id/ivPoster"-->
+<!--                    style="@style/RoundShapeImageView"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_marginStart="@dimen/edg"-->
+<!--                    android:layout_marginTop="100dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    tools:src="@color/colorImg" />-->
 
-                    android:id="@+id/ivPoster"
-                    style="@style/RoundShapeImageView"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="@dimen/edg"
-                    android:layout_marginTop="100dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@color/colorImg" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <include
-                android:id="@+id/layoutToolBar"
-                layout="@layout/layout_toolbar_white" />
-
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
-        <FrameLayout
-            android:id="@+id/layout_playlist_info"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            tools:background="@color/colorRed">
+<!--            <include-->
+<!--                android:id="@+id/layoutToolBar"-->
+<!--                layout="@layout/layout_toolbar_white" />-->
 
 
-            <com.noober.background.view.BLLinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                app:bl_corners_topLeftRadius="20dp"
-                app:bl_corners_topRightRadius="20dp"
-                app:bl_solid_color="@color/colorWhite">
-
-            </com.noober.background.view.BLLinearLayout>
-        </FrameLayout>
+<!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
 
 
-    </com.google.android.material.appbar.AppBarLayout>
+<!--        <FrameLayout-->
+<!--            android:id="@+id/layout_playlist_info"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/dp_40"-->
+<!--            tools:background="@color/colorRed">-->
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+<!--            <com.noober.background.view.BLLinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:bl_corners_topLeftRadius="20dp"-->
+<!--                app:bl_corners_topRightRadius="20dp"-->
+<!--                app:bl_solid_color="@color/colorWhite">-->
+
+<!--            </com.noober.background.view.BLLinearLayout>-->
+<!--        </FrameLayout>-->
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />-->
+
+
+</FrameLayout>

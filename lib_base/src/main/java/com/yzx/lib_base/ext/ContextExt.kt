@@ -17,11 +17,11 @@ fun Context.toast(@StringRes msg: Int) {
 }
 
 @SuppressLint("Recycle")
-fun Context.getToolBarSize(): Int {
-
-
+fun Context.getDefaultToolbarHeight(): Int {
     val actionbarSizeTypedArray: TypedArray =
         obtainStyledAttributes(intArrayOf(R.attr.actionBarSize))
-//    actionbarSizeTypedArray.recycle()
     return actionbarSizeTypedArray.getDimension(0, 0f).toInt()
+}
+fun Context.getDefaultStatusAndToolbarHeight(): Int {
+    return getDefaultStatusHeight() + getDefaultToolbarHeight()
 }

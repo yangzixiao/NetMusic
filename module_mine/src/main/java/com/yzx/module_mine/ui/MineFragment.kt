@@ -23,14 +23,13 @@ import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseFragment
 import com.yzx.lib_base.ext.getColor
-import com.yzx.lib_base.ext.getToolBarSize
+import com.yzx.lib_base.ext.getDefaultStatusAndToolbarHeight
 import com.yzx.lib_base.ext.gone
 import com.yzx.lib_base.ext.visible
 import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
 import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
-import com.yzx.lib_base.utils.StatusUtils
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_mine.R
 import com.yzx.module_mine.adapter.HorizontalPlayListBinder
@@ -326,7 +325,7 @@ class MineFragment : BaseFragment() {
         toolbar.alpha = 0f
         val layoutParams = toolbar.layoutParams
         layoutParams.height =
-            StatusUtils.getStateBarHeight(context) + requireContext().getToolBarSize()
+            requireContext().getDefaultStatusAndToolbarHeight()
         toolbar.layoutParams = layoutParams
     }
 }

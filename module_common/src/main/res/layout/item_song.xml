@@ -8,6 +8,7 @@
     android:paddingTop="@dimen/dim_10"
     android:paddingEnd="@dimen/edg"
     android:paddingBottom="@dimen/dim_10"
+    android:background="@color/colorBackgroundWhite"
     android:theme="@style/Theme.MaterialComponents">
 
 

@@ -8,7 +8,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.yzx.lib_base.BaseBottomSongInfoActivity
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath
-import com.yzx.lib_base.utils.StatusUtils
+import com.yzx.lib_base.ext.getDefaultStatusHeight
 import com.yzx.module_main.adapter.MainFragmentPagerAdapter
 import com.yzx.module_main.databinding.ActivityMainBinding
 import com.yzx.module_main.test.DiscoverFragment
@@ -44,7 +44,7 @@ class MainActivity : BaseBottomSongInfoActivity() {
 
 
         mainBinding.ivStatusView.layoutParams =
-            AppBarLayout.LayoutParams(-1, StatusUtils.getStateBarHeight(this))
+            AppBarLayout.LayoutParams(-1, getDefaultStatusHeight())
         setContentView(mainBinding.root)
         setTransparentStatus()
         setupViewPagerAndIndicator()

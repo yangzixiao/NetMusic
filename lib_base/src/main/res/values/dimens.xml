@@ -22,4 +22,5 @@
     <dimen name="titleTextSize">16sp</dimen>
     <dimen name="subTitleTextSize">16sp</dimen>
     <dimen name="dim_0">0dp</dimen>
+    <dimen name="dim_margin_padding_10">10dp</dimen>
 </resources>

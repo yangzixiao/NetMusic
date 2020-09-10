@@ -2,15 +2,15 @@ package com.yzx.module_common.adpter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.yzx.module_common.R
 import com.yzx.module_common.model.PlayListSinger
 import com.yzx.module_common.model.Track
-import com.yzx.module_mine.R
 
 
 class SongAdapter(songs: MutableList<Track>? = null) :
     BaseQuickAdapter<Track, BaseViewHolder>(R.layout.item_song, data = songs) {
 
-    val stringBuilder = StringBuilder()
+    private val stringBuilder = StringBuilder()
     override fun convert(holder: BaseViewHolder, item: Track) {
 
 

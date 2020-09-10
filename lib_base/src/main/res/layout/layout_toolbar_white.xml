@@ -10,19 +10,21 @@
     app:contentInsetStartWithNavigation="@dimen/dim_0"
     app:layout_collapseMode="pin"
     app:navigationIcon="@drawable/bhu"
-    tools:background="@color/colorRed">
+    tools:background="@color/colorRed"
+    tools:layout_height="@dimen/toolBarHeight">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
-            tools:text="jdskajkfjsdkajfksdkdksjgkajg艰苦奋斗撒刚开始打发大水哥还是大哥还是打火锅"
             android:id="@+id/tvTitle"
             style="@style/StyleWhiteTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="jdskajkfjsdkajfksdkdksjgkajg艰苦奋斗撒刚开始打发大水哥还是大哥还是打火锅" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 

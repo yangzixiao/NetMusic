@@ -1,44 +1,51 @@
 package com.yzx.module_common.playlistdetail
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.google.android.material.appbar.AppBarLayout
+import com.qmuiteam.qmui.kotlin.matchParent
+import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomAreaBehavior
+import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
-import com.yzx.lib_base.ext.dp
-import com.yzx.lib_base.ext.getToolBarSize
-import com.yzx.lib_base.ext.toast
-import com.yzx.lib_base.utils.StatusUtils
+import com.yzx.lib_base.ext.*
 import com.yzx.lib_base.utils.glide.GlideUtils
-import com.yzx.module_common.adpter.SongAdapter
+import com.yzx.module_common.PlayListBottomLayout
+import com.yzx.module_common.databinding.ActivityPlayListDetailBinding
 import com.yzx.module_common.model.PlayListDetailResponse
-import com.yzx.module_mine.databinding.ActivityPlayListDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.abs
 
 
 @Route(path = ARouterPath.COMMON_PLAYLIST_DETAIL)
 class PlayListDetailActivity : BaseActivity() {
 
     private var isRequestFinished = false
-    private lateinit var toolbarTitle: String
+    private lateinit var playListName: String
     private var playListId: Long = 0
     private val playListViewModel: PlayListDetailViewModel by viewModel()
+    private lateinit var mBottomDelegateLayout: PlayListBottomLayout
     private lateinit var binding: ActivityPlayListDetailBinding
-    private val songAdapter by lazy {
-        SongAdapter()
+    private var headViewHeight = 0
+
+    init {
+        e("init")
     }
+
+    private var toolbarHeight: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        e("onCreate")
         binding = ActivityPlayListDetailBinding.inflate(layoutInflater)
+
+        toolbarHeight = getDefaultStatusAndToolbarHeight()
+
         setContentView(binding.root)
         setTransparentStatus()
         setStatusWhiteFont()
-        doPrepareJob()
         initView()
+        doPrepareJob()
 //        initViewModel(playListViewModel)
         playListViewModel.playListDetailLiveData.observe(this, {
             setupData(it)
@@ -48,6 +55,7 @@ class PlayListDetailActivity : BaseActivity() {
             return
         }
         playListViewModel.getPlayListDetail(playListId)
+
     }
 
     private fun doPrepareJob() {
@@ -57,61 +65,104 @@ class PlayListDetailActivity : BaseActivity() {
             poserUrl = "http://p2.music.126.net/riTPchA1nKsc6Z6MAbQovQ==/109951165273665158.jpg"
         }
         playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 719322762)
-        GlideUtils.loadDrawable(poserUrl, binding.ivBackground, 100, 10)
-        GlideUtils.loadImg(poserUrl, binding.ivPoster)
+        mBottomDelegateLayout.updateCover(poserUrl)
+        GlideUtils.loadDrawable(poserUrl, binding.ivToolbarBackground, 120, 15)
+//        GlideUtils.loadImg(poserUrl, binding.ivToolbarBackground)
     }
 
     private fun setupData(playListDetailData: PlayListDetailResponse) {
         isRequestFinished = true
-        toolbarTitle = playListDetailData.playlist.name
-        songAdapter.addData(playListDetailData.playlist.tracks)
-        binding.apply {
-
-        }
-
-    }
-
-    private fun setCollapsingToolbar() {
-        binding.collapsingToolbar.apply {
-            scrimVisibleHeightTrigger = 300.dp().toInt()
+        playListName = playListDetailData.playlist.name
+        mBottomDelegateLayout.apply {
+            addData(playListDetailData.playlist.tracks)
+            updateHeadView(playListDetailData)
         }
     }
 
-    private fun initView() {
-        setCollapsingToolbar()
+    private fun initNestScrollView() {
         binding.apply {
+            mBottomDelegateLayout =
+                PlayListBottomLayout(this@PlayListDetailActivity)
+            val recyclerViewLp = CoordinatorLayout.LayoutParams(
+                matchParent, matchParent
+            )
+            recyclerViewLp.behavior = QMUIContinuousNestedBottomAreaBehavior()
+            qMUINestScrollView.setBottomAreaView(mBottomDelegateLayout, recyclerViewLp)
+            qMUINestScrollView.addOnScrollListener(object :
+                QMUIContinuousNestedScrollLayout.OnScrollListener {
+                override fun onScroll(scrollLayout: QMUIContinuousNestedScrollLayout?,
+                                      topCurrent: Int,
+                                      topRange: Int,
+                                      offsetCurrent: Int,
+                                      offsetRange: Int,
+                                      bottomCurrent: Int,
+                                      bottomRange: Int) {
 
-            val stateBarHeight = StatusUtils.getStateBarHeight(this@PlayListDetailActivity)
-            val layoutParams = layoutToolBar.toolbar.layoutParams
-            layoutParams.height = getToolBarSize() + stateBarHeight
-            layoutToolBar.toolbar.setPadding(0, stateBarHeight, 0, 0)
-            layoutToolBar.toolbar.layoutParams = layoutParams
-            layoutToolBar.toolbar.setNavigationOnClickListener {
-                finish()
-            }
-            appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                val totalScrollRange = appBarLayout.totalScrollRange
-                val movePercent = abs(verticalOffset).toDouble() / totalScrollRange.toDouble()
-                ivBackground.translationY = verticalOffset.toFloat()
-                if (isRequestFinished) {
-                    layoutToolBar.tvTitle.text =
-                        if (movePercent < 0.3) getString(com.yzx.lib_base.R.string.PlayList) else toolbarTitle
+                    updateToolbarTitle(bottomCurrent)
+                    updateToolbarBackground(bottomCurrent)
 
-//                    val drawable = ivBackground.drawable
-//                    if (drawable != null) {
-//                        drawable.alpha = movePercent.toInt()
-//                        layoutToolBar.toolbar.background = drawable
-//                    }
-                } else {
-                    layoutToolBar.tvTitle.text = getString(com.yzx.lib_base.R.string.PlayList)
+                }
+
+                override fun onScrollStateChange(scrollLayout: QMUIContinuousNestedScrollLayout?,
+                                                 newScrollState: Int,
+                                                 fromTopBehavior: Boolean) {
                 }
             })
+        }
+    }
 
-            recyclerView.apply {
-                songAdapter.data
-                adapter = songAdapter
-                layoutManager = LinearLayoutManager(this@PlayListDetailActivity)
+    /**
+     * 根据滑动距离更新标题
+     */
+    private fun updateToolbarTitle(bottomCurrent: Int) {
+        binding.layoutToolBar.tvTitle.text =
+            if (bottomCurrent > toolbarHeight && isRequestFinished && playListName.isNotBlank()) playListName else simpleGetString(
+                com.yzx.lib_base.R.string.PlayList
+            )
+    }
+
+
+    private fun initView() {
+        updateToolbarTitle(0)
+        binding.layoutToolBar.apply {
+            val layoutParams = toolbar.layoutParams
+            layoutParams.height = toolbarHeight
+            toolbar.setPadding(0, getDefaultStatusHeight(), 0, 0)
+            toolbar.layoutParams = layoutParams
+            toolbar.setNavigationOnClickListener {
+                finish()
+            }
+        }
+        val layoutParams1 = binding.ivToolbarBackground.layoutParams
+
+        layoutParams1.height = getDefaultStatusAndToolbarHeight()
+        binding.ivToolbarBackground.layoutParams = layoutParams1
+        initNestScrollView()
+        val viewTreeObserver = binding.ivToolbarBackground.viewTreeObserver
+        viewTreeObserver.addOnGlobalLayoutListener {
+            if (headViewHeight == 0) {
+                headViewHeight = mBottomDelegateLayout.headerView.measuredHeight - 50.dp()
+                    .toInt() - toolbarHeight
             }
         }
     }
+
+
+    private fun updateToolbarBackground(bottomCurrent: Int) {
+        if (headViewHeight == 0) {
+            return
+        }
+        val alpha = bottomCurrent.toFloat() / headViewHeight.toFloat()
+        e(headViewHeight.toString() + "bottomCurrent${bottomCurrent}alpha$alpha")
+
+        if (alpha >= 1F) {
+            binding.ivToolbarBackground.invisible()
+        } else {
+            binding.ivToolbarBackground.visible()
+            binding.ivToolbarBackground.alpha = alpha
+        }
+        mBottomDelegateLayout.updateForeground(alpha)
+    }
+
+
 }
