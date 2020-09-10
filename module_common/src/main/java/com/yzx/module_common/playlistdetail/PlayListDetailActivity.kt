@@ -7,13 +7,14 @@ import com.google.android.material.appbar.AppBarLayout
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
+import com.yzx.lib_base.ext.dp
 import com.yzx.lib_base.ext.getToolBarSize
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.utils.StatusUtils
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_common.adpter.SongAdapter
-import com.yzx.module_common.databinding.ActivityPlayListDetailBinding
 import com.yzx.module_common.model.PlayListDetailResponse
+import com.yzx.module_mine.databinding.ActivityPlayListDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
@@ -50,9 +51,12 @@ class PlayListDetailActivity : BaseActivity() {
     }
 
     private fun doPrepareJob() {
-        val poserUrl =
+        var poserUrl =
             intent.getStringExtra(ArouterNavKey.KEY_POSTER_URL)
-        playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 0)
+        if (poserUrl.isNullOrEmpty()) {
+            poserUrl = "http://p2.music.126.net/riTPchA1nKsc6Z6MAbQovQ==/109951165273665158.jpg"
+        }
+        playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 719322762)
         GlideUtils.loadDrawable(poserUrl, binding.ivBackground, 100, 10)
         GlideUtils.loadImg(poserUrl, binding.ivPoster)
     }
@@ -64,9 +68,17 @@ class PlayListDetailActivity : BaseActivity() {
         binding.apply {
 
         }
+
+    }
+
+    private fun setCollapsingToolbar() {
+        binding.collapsingToolbar.apply {
+            scrimVisibleHeightTrigger = 300.dp().toInt()
+        }
     }
 
     private fun initView() {
+        setCollapsingToolbar()
         binding.apply {
 
             val stateBarHeight = StatusUtils.getStateBarHeight(this@PlayListDetailActivity)
@@ -101,14 +113,5 @@ class PlayListDetailActivity : BaseActivity() {
                 layoutManager = LinearLayoutManager(this@PlayListDetailActivity)
             }
         }
-    }
-
-    private fun getSongData(): MutableList<String> {
-        val songs = mutableListOf<String>()
-
-        for (index in 1..2) {
-            songs.add(index.toString())
-        }
-        return songs
     }
 }

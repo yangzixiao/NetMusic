@@ -7,20 +7,7 @@ android {
         dataBinding true
     }
 }
-
 dependencies {
-
-    implementation 'androidx.palette:palette-ktx:1.0.0'
-
-    //refresh
-    implementation  'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
-
     //adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
-
-    //module
-//    implementation project(path: ':magicindicator')
-//    implementation project(path: ':multitype-adapter')
-
 }
