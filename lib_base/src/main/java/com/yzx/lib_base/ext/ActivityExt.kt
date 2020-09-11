@@ -1,9 +1,12 @@
 package com.yzx.lib_base.ext
 
 
+import android.graphics.drawable.Drawable
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 
 fun AppCompatActivity.toast(msg: String) {
@@ -21,4 +24,8 @@ fun AppCompatActivity.simpleGetString(@StringRes vararg stringRes: Int): String 
         result += getString(it)
     }
     return result
+}
+
+fun AppCompatActivity.simpleGetDrawable(@DrawableRes  drawableRes: Int): Drawable {
+    return ContextCompat.getDrawable(this,drawableRes)!!
 }

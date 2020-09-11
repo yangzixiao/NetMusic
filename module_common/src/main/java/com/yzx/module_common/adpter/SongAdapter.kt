@@ -2,9 +2,9 @@ package com.yzx.module_common.adpter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.yzx.module_common.R
 import com.yzx.module_common.model.PlayListSinger
 import com.yzx.module_common.model.Track
+import com.yzx.module_mine.R
 
 
 class SongAdapter(songs: MutableList<Track>? = null) :

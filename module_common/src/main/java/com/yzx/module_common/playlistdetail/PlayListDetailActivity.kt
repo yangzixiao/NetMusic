@@ -1,6 +1,7 @@
 package com.yzx.module_common.playlistdetail
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.ViewTreeObserver
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -12,8 +13,9 @@ import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.*
 import com.yzx.module_common.PlayListBottomLayout
-import com.yzx.module_common.databinding.ActivityPlayListDetailBinding
 import com.yzx.module_common.model.PlayListDetailResponse
+import com.yzx.module_mine.R
+import com.yzx.module_mine.databinding.ActivityPlayListDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -63,9 +65,9 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
         var poserUrl =
             intent.getStringExtra(ArouterNavKey.KEY_POSTER_URL)
         if (poserUrl.isNullOrEmpty()) {
-            poserUrl = "http://p2.music.126.net/riTPchA1nKsc6Z6MAbQovQ==/109951165273665158.jpg"
+            poserUrl = "http://p2.music.126.net/HS7lAAaxrSIJx8et_nzwqw==/19065531626222037.jpg"
         }
-        playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 2555869326)
+        playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 2181606783)
         mBottomDelegateLayout.updateCover(poserUrl)
     }
 
@@ -121,14 +123,32 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
     }
 
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+    }
+
     private fun initView() {
         updateToolbarTitle(0)
-        binding.layoutToolBar.apply {
-            val layoutParams = toolbar.layoutParams
+        binding.layoutToolBar.toolbar.apply {
+            val layoutParams = layoutParams
             layoutParams.height = toolbarHeight
-            toolbar.setPadding(0, getDefaultStatusHeight(), 0, 0)
-            toolbar.layoutParams = layoutParams
-            toolbar.setNavigationOnClickListener {
+            setPadding(0, getDefaultStatusHeight(), 0, 0)
+            this.layoutParams = layoutParams
+            inflateMenu(R.menu.menu_play_list_detail)
+            overflowIcon = simpleGetDrawable(R.drawable.ic_elipsis)
+            setMenuIconVisible(this)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.menu_search -> {
+                        toast(R.string.Search)
+                    }
+                    R.id.menu_clear -> {
+
+                    }
+                }
+                true
+            }
+            setNavigationOnClickListener {
                 finish()
             }
         }

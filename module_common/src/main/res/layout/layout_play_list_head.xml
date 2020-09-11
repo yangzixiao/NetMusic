@@ -20,8 +20,8 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivPoster"
         style="@style/RoundShapeImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="@dimen/edg"
         android:layout_marginTop="100dp"
         android:scaleType="centerCrop"
@@ -30,14 +30,124 @@
         tools:src="@color/colorImg" />
 
 
+    <TextView
+        android:id="@+id/tvPlayListName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_10"
+        android:layout_marginEnd="@dimen/edg"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/colorWhiteTitle"
+        android:textSize="@dimen/dim_textsize_16"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivPoster"
+        app:layout_constraintTop_toTopOf="@id/ivPoster"
+        tools:text="名称\nm" />
 
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivCreatorHead"
+        style="@style/CircleShapeImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/dim_10"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="@id/tvPlayListName"
+        app:layout_constraintTop_toBottomOf="@id/tvPlayListName"
+        tools:src="@color/colorImg" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llCreator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_10"
+        android:layout_marginEnd="@dimen/edg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/ivCreatorHead"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/ivCreatorHead"
+        app:layout_constraintTop_toTopOf="@+id/ivCreatorHead">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tvCreatorName"
+            style="@style/BaseMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:lines="1"
+            android:textColor="@color/colorWhiteTitle"
+            android:textSize="@dimen/dim_textsize_12"
+            android:theme="@style/Theme.MaterialComponents"
+            app:icon="@drawable/iv_next"
+            app:iconGravity="textEnd"
+            app:iconPadding="@dimen/dim_10"
+            app:iconTint="@color/colorWhiteTitle"
+            tools:text="杨子晓gfgdsdasdasdsadsaddadadsadadsadass" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llPlayListDes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_10"
+        android:layout_marginEnd="@dimen/edg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/ivPoster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/ivPoster">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tvPlayListDes"
+            style="@style/BaseMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:lines="2"
+            android:textColor="@color/colorWhiteTitle"
+            android:textSize="@dimen/dim_textsize_10"
+            android:theme="@style/Theme.MaterialComponents"
+            app:icon="@drawable/iv_next"
+            app:iconGravity="textEnd"
+            app:iconPadding="@dimen/dim_10"
+            app:iconTint="@color/colorWhiteTitle"
+            tools:text="我是dsada\n描述" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/playListTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/edg"
+        android:layout_marginTop="@dimen/dim_10"
+        android:background="@color/colorTransparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPoster"
+        app:tabIconTint="@color/colorWhiteTitle"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorWhiteTitle"
+        app:tabTextAppearance="@style/TabLayoutTabTextAppearance"
+        app:tabTextColor="@color/colorWhiteTitle" />
 
     <com.yzx.lib_base.widget.MaskImageView
         android:id="@+id/ivForeground"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
         android:alpha="0"
+        android:scaleType="centerCrop"
         android:src="@color/colorRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +157,7 @@
     <com.noober.background.view.BLLinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="@dimen/edg"
+        android:layout_marginTop="@dimen/dim_10"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/edg"
         android:paddingEnd="@dimen/edg"
@@ -55,7 +165,7 @@
         app:bl_corners_topRightRadius="25dp"
         app:bl_solid_color="@color/colorBackgroundWhite"
         app:layout_constraintStart_toStartOf="@id/ivPoster"
-        app:layout_constraintTop_toBottomOf="@id/ivPoster">
+        app:layout_constraintTop_toBottomOf="@id/playListTab">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -66,21 +176,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim_margin_padding_10"
-            android:text="播放全部"
+            android:text="@string/PlayAll"
             android:textColor="@color/colorTitle"
             android:textSize="@dimen/titleTextSize" />
 
         <TextView
             android:id="@+id/tvCount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim_margin_padding_10"
+            android:layout_weight="1"
             android:textColor="@color/colorSubTitle"
-            android:textSize="@dimen/titleTextSize"
+            android:textSize="@dimen/sp_14"
             tools:text="(共10首)" />
 
-    </com.noober.background.view.BLLinearLayout>
+        <com.noober.background.view.BLTextView
+            android:id="@+id/tvCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:drawableStart="@drawable/ic_add_white_48"
+            android:drawablePadding="@dimen/dim_5"
+            android:gravity="center"
+            android:paddingStart="@dimen/dim_10"
+            android:paddingEnd="@dimen/dim_10"
+            tools:text="收藏(100)"
+            android:textColor="@color/colorWhiteTitle"
+            android:textSize="@dimen/dim_textsize_12"
+            app:bl_corners_radius="15dp"
+            app:bl_ripple_color="@color/colorRipple"
+            app:bl_solid_color="@color/colorRed" />
 
+    </com.noober.background.view.BLLinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

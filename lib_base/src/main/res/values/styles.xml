@@ -41,23 +41,17 @@
 
     <style name="popMenu_under_actionBar" parent="@style/ThemeOverlay.AppCompat.Light">
         <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
-        <item name="overlapAnchor">false</item>
+        <!--        <item name="overlapAnchor">false</item>-->
         <item name="android:background">@color/colorWhite</item>
         <item name="android:dropDownWidth">wrap_content</item>
         <!--<item name="android:layout_marginRight">5dp</item>-->
         <!--&lt;!&ndash; 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar &ndash;&gt;-->
         <!--<item name="android:dropDownHorizontalOffset">10dp</item>-->
         <!--<item name="android:dropDownVerticalOffset">10dp</item>-->
-        <!--        <item name="android:textColor">@color/colorBlack333230</item>-->
+        <item name="android:textColor">@color/colorTitle</item>
         <item name="android:textSize">16sp</item>
-        <!--<item name="android:tint">@color/colorTitleBlack</item>-->
-        <!--修改Menu右上角三个点图标-->
-        <item name="android:actionOverflowButtonStyle">@style/OverflowStyle</item>
-    </style>
+        <item name="android:tint">@color/colorTitle</item>
 
-    <!--修改Menu右上角三个点图标-->
-    <style name="OverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">
-        <!--        <item name="android:src">@drawable/ic_add</item>-->
     </style>
 
 
@@ -107,13 +101,20 @@
     </style>
 
 
-    <style name="MaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="background">@color/colorTransparent</item>
+    <style name="StrokeMaterialButton" parent="@style/BaseMaterialButton">
+
         <item name="strokeWidth">@dimen/dim_stroke_width</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <style name="RoundMaterialButton15" parent="@style/Widget.MaterialComponents.Button.Icon">
+        <item name="cornerRadius">15dp</item>
+    </style>
+
+
+    <style name="BaseMaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="background">@color/colorTransparent</item>
+        <item name="theme">@style/Theme.MaterialComponents</item>
+        <item name="android:padding">0dp</item>
         <item name="android:insetLeft">0dp</item>
         <item name="android:insetRight">0dp</item>
         <item name="android:insetBottom">0dp</item>
@@ -136,6 +137,10 @@
     <style name="StyleToolbar">
         <item name="navigationIcon">@drawable/bhu</item>
         <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+
+    <style name="TabLayoutTabTextAppearance">
+        <item name="android:textSize">@dimen/dim_textsize_12</item>
     </style>
 
 </resources>

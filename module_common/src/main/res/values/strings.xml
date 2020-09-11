@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">module_common</string>
+    <string name="PlayAll">播放全部</string>
+    <string name="EditInfo">编辑信息</string>
+    <string name="ClearDownloadFile">清空下载文件</string>
+    <string name="Report">举报</string>
+    <string name="MuilChoose">多选</string>
 </resources>

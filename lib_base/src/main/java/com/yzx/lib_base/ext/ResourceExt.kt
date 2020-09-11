@@ -17,14 +17,4 @@ fun getDefaultStatusHeight(): Int {
     return result
 }
 
-//fun getDefaultToolbarHeight(): Int {
-//    val reSource = getReSource()
-//    var result = 64.dp().toInt()
-//    val resourceId =
-//        reSource.getIdentifier("actionBarSize", "dimen", "android")
-//    if (resourceId > 0) {
-//        result = reSource.getDimensionPixelSize(resourceId)
-//    }
-//    return result
-//}
 
