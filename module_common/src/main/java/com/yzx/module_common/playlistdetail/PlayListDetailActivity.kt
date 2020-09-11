@@ -1,6 +1,7 @@
 package com.yzx.module_common.playlistdetail
 
 import android.os.Bundle
+import android.view.ViewTreeObserver
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.qmuiteam.qmui.kotlin.matchParent
@@ -10,7 +11,6 @@ import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.*
-import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_common.PlayListBottomLayout
 import com.yzx.module_common.databinding.ActivityPlayListDetailBinding
 import com.yzx.module_common.model.PlayListDetailResponse
@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 @Route(path = ARouterPath.COMMON_PLAYLIST_DETAIL)
-class PlayListDetailActivity : BaseActivity() {
+class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutListener {
 
     private var isRequestFinished = false
     private lateinit var playListName: String
@@ -27,6 +27,7 @@ class PlayListDetailActivity : BaseActivity() {
     private lateinit var mBottomDelegateLayout: PlayListBottomLayout
     private lateinit var binding: ActivityPlayListDetailBinding
     private var headViewHeight = 0
+    private lateinit var viewTreeObserver: ViewTreeObserver
 
     init {
         e("init")
@@ -64,10 +65,8 @@ class PlayListDetailActivity : BaseActivity() {
         if (poserUrl.isNullOrEmpty()) {
             poserUrl = "http://p2.music.126.net/riTPchA1nKsc6Z6MAbQovQ==/109951165273665158.jpg"
         }
-        playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 719322762)
+        playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 2555869326)
         mBottomDelegateLayout.updateCover(poserUrl)
-        GlideUtils.loadDrawable(poserUrl, binding.ivToolbarBackground, 120, 15)
-//        GlideUtils.loadImg(poserUrl, binding.ivToolbarBackground)
     }
 
     private fun setupData(playListDetailData: PlayListDetailResponse) {
@@ -99,7 +98,7 @@ class PlayListDetailActivity : BaseActivity() {
                                       bottomRange: Int) {
 
                     updateToolbarTitle(bottomCurrent)
-                    updateToolbarBackground(bottomCurrent)
+                    updateHeadViewBackground(bottomCurrent)
 
                 }
 
@@ -133,35 +132,28 @@ class PlayListDetailActivity : BaseActivity() {
                 finish()
             }
         }
-        val layoutParams1 = binding.ivToolbarBackground.layoutParams
-
-        layoutParams1.height = getDefaultStatusAndToolbarHeight()
-        binding.ivToolbarBackground.layoutParams = layoutParams1
         initNestScrollView()
-        val viewTreeObserver = binding.ivToolbarBackground.viewTreeObserver
-        viewTreeObserver.addOnGlobalLayoutListener {
-            if (headViewHeight == 0) {
-                headViewHeight = mBottomDelegateLayout.headerView.measuredHeight - 50.dp()
-                    .toInt() - toolbarHeight
-            }
-        }
+        viewTreeObserver = binding.root.viewTreeObserver
+        viewTreeObserver.addOnGlobalLayoutListener(this)
     }
 
 
-    private fun updateToolbarBackground(bottomCurrent: Int) {
+    private fun updateHeadViewBackground(bottomCurrent: Int) {
         if (headViewHeight == 0) {
             return
         }
         val alpha = bottomCurrent.toFloat() / headViewHeight.toFloat()
-        e(headViewHeight.toString() + "bottomCurrent${bottomCurrent}alpha$alpha")
-
-        if (alpha >= 1F) {
-            binding.ivToolbarBackground.invisible()
-        } else {
-            binding.ivToolbarBackground.visible()
-            binding.ivToolbarBackground.alpha = alpha
-        }
         mBottomDelegateLayout.updateForeground(alpha)
+    }
+
+    override fun onGlobalLayout() {
+        if (headViewHeight == 0) {
+            headViewHeight = mBottomDelegateLayout.headerView.measuredHeight - 50.dp()
+                .toInt() - toolbarHeight
+        }
+        if (viewTreeObserver.isAlive) {
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+        }
     }
 
 
