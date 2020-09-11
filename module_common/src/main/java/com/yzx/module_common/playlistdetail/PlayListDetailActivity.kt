@@ -13,9 +13,9 @@ import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.*
 import com.yzx.module_common.PlayListBottomLayout
+import com.yzx.module_common.R
+import com.yzx.module_common.databinding.ActivityPlayListDetailBinding
 import com.yzx.module_common.model.PlayListDetailResponse
-import com.yzx.module_mine.R
-import com.yzx.module_mine.databinding.ActivityPlayListDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

@@ -12,10 +12,9 @@ import com.yzx.lib_base.ext.dp
 import com.yzx.lib_base.ext.getDefaultStatusAndToolbarHeight
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_common.adpter.SongAdapter
+import com.yzx.module_common.databinding.LayoutPlayListHeadBinding
 import com.yzx.module_common.model.PlayListDetailResponse
 import com.yzx.module_common.model.Track
-import com.yzx.module_mine.R
-import com.yzx.module_mine.databinding.LayoutPlayListHeadBinding
 
 
 class PlayListBottomLayout(
