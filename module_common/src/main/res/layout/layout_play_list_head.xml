@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="start"
-            android:lines="2"
+            android:maxLines="2"
             android:textColor="@color/colorWhiteTitle"
             android:textSize="@dimen/dim_textsize_10"
             android:theme="@style/Theme.MaterialComponents"
@@ -198,12 +198,13 @@
             android:gravity="center"
             android:paddingStart="@dimen/dim_10"
             android:paddingEnd="@dimen/dim_10"
-            tools:text="收藏(100)"
             android:textColor="@color/colorWhiteTitle"
-            android:textSize="@dimen/dim_textsize_12"
+            android:textSize="@dimen/dim_textsize_10"
+            android:visibility="gone"
             app:bl_corners_radius="15dp"
             app:bl_ripple_color="@color/colorRipple"
-            app:bl_solid_color="@color/colorRed" />
+            app:bl_solid_color="@color/colorRed"
+            tools:text="收藏(100)" />
 
     </com.noober.background.view.BLLinearLayout>
 

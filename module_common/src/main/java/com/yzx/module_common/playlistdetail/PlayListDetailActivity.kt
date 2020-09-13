@@ -75,7 +75,7 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
         isRequestFinished = true
         playListName = playListDetailData.playlist.name
         mBottomDelegateLayout.apply {
-            addData(playListDetailData.playlist.tracks)
+            setData(playListDetailData.playlist)
             updateHeadView(playListDetailData)
         }
     }

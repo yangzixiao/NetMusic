@@ -7,7 +7,7 @@ import com.yzx.module_common.model.PlayListSinger
 import com.yzx.module_common.model.Track
 
 
-class SongAdapter(songs: MutableList<Track>? = null) :
+class PlayListSongAdapter(songs: MutableList<Track>? = null) :
     BaseQuickAdapter<Track, BaseViewHolder>(R.layout.item_song, data = songs) {
 
     private val stringBuilder = StringBuilder()
