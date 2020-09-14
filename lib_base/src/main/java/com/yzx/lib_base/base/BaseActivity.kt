@@ -3,9 +3,7 @@ package com.yzx.lib_base.base
 import android.annotation.SuppressLint
 import android.view.Menu
 import android.view.MenuItem
-import androidx.annotation.ColorRes
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import com.yzx.lib_base.mvvm.UIActivity
 
 /**
@@ -16,9 +14,6 @@ import com.yzx.lib_base.mvvm.UIActivity
 open class BaseActivity : UIActivity() {
 
 
-    fun simpleGetColor(@ColorRes color: Int): Int {
-        return ContextCompat.getColor(this, color)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == android.R.id.home) {

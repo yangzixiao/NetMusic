@@ -115,7 +115,13 @@
         <item name="rippleColor">@color/colorRipple</item>
         <item name="background">@color/colorTransparent</item>
         <item name="theme">@style/Theme.MaterialComponents</item>
-        <item name="android:padding">0dp</item>
+       <item name="paddingStart">0dp</item>
+       <item name="android:paddingTop">0dp</item>
+       <item name="paddingEnd">0dp</item>
+       <item name="android:paddingBottom">0dp</item>
+       <item name="android:paddingLeft">0dp</item>
+       <item name="android:paddingRight">0dp</item>
+
         <item name="android:insetLeft">0dp</item>
         <item name="android:insetRight">0dp</item>
         <item name="android:insetBottom">0dp</item>

@@ -11,6 +11,7 @@ object PlayInfoManager {
         if (playList == newPlaylist) {
             return
         }
+        position=0
         playList = newPlaylist
     }
 

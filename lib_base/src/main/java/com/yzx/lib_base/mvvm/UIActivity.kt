@@ -1,10 +1,13 @@
 package com.yzx.lib_base.mvvm
 
 import android.os.Bundle
+import android.view.View
+import androidx.annotation.MenuRes
 import androidx.lifecycle.Observer
 import com.yzx.lib_base.activity.StatusCompatActivity
 import com.yzx.lib_base.base.BaseViewModel
 import com.yzx.lib_base.ext.e
+import com.yzx.lib_base.ext.getDefaultStatusHeight
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.widget.dialog.LoadingDialog
 
@@ -19,6 +22,21 @@ open class UIActivity : StatusCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+
+    fun initStatus(statusView: View) {
+        val layoutParams = statusView.layoutParams
+        layoutParams.height = getDefaultStatusHeight()
+        statusView.layoutParams = layoutParams
+    }
+
+    fun initToolbar(toolbar: androidx.appcompat.widget.Toolbar, @MenuRes menu: Int = 0) {
+        if (menu != 0) {
+            toolbar.inflateMenu(menu)
+        }
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private val loadingDialog: LoadingDialog by lazy {
@@ -46,12 +64,11 @@ open class UIActivity : StatusCompatActivity() {
     fun initViewModel(baseViewModel: BaseViewModel) {
         baseViewModel.loadingState.observe(this, Observer {
             e("baseViewModel.loadingState")
-            if (it)
-                showLoadingDialog()
+            if (it) showLoadingDialog()
             else hideLoadingDialog()
         })
         baseViewModel.toastStringMsg.observe(this, Observer {
-            if (it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 return@Observer
             }
             toast(it)

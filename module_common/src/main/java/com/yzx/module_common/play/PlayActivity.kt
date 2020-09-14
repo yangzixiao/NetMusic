@@ -26,6 +26,7 @@ class PlayActivity : BaseActivity() {
         binding = ActivityPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initView()
         PlayInfoManager.getPlayList()
         changePoster()
         binding.floating.setOnClickListener {
@@ -33,6 +34,13 @@ class PlayActivity : BaseActivity() {
             PlayInfoManager.setPosition(position)
 
             changePoster()
+        }
+    }
+
+    private fun initView() {
+        binding.apply {
+            initStatus(ivStatus)
+            initToolbar(toolbar, R.menu.menu_play)
         }
     }
 

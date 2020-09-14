@@ -54,6 +54,8 @@
                     tools:text="@string/Share" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
                     android:id="@+id/tvSubTitle"
                     style="@style/BaseMaterialButton"
                     android:layout_width="wrap_content"
