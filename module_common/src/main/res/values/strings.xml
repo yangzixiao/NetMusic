@@ -6,4 +6,5 @@
     <string name="ClearDownloadFile">清空下载文件</string>
     <string name="Report">举报</string>
     <string name="MuilChoose">多选</string>
+    <string name="NoDesciption">介绍：无</string>
 </resources>

@@ -47,32 +47,30 @@
         tools:text="名称\nm" />
 
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivCreatorHead"
-        style="@style/CircleShapeImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="@dimen/dim_10"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="@id/tvPlayListName"
-        app:layout_constraintTop_toBottomOf="@id/tvPlayListName"
-        tools:src="@color/colorImg" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llCreator"
+        style="@style/WaterEffect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dim_10"
         android:layout_marginEnd="@dimen/edg"
+        android:layout_marginTop="@dimen/dim_10"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/ivCreatorHead"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@id/ivCreatorHead"
-        app:layout_constraintTop_toTopOf="@+id/ivCreatorHead">
+        app:layout_constraintStart_toStartOf="@id/tvPlayListName"
+        app:layout_constraintTop_toBottomOf="@id/tvPlayListName">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivCreatorHead"
+            style="@style/CircleShapeImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerCrop"
+            tools:src="@color/colorImg" />
 
         <com.google.android.material.button.MaterialButton
+            android:layout_marginStart="@dimen/dim_10"
             android:id="@+id/tvCreatorName"
             style="@style/BaseMaterialButton"
             android:layout_width="wrap_content"
@@ -181,10 +179,10 @@
             android:textSize="@dimen/titleTextSize" />
 
         <TextView
-            android:layout_gravity="center_vertical"
             android:id="@+id/tvCount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:textColor="@color/colorSubTitle"
             android:textSize="@dimen/sp_14"
@@ -206,6 +204,7 @@
             app:bl_ripple_color="@color/colorRipple"
             app:bl_solid_color="@color/colorRed"
             tools:text="收藏(100)" />
+
 
     </com.noober.background.view.BLLinearLayout>
 

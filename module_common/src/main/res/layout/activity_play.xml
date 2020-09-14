@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/colorGreyBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivStatus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/statusHeight"/>
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:background="@color/colorRed"
+            app:navigationIcon="@drawable/ic_menu_back_white"
+            android:id="@+id/toolbar"
+            app:title="标题"
+            app:contentInsetStart="@dimen/dim_0"
+            app:subtitle="@string/app_name"
+            app:subtitleTextAppearance="@style/StyleToolbar.SubTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+
+
+</FrameLayout>

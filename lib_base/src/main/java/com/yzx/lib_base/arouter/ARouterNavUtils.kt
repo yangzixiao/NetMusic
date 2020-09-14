@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.launcher.ARouter
 import com.yzx.lib_base.arouter.ARouterPath.COMMON_PLAYLIST_DETAIL
+import com.yzx.lib_base.arouter.ArouterNavKey.KEY_MUSIC_ID
 import com.yzx.lib_base.arouter.ArouterNavKey.KEY_PLAYLIST_ID
 import com.yzx.lib_base.arouter.ArouterNavKey.KEY_POSTER_URL
 
@@ -47,6 +48,15 @@ object ARouterNavUtils {
         }
         getPostcard(COMMON_PLAYLIST_DETAIL).withLong(
             KEY_PLAYLIST_ID, playListId
+        ).withString(KEY_POSTER_URL, coverUrl).navigation()
+    }
+
+    fun navToPlay(id: Long, coverUrl: String) {
+        if (id <= 0) {
+            return
+        }
+        getPostcard(ARouterPath.COMMON_PLAY).withLong(
+            KEY_MUSIC_ID, id
         ).withString(KEY_POSTER_URL, coverUrl).navigation()
     }
 }

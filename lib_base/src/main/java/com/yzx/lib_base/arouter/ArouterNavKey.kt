@@ -6,4 +6,5 @@ object ArouterNavKey {
 
     const val KEY_PLAYLIST_ID = "playListId"
     const val KEY_POSTER_URL = "posterUrl"
+    const val KEY_MUSIC_ID = "musicId"
 }

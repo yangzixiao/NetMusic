@@ -2,14 +2,17 @@ package com.yzx.module_common
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.noober.background.drawable.DrawableCreator
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomDelegateLayout
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomRecyclerView
 import com.yzx.lib_base.ext.*
+import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.lib_base.widget.recyclerview.ExtraLinearItemDecoration
 import com.yzx.module_common.adpter.PlayListSongAdapter
@@ -85,21 +88,23 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
     @SuppressLint("SetTextI18n")
     fun updateHeadView(playListDetailData: PlayListDetailResponse) {
         val playlist = playListDetailData.playlist
+
         topViewBinding.apply {
 
             tvPlayListName.text = playlist.name
-            val creator = playlist.creator
-            tvCreatorName.apply {
-                text = creator.nickname
-                setOnClickListener {
 
-                }
-            }
+            val creator = playlist.creator
+            val isSelf = creator.userId == UserInfoManager.userInfoLiveData.value?.uid
+            tvCreatorName.text = creator.nickname
             GlideUtils.loadImg(creator.avatarUrl, ivCreatorHead)
+            llCreator.setOnClickListener {
+
+            }
+
             tvPlayListDes.apply {
                 val description = playlist.description
-                text = if (TextUtils.isEmpty(description)) getString(
-                    R.string.EditInfo
+                text = if (TextUtils.isEmpty(description)) simpleGetString(
+                    if (isSelf)   R.string.EditInfo else R.string.NoDesciption
                 ) else description
                 setOnClickListener {
 
@@ -108,10 +113,23 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
             tvCount.text = "(${playlist.trackCount})首"
             playListTab.getTabAt(0)!!.text = playlist.commentCount.defaultDes(R.string.Comment)
             playListTab.getTabAt(1)!!.text = playlist.shareCount.defaultDes(R.string.Share)
+
+            //收藏信息
             val subscribedCount = playlist.subscribedCount
             if (subscribedCount > 0) {
                 tvCollect.visible()
-                tvCollect.text = "${context.getText(R.string.Collect)}(${subscribedCount}首)"
+                if (isSelf) {
+                    tvCollect.text =
+                        "${subscribedCount}${simpleGetString(R.string.People, R.string.Collect)}"
+                    tvCollect.setBackgroundColor(Color.TRANSPARENT)
+                    tvCollect.setTextColor(simpleGetColor(R.color.colorSubTitle))
+                } else {
+                    tvCollect.text = "${context.getText(R.string.Collect)}(${subscribedCount})"
+                    tvCollect.background =
+                        DrawableCreator.Builder().setSolidColor(getColor(R.color.colorRed))
+                            .setCornersRadius(15.dp()).build()
+                    tvCollect.setTextColor(Color.WHITE)
+                }
             } else {
                 tvCollect.gone()
             }

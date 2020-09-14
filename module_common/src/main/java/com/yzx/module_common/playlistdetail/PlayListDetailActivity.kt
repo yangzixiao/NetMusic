@@ -49,7 +49,7 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
         setStatusWhiteFont()
         initView()
         doPrepareJob()
-//        initViewModel(playListViewModel)
+        initViewModel(playListViewModel)
         playListViewModel.playListDetailLiveData.observe(this, {
             setupData(it)
         })

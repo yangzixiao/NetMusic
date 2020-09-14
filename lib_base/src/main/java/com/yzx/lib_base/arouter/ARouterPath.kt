@@ -34,4 +34,9 @@ object ARouterPath {
      * 歌单详情
      */
     const val COMMON_PLAYLIST_DETAIL="/common/playListDetail"
+
+    /**
+     * 播放页面
+     */
+    const val COMMON_PLAY="/common/play"
 }

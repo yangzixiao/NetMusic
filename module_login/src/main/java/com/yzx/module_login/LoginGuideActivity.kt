@@ -55,10 +55,7 @@ class LoginGuideActivity : BaseActivity() {
                 toast(
                     "请勾选${
                         simpleGetString(
-                            R.string.Agree,
-                            R.string.UserAgreement,
-                            R.string.PrivacyAgreement,
-                            R.string.ChildPrivacyAgreement
+                            R.string.Agree, R.string.UserAgreement, R.string.PrivacyAgreement, R.string.ChildPrivacyAgreement
                         )
                     }"
                 )

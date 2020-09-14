@@ -3,6 +3,7 @@ package com.yzx.lib_base.mvvm
 import androidx.lifecycle.Observer
 import com.yzx.lib_base.activity.StatusCompatActivity
 import com.yzx.lib_base.base.BaseViewModel
+import com.yzx.lib_base.ext.e
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.widget.dialog.LoadingDialog
 
@@ -38,6 +39,7 @@ open class UIActivity : StatusCompatActivity() {
 
     fun initViewModel(baseViewModel: BaseViewModel) {
         baseViewModel.loadingState.observe(this, Observer {
+            e("baseViewModel.loadingState")
             if (it)
                 showLoadingDialog()
             else hideLoadingDialog()

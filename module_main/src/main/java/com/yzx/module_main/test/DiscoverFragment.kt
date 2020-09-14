@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.yzx.lib_base.base.BaseFragment
 import com.yzx.lib_base.ext.toast
-import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_main.databinding.FragmentTestBinding
 
 
@@ -32,21 +31,21 @@ class DiscoverFragment : BaseFragment() {
         super.lazyLoad()
         Log.i("Mine", "DiscoverFragmentlazyLoad: " + arguments?.getString("111", "222"))
 
-        binding.apply {
-            GlideUtils.loadDrawable(url, iv1, 10, 5)
-            GlideUtils.loadDrawable(url, iv2, 50, 5)
-            GlideUtils.loadDrawable(url, iv3, 100, 5)
-            GlideUtils.loadDrawable(url, iv4, 150, 5)
-            GlideUtils.loadDrawable(url, iv5, 200, 5)
-            GlideUtils.loadDrawable(url, iv6, 250, 5)
-            GlideUtils.loadDrawable(url, iv11, 100, 5)
-            GlideUtils.loadDrawable(url, iv12, 100, 10)
-            GlideUtils.loadDrawable(url, iv13, 100, 15)
-            GlideUtils.loadDrawable(url, iv14, 100, 20)
-            GlideUtils.loadDrawable(url, iv15, 100, 25)
-            GlideUtils.loadDrawable(url, iv16, 100, 30)
-        }
-        saveUser2(User("1"))
+//        binding.apply {
+//            GlideUtils.loadDrawable(url, iv1, 10, 5)
+//            GlideUtils.loadDrawable(url, iv2, 50, 5)
+//            GlideUtils.loadDrawable(url, iv3, 100, 5)
+//            GlideUtils.loadDrawable(url, iv4, 150, 5)
+//            GlideUtils.loadDrawable(url, iv5, 200, 5)
+//            GlideUtils.loadDrawable(url, iv6, 250, 5)
+//            GlideUtils.loadDrawable(url, iv11, 100, 5)
+//            GlideUtils.loadDrawable(url, iv12, 100, 10)
+//            GlideUtils.loadDrawable(url, iv13, 100, 15)
+//            GlideUtils.loadDrawable(url, iv14, 100, 20)
+//            GlideUtils.loadDrawable(url, iv15, 100, 25)
+//            GlideUtils.loadDrawable(url, iv16, 100, 30)
+//        }
+//        saveUser2(User("1"))
     }
 
 

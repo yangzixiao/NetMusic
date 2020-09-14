@@ -25,15 +25,19 @@ fun getDefaultStatusHeight(): Int {
 
 private fun application() = AppManager.application
 
-fun getString(@StringRes stringResources: Int): String {
-    return application().getString(stringResources)
+fun simpleGetString(@StringRes vararg stringRes: Int): String {
+    var result = ""
+    stringRes.forEach {
+        result += application().getString(it)
+    }
+    return result
 }
 
 
-fun getColor(@ColorRes colorRes: Int): Int {
+fun simpleGetColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(application(), colorRes)
 }
 
-fun getDrawable(@DrawableRes drawableRes: Int): Drawable {
+fun simpleGetDrawable(@DrawableRes drawableRes: Int): Drawable {
     return ContextCompat.getDrawable(application(), drawableRes)!!
 }

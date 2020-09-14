@@ -112,6 +112,7 @@
 
 
     <style name="BaseMaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@color/colorRipple</item>
         <item name="background">@color/colorTransparent</item>
         <item name="theme">@style/Theme.MaterialComponents</item>
         <item name="android:padding">0dp</item>
@@ -141,6 +142,13 @@
 
     <style name="TabLayoutTabTextAppearance">
         <item name="android:textSize">@dimen/dim_textsize_12</item>
+    </style>
+
+
+    <style name="StyleToolbar.SubTitle">
+
+        <item name="drawableEndCompat">@drawable/iv_next</item>
+
     </style>
 
 </resources>

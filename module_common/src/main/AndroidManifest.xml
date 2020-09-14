@@ -4,5 +4,6 @@
     /
     <application>
         <activity android:name=".playlistdetail.PlayListDetailActivity" />
+        <activity android:name=".play.PlayActivity" />
     </application>
 </manifest>
