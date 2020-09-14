@@ -66,22 +66,29 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
+        style="@style/WaterEffect"
         android:id="@+id/ivMV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:tint="@color/colorIconTintGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ivMore"
         app:layout_constraintStart_toEndOf="@id/tvSongName"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_like" />
+        app:srcCompat="@drawable/ic_mv" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/WaterEffect"
+        android:layout_width="30dp"
+        android:layout_marginStart="@dimen/dim_5"
+        android:scaleType="center"
+        android:layout_height="30dp"
+        app:tint="@color/colorIconTintGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_like" />
+        app:srcCompat="@drawable/ic_elipsis_48" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

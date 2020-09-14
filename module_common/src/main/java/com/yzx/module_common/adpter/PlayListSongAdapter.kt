@@ -17,6 +17,7 @@ class PlayListSongAdapter(songs: MutableList<Track>? = null) :
         holder.setText(R.id.tvIndex, (holder.layoutPosition + 1).toString())
         holder.setText(R.id.tvSongName, item.name)
         holder.setText(R.id.tvSongSinger, getSingers(item.ar, item.al.name))
+
         holder.itemView.setOnClickListener {
 
         }

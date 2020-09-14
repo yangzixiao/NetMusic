@@ -20,23 +20,15 @@ import com.yzx.module_common.model.PlayListDetailResponse
 import com.yzx.module_common.model.Playlist
 
 
-class PlayListBottomLayout(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defaultAttr: Int = 0
-) :
+class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaultAttr: Int = 0) :
     QMUIContinuousNestedBottomDelegateLayout(
-        context,
-        attrs,
-        defaultAttr
+        context, attrs, defaultAttr
     ) {
 
 
     companion object {
         private val menuIcons = mutableListOf(
-            R.drawable.ic_comment,
-            R.drawable.ic_share,
-            R.drawable.ic_download,
+            R.drawable.ic_comment, R.drawable.ic_share, R.drawable.ic_download,
             R.drawable.ic_muil_choose
         )
         private val menuTitles =
@@ -106,8 +98,9 @@ class PlayListBottomLayout(
             GlideUtils.loadImg(creator.avatarUrl, ivCreatorHead)
             tvPlayListDes.apply {
                 val description = playlist.description
-                text =
-                    if (TextUtils.isEmpty(description)) getString(R.string.EditInfo) else description
+                text = if (TextUtils.isEmpty(description)) getString(
+                    R.string.EditInfo
+                ) else description
                 setOnClickListener {
 
                 }
@@ -128,8 +121,8 @@ class PlayListBottomLayout(
     fun updateCover(coverImgUrl: String) {
         topViewBinding.apply {
             GlideUtils.loadImg(coverImgUrl, ivPoster)
-            GlideUtils.loadDrawable(coverImgUrl, ivBackground, 100, 5)
-            GlideUtils.loadDrawable(coverImgUrl, ivForeground, 100, 5)
+            GlideUtils.loadDrawable(coverImgUrl, ivBackground, 100, 8)
+            GlideUtils.loadDrawable(coverImgUrl, ivForeground, 100, 8)
 
         }
     }
