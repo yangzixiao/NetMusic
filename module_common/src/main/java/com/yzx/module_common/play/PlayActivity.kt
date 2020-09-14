@@ -1,17 +1,24 @@
 package com.yzx.module_common.play
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterPath
-import com.yzx.lib_base.arouter.ArouterNavKey.KEY_POSTER_URL
 import com.yzx.lib_base.base.BaseActivity
+import com.yzx.lib_base.utils.glide.DrawableCallBack
 import com.yzx.lib_base.utils.glide.GlideUtils
+import com.yzx.module_common.R
 import com.yzx.module_common.databinding.ActivityPlayBinding
+import com.yzx.module_common.manager.PlayInfoManager
 
 @Route(path = ARouterPath.COMMON_PLAY)
 class PlayActivity : BaseActivity() {
 
     private lateinit var binding: ActivityPlayBinding
+
+    private var oldPoster: Any = R.drawable.cd1
+
+    private var position = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTransparentStatus()
@@ -19,10 +26,37 @@ class PlayActivity : BaseActivity() {
         binding = ActivityPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val posterUrl = intent.getStringExtra(KEY_POSTER_URL)
+        PlayInfoManager.getPlayList()
+        changePoster()
+        binding.floating.setOnClickListener {
+            position += 1
+            PlayInfoManager.setPosition(position)
 
-        GlideUtils.loadDrawable(posterUrl,binding.ivBackground,100,6)
+            changePoster()
+        }
+    }
 
-//        binding.toolbar.subtitle=SpannableStringBuilder().append().
+
+    private fun changePoster() {
+
+        val track = PlayInfoManager.getTrack()
+        val posterUrl = track?.al?.picUrl
+        binding.apply {
+
+            tvTitle.text = track?.name
+            tvSubTitle.text = track!!.ar[0].name
+            GlideUtils.loadImg(
+                posterUrl, GlideUtils.TYPE_PLAY_ALBUM, layoutPlayAlbum.ivPoster,
+            )
+            GlideUtils.simpleLoadImg(oldPoster, ivBackground1)
+            GlideUtils.loadBlurImage(posterUrl, ivBackground1, object : DrawableCallBack {
+                override fun onGetDrawable(drawable: Drawable?) {
+                    if (drawable != null) {
+                        oldPoster = drawable
+                        GlideUtils.loadImgWithAnim(drawable, ivBackground2)
+                    }
+                }
+            })
+        }
     }
 }

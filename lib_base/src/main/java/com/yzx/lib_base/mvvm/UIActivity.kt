@@ -1,5 +1,6 @@
 package com.yzx.lib_base.mvvm
 
+import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.yzx.lib_base.activity.StatusCompatActivity
 import com.yzx.lib_base.base.BaseViewModel
@@ -14,6 +15,11 @@ import com.yzx.lib_base.widget.dialog.LoadingDialog
  */
 open class UIActivity : StatusCompatActivity() {
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     private val loadingDialog: LoadingDialog by lazy {
         LoadingDialog()

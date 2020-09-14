@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">#ffffff</item>
         <item name="colorAccent">@color/colorWhite</item>
@@ -136,7 +136,7 @@
     </style>
 
     <style name="StyleToolbar">
-        <item name="navigationIcon">@drawable/bhu</item>
+        <item name="navigationIcon">@drawable/ic_nav_back</item>
         <item name="contentInsetStartWithNavigation">0dp</item>
     </style>
 
@@ -146,7 +146,7 @@
 
 
     <style name="StyleToolbar.SubTitle">
-
+        <item name="subtitleTextColor">@color/colorSubTitle</item>
         <item name="drawableEndCompat">@drawable/iv_next</item>
 
     </style>

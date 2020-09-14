@@ -104,7 +104,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
             tvPlayListDes.apply {
                 val description = playlist.description
                 text = if (TextUtils.isEmpty(description)) simpleGetString(
-                    if (isSelf)   R.string.EditInfo else R.string.NoDesciption
+                    if (isSelf) R.string.EditInfo else R.string.NoDesciption
                 ) else description
                 setOnClickListener {
 

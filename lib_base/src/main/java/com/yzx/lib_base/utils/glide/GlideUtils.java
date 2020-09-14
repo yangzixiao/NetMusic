@@ -35,6 +35,8 @@ public class GlideUtils {
     public static final int TYPE_COIN = 2;
     public static final int TYPE_GOOD_CLASSIFY = 3;
     public static final int TYPE_BACKGROUND = 4;
+    public static final int TYPE_COLOR_IMG = 5;
+    public static final int TYPE_PLAY_ALBUM = 6;
     static RequestOptions requestOptions = new RequestOptions();
 
     public static void loadImg(Object resource, ImageView target) {
@@ -51,15 +53,21 @@ public class GlideUtils {
             case TYPE_BACKGROUND:
                 drawableResource = R.drawable.cbh;
                 break;
+            case TYPE_COLOR_IMG:
+                drawableResource = R.drawable.cbh;
+                break;
+            case TYPE_PLAY_ALBUM:
+                drawableResource = R.drawable.ic_default_poster;
+                break;
             default:
-                drawableResource = R.color.colorImg;
+                drawableResource = R.color.colorTransparent;
                 break;
         }
 
         requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
         requestOptions.placeholder(drawableResource).error(drawableResource);
         requestBuilder
-                .transition(new DrawableTransitionOptions().crossFade(500))
+                .transition(new DrawableTransitionOptions().crossFade(300))
                 .apply(requestOptions)
                 .into(target);
     }
@@ -109,10 +117,28 @@ public class GlideUtils {
         Glide.with(target).load(resource).into(target);
     }
 
+    public static void loadImgWithAnim(Object resource, ImageView target) {
+        Glide.with(target).load(resource).transition(new DrawableTransitionOptions().crossFade(300)).into(target);
+    }
 
-    public static void loadDrawable(Object resource, ImageView target,int radius,int sampling) {
-        MultiTransformation<Bitmap> transformation = new MultiTransformation<>(new BlurTransformation(radius,sampling));
+    public static void loadDrawable(Object resource, ImageView target, int radius, int sampling) {
+        MultiTransformation<Bitmap> transformation = new MultiTransformation<>(new BlurTransformation(radius, sampling));
         Glide.with(target).load(resource).apply(RequestOptions.bitmapTransform(transformation)).into(target);
+    }
+
+    public static void loadBlurImage(Object resource, ImageView target, DrawableCallBack callBack) {
+        Glide.with(target).load(resource).apply(RequestOptions.bitmapTransform(new BlurTransformation(100, 6))).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                callBack.onGetDrawable(resource);
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                super.onLoadFailed(errorDrawable);
+                callBack.onGetDrawable(null);
+            }
+        });
     }
 
 

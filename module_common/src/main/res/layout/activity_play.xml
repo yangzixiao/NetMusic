@@ -1,50 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:background="@color/colorGreyBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:background="@drawable/cd1">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivBackground"
+        android:id="@+id/ivBackground1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBackground2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivStatus"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/statusHeight"/>
+            android:layout_height="@dimen/statusHeight" />
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:background="@color/colorRed"
-            app:navigationIcon="@drawable/ic_menu_back_white"
             android:id="@+id/toolbar"
-            app:title="标题"
-            app:contentInsetStart="@dimen/dim_0"
-            app:subtitle="@string/app_name"
-            app:subtitleTextAppearance="@style/StyleToolbar.SubTitle"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
+            android:layout_height="?actionBarSize"
+            app:contentInsetStart="@dimen/dim_0"
+            app:contentInsetStartWithNavigation="@dimen/dim_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_nav_back"
+            tools:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
 
 
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/StyleWhiteTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/Share" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tvSubTitle"
+                    style="@style/BaseMaterialButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dim_5"
+                    android:textColor="@color/colorWhiteSubTitle"
+                    android:textSize="@dimen/dim_textsize_10"
+                    app:icon="@drawable/iv_next"
+                    app:iconTint="@color/colorWhiteSubTitle"
+                    app:iconGravity="textEnd"
+                    tools:text="@string/Share" />
+            </LinearLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <include
+                android:id="@+id/layout_play_album"
+                layout="@layout/layout_play_album"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="139dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-
-
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/edg" />
 
 
 </FrameLayout>

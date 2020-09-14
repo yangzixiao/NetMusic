@@ -9,7 +9,7 @@
     app:contentInsetStart="@dimen/dim_0"
     app:contentInsetStartWithNavigation="@dimen/dim_0"
     app:layout_collapseMode="pin"
-    app:navigationIcon="@drawable/bhu"
+    app:navigationIcon="@drawable/ic_nav_back"
     tools:background="@color/colorRed"
     tools:layout_height="@dimen/toolBarHeight">
 

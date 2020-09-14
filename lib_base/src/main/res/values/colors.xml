@@ -17,6 +17,7 @@
     <color name="colorSubTitle">#7B7B7B</color>
     <color name="colorTitleLight">#636363</color>
     <color name="colorWhiteTitle">@color/colorWhite</color>
+    <color name="colorWhiteSubTitle">@color/colorWhite</color>
 
 
     <color name="colorTabSelected">#323232</color>
