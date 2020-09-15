@@ -8,6 +8,7 @@ import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.utils.glide.DrawableCallBack
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_common.R
+import com.yzx.module_common.adpter.PlayAlbumMenuAdapter
 import com.yzx.module_common.databinding.ActivityPlayBinding
 import com.yzx.module_common.manager.PlayInfoManager
 
@@ -41,6 +42,12 @@ class PlayActivity : BaseActivity() {
         binding.apply {
             initStatus(ivStatus)
             initToolbar(toolbar, R.menu.menu_play)
+
+            layoutPlayAlbum.apply {
+                recyclerView.adapter=PlayAlbumMenuAdapter(mutableListOf(R.drawable.cac,R.drawable.cap,R.drawable.ca7,R.drawable.cb9))
+            }
+
+
         }
     }
 

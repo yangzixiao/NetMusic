@@ -1,7 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yzx.module_common">
-
-    /
     <application>
         <activity android:name=".playlistdetail.PlayListDetailActivity" />
         <activity android:name=".play.PlayActivity" />

@@ -21,6 +21,7 @@ class PlayListSongAdapter(songs: MutableList<Track>? = null) :
 
         holder.itemView.setOnClickListener {
             PlayInfoManager.setPlayList(data)
+            PlayInfoManager.setPosition(holder.layoutPosition)
             ARouterNavUtils.navToPlay(item.id,item.al.picUrl)
         }
     }

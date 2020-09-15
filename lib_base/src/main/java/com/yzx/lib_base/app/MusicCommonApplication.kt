@@ -8,6 +8,7 @@ import com.tencent.mmkv.MMKV
 import com.yzx.lib_base.BuildConfig
 import com.yzx.lib_base.Constant
 import com.yzx.lib_base.http.RetrofitHelper
+import com.yzx.lib_base.manager.AppManager
 import com.yzx.lib_base.utils.LogUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
@@ -62,7 +63,7 @@ import org.koin.core.context.startKoin
 
     override fun onCreate() {
         super.onCreate()
-
+        AppManager.init(this)
         startKoin {
             // use AndroidLogger as Koin Logger - default Level.INFO
             androidLogger()
