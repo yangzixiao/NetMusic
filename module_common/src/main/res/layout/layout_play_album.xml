@@ -1,38 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    tools:background="@color/colorRed"
+    android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivPoster"
+        style="@style/CircleShapeImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintVertical_weight="1"
-        style="@style/CircleShapeImageView"
-        app:srcCompat="@drawable/ic_default_poster"
         android:layout_marginHorizontal="50dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/ivLike"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1"
+        app:srcCompat="@drawable/ic_default_poster" />
 
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginHorizontal="50dp"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivDownload"
         app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/recyclerView"
-        tools:itemCount="4"
-        app:spanCount="4"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_menu_img"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        app:srcCompat="@drawable/cac" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivLike"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLike"
+        app:layout_constraintEnd_toStartOf="@id/ivComment"
+        app:srcCompat="@drawable/cap" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+
+        android:id="@+id/ivComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivDownload"
+        app:layout_constraintEnd_toStartOf="@id/ivPlayAlbumMore"
+        app:srcCompat="@drawable/ca7" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/ivPlayAlbumMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivComment"
+        app:srcCompat="@drawable/cb9" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

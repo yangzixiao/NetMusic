@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:background="@drawable/cd1">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivBackground1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/cd1" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivBackground2"
@@ -54,18 +54,18 @@
                     tools:text="@string/Share" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:gravity="center_vertical"
-                    android:textAllCaps="false"
                     android:id="@+id/tvSubTitle"
                     style="@style/BaseMaterialButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dim_5"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhiteSubTitle"
                     android:textSize="@dimen/dim_textsize_10"
                     app:icon="@drawable/iv_next"
-                    app:iconTint="@color/colorWhiteSubTitle"
                     app:iconGravity="textEnd"
+                    app:iconTint="@color/colorWhiteSubTitle"
                     tools:text="@string/Share" />
             </LinearLayout>
 
@@ -86,19 +86,42 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.slider.Slider
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/edg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvPlayedTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0:00"
+                android:textColor="@color/colorWhiteSubTitle"
+                android:textSize="@dimen/dim_textsize_12" />
+
+            <com.google.android.material.slider.Slider
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvLeftTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:30"
+                android:textColor="@color/colorWhiteSubTitle"
+                android:textSize="@dimen/dim_textsize_12" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <include
+            android:id="@+id/layout_play_icon"
+            layout="@layout/layout_play_icon" />
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/edg" />
 
 
 </FrameLayout>

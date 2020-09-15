@@ -37,6 +37,14 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
 
     private var toolbarHeight: Int = 0
 
+    override fun getActivityEnterAnim(): Int {
+        return R.anim.slide_in_bottom
+    }
+
+    override fun getActivityExitAnim(): Int {
+        return R.anim.slide_out_bottom
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         e("onCreate")

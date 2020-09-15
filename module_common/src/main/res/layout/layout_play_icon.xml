@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="50dp"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    tools:background="@color/colorRed">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPlayModel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/cb3" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPlayPrevious"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/c_t" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPlayPause"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/c_r" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPlayNext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/c_n" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPlayMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/cby" />
+</androidx.appcompat.widget.LinearLayoutCompat>

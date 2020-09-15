@@ -1,68 +1,118 @@
 package com.yzx.module_common.play
 
+import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.View
+import android.view.animation.LinearInterpolator
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.tabs.TabLayout
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.utils.glide.DrawableCallBack
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_common.R
-import com.yzx.module_common.adpter.PlayAlbumMenuAdapter
 import com.yzx.module_common.databinding.ActivityPlayBinding
 import com.yzx.module_common.manager.PlayInfoManager
 
 @Route(path = ARouterPath.COMMON_PLAY)
-class PlayActivity : BaseActivity() {
+class PlayActivity : BaseActivity(), View.OnClickListener {
 
+    override fun getActivityEnterAnim(): Int {
+        return R.anim.slide_in_bottom
+    }
+
+    override fun getActivityExitAnim(): Int {
+        return R.anim.slide_out_bottom
+    }
     private lateinit var binding: ActivityPlayBinding
-
     private var oldPoster: Any = R.drawable.cd1
+    private lateinit var posterAnimator: ObjectAnimator
 
-    private var position = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTransparentStatus()
         setStatusWhiteFont()
         binding = ActivityPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setupPoster()
         initView()
-        PlayInfoManager.getPlayList()
-        changePoster()
-        binding.floating.setOnClickListener {
-            position += 1
-            PlayInfoManager.setPosition(position)
-
-            changePoster()
-        }
+        setupPlayPauseIconAndPosterAnimatorByPlayState()
     }
 
     private fun initView() {
         binding.apply {
             initStatus(ivStatus)
             initToolbar(toolbar, R.menu.menu_play)
+            initPosterAnimator()
 
-            layoutPlayAlbum.apply {
-                recyclerView.adapter=PlayAlbumMenuAdapter(mutableListOf(R.drawable.cac,R.drawable.cap,R.drawable.ca7,R.drawable.cb9))
+            layoutPlayIcon.apply {
+                ivPlayModel.setOnClickListener(this@PlayActivity)
+                ivPlayPrevious.setOnClickListener(this@PlayActivity)
+                ivPlayPause.setOnClickListener(this@PlayActivity)
+                ivPlayNext.setOnClickListener(this@PlayActivity)
+                ivPlayMenu.setOnClickListener(this@PlayActivity)
             }
 
+            TabLayout(this@PlayActivity).newTab().badge
 
+            layoutPlayAlbum.apply {
+                ivLike.setOnClickListener(this@PlayActivity)
+                ivDownload.setOnClickListener(this@PlayActivity)
+                ivComment.setOnClickListener(this@PlayActivity)
+                ivPlayAlbumMore.setOnClickListener(this@PlayActivity)
+            }
+        }
+    }
+
+    private fun initPosterAnimator() {
+        posterAnimator =
+            ObjectAnimator.ofFloat(binding.layoutPlayAlbum.ivPoster, "rotation", 0f, 360f)
+        posterAnimator.repeatCount = -1
+        posterAnimator.interpolator = LinearInterpolator()
+        posterAnimator.duration = 20000
+    }
+
+    private fun changeMusicLogic() {
+        setupPoster()
+        if (!PlayInfoManager.getPlayState()) {
+            onClickPlayPauseIcon()
         }
     }
 
 
-    private fun changePoster() {
+    private fun onClickPlayPauseIcon() {
+        PlayInfoManager.changePlayState()
+        setupPlayPauseIconAndPosterAnimatorByPlayState()
+    }
 
+    /**
+     * 根据播放状态设置播放按钮和海报动画
+     */
+    private fun setupPlayPauseIconAndPosterAnimatorByPlayState() {
+        binding.layoutPlayIcon.ivPlayPause.setImageResource(
+            if (PlayInfoManager.getPlayState()) R.drawable.c_p else R.drawable.c_r
+        )
+        if (PlayInfoManager.getPlayState()) {
+            if (posterAnimator.isStarted) {
+                posterAnimator.resume()
+            } else {
+                posterAnimator.start()
+            }
+        } else {
+            posterAnimator.pause()
+        }
+    }
+
+    /**
+     * 设置海波
+     */
+    private fun setupPoster() {
         val track = PlayInfoManager.getTrack()
         val posterUrl = track?.al?.picUrl
         binding.apply {
-
             tvTitle.text = track?.name
             tvSubTitle.text = track!!.ar[0].name
-            GlideUtils.loadImg(
-                posterUrl, GlideUtils.TYPE_PLAY_ALBUM, layoutPlayAlbum.ivPoster,
-            )
             GlideUtils.simpleLoadImg(oldPoster, ivBackground1)
             GlideUtils.loadBlurImage(posterUrl, ivBackground1, object : DrawableCallBack {
                 override fun onGetDrawable(drawable: Drawable?) {
@@ -72,6 +122,45 @@ class PlayActivity : BaseActivity() {
                     }
                 }
             })
+            GlideUtils.loadImg(
+                posterUrl, GlideUtils.TYPE_PLAY_ALBUM, layoutPlayAlbum.ivPoster,
+            )
+        }
+    }
+
+    override fun onClick(view: View) {
+        when (view.id) {
+            //播放控制点击事件
+            R.id.ivPlayModel -> {
+
+            }
+            R.id.ivPlayPrevious -> {
+                PlayInfoManager.playPrevious()
+                changeMusicLogic()
+            }
+            R.id.ivPlayPause -> {
+                onClickPlayPauseIcon()
+            }
+            R.id.ivPlayNext -> {
+                PlayInfoManager.playNext()
+                changeMusicLogic()
+            }
+            R.id.ivPlayMenu -> {
+
+            }
+            //播放封面menu
+            R.id.ivLike -> {
+
+            }
+            R.id.ivDownload -> {
+
+            }
+            R.id.ivComment -> {
+
+            }
+            R.id.ivPlayAlbumMore -> {
+
+            }
         }
     }
 }

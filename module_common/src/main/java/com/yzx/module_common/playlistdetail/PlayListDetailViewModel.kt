@@ -13,11 +13,13 @@ class PlayListDetailViewModel(private val playListDetailRepository: PlayListDeta
     val playListDetailLiveData = MutableLiveData<PlayListDetailResponse>()
 
     fun getPlayListDetail(id: Long) {
+        showLoading()
         viewModelScope.launch(coroutineExceptionHandler) {
             val playListDetail = playListDetailRepository.getPlayListDetail(id)
             if (playListDetail.code == 200) {
                 if (playListDetail.playlist.trackCount <= 10) {
                     playListDetailLiveData.value = playListDetail
+                    hideLoading()
                 } else {
                     getAllSongsByIds(playListDetail)
                 }
@@ -42,6 +44,7 @@ class PlayListDetailViewModel(private val playListDetailRepository: PlayListDeta
         if (playListSongsResponse.code == 200) {
             playListDetail.playlist.tracks = playListSongsResponse.songs
             playListDetailLiveData.value = playListDetail
+            hideLoading()
         } else {
             onFail(playListSongsResponse.message)
         }
