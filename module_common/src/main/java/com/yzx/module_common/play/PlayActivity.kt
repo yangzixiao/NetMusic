@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.google.android.material.tabs.TabLayout
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
+import com.yzx.lib_base.utils.ColorUtils
+import com.yzx.lib_base.utils.glide.ColorCallBack
 import com.yzx.lib_base.utils.glide.DrawableCallBack
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_common.R
@@ -25,9 +26,10 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
     override fun getActivityExitAnim(): Int {
         return R.anim.slide_out_bottom
     }
+
     private lateinit var binding: ActivityPlayBinding
     private var oldPoster: Any = R.drawable.cd1
-    private lateinit var posterAnimator: ObjectAnimator
+    private var posterAnimator: ObjectAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +46,6 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding.apply {
             initStatus(ivStatus)
             initToolbar(toolbar, R.menu.menu_play)
-            initPosterAnimator()
 
             layoutPlayIcon.apply {
                 ivPlayModel.setOnClickListener(this@PlayActivity)
@@ -53,8 +54,6 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
                 ivPlayNext.setOnClickListener(this@PlayActivity)
                 ivPlayMenu.setOnClickListener(this@PlayActivity)
             }
-
-            TabLayout(this@PlayActivity).newTab().badge
 
             layoutPlayAlbum.apply {
                 ivLike.setOnClickListener(this@PlayActivity)
@@ -68,9 +67,11 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
     private fun initPosterAnimator() {
         posterAnimator =
             ObjectAnimator.ofFloat(binding.layoutPlayAlbum.ivPoster, "rotation", 0f, 360f)
-        posterAnimator.repeatCount = -1
-        posterAnimator.interpolator = LinearInterpolator()
-        posterAnimator.duration = 20000
+        posterAnimator!!.apply {
+            repeatCount = -1
+            interpolator = LinearInterpolator()
+            duration = 20000
+        }
     }
 
     private fun changeMusicLogic() {
@@ -93,19 +94,26 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding.layoutPlayIcon.ivPlayPause.setImageResource(
             if (PlayInfoManager.getPlayState()) R.drawable.c_p else R.drawable.c_r
         )
+        if (posterAnimator == null) {
+            initPosterAnimator()
+        }
+        val playSpecialEffect = binding.layoutPlayAlbum.playSpecialEffect
         if (PlayInfoManager.getPlayState()) {
-            if (posterAnimator.isStarted) {
-                posterAnimator.resume()
+            if (posterAnimator!!.isStarted) {
+                posterAnimator!!.resume()
+                playSpecialEffect.resume()
             } else {
-                posterAnimator.start()
+                playSpecialEffect.start()
+                posterAnimator!!.start()
             }
         } else {
-            posterAnimator.pause()
+            playSpecialEffect.pause()
+            posterAnimator!!.pause()
         }
     }
 
     /**
-     * 设置海波
+     * 设置海报
      */
     private fun setupPoster() {
         val track = PlayInfoManager.getTrack()
@@ -113,6 +121,11 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding.apply {
             tvTitle.text = track?.name
             tvSubTitle.text = track!!.ar[0].name
+            GlideUtils.getBitmapColor(posterUrl,ivBackground1,object :ColorCallBack{
+                override fun onCallBack(color: Int) {
+                    binding.layoutPlayAlbum.playSpecialEffect.setWaveColor(ColorUtils.getColorByAlpha(color,1f))
+                }
+            })
             GlideUtils.simpleLoadImg(oldPoster, ivBackground1)
             GlideUtils.loadBlurImage(posterUrl, ivBackground1, object : DrawableCallBack {
                 override fun onGetDrawable(drawable: Drawable?) {

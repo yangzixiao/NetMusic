@@ -7,6 +7,6 @@ import android.graphics.Bitmap;
  * @date 2020/7/15
  * Description
  */
-public interface CallBack {
+public interface BitmapColorCallBack {
     void onCallBack(Bitmap bitmap,int color);
 }

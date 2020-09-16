@@ -102,7 +102,11 @@
                 android:textSize="@dimen/dim_textsize_12" />
 
             <com.google.android.material.slider.Slider
+                android:id="@+id/sliderSongDuration"
+                app:haloRadius="20dp"
+                app:thumbRadius="@dimen/dim_5"
                 android:layout_width="0dp"
+                app:trackHeight="3dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 

@@ -73,11 +73,33 @@ public class GlideUtils {
     }
 
 
-    public static void loadBitmap(Object resource, @DrawableRes int placeholder, ImageView target, final CallBack callBack) {
+    public static void getBitmapColor(Object resource, ImageView target, final ColorCallBack callBack) {
+        Glide.with(target.getContext()).asBitmap().load(resource).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+
+                Palette.from(resource)
+                        .generate(palette -> {
+                            if (palette == null) {
+                                callBack.onCallBack( 0xffffff);
+                            } else {
+                                callBack.onCallBack(palette.getVibrantColor(0xffffff));
+                            }
+                        });
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                super.onLoadFailed(errorDrawable);
+                callBack.onCallBack( 0xffffff);
+            }
+        });
+    }
+    public static void loadBitmap(Object resource, @DrawableRes int placeholder, ImageView target, final BitmapColorCallBack callBack) {
         loadBitmap(resource, placeholder, target, false, callBack);
     }
 
-    public static void loadBitmap(Object resource, @DrawableRes final int placeholder, final ImageView target, final boolean needColor, final CallBack callBack) {
+    public static void loadBitmap(Object resource, @DrawableRes final int placeholder, final ImageView target, final boolean needColor, final BitmapColorCallBack callBack) {
         Glide.with(target.getContext()).asBitmap().placeholder(placeholder).load(resource).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
@@ -101,7 +123,7 @@ public class GlideUtils {
         });
     }
 
-    private static void getColor(final Bitmap resource, final CallBack callBack) {
+    private static void getColor(final Bitmap resource, final BitmapColorCallBack callBack) {
         Palette.from(resource)
                 .generate(palette -> {
                     if (palette == null) {
