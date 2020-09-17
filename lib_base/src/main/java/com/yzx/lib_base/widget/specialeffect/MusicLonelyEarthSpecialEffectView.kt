@@ -79,19 +79,19 @@ class MusicLonelyEarthSpecialEffectView(
         return lonelyEarthCircleBean
     }
 
-    private var batchCount = 0
-    private var batchIndex = 0
+//    private var batchCount = 0
+//    private var batchIndex = 0
     private fun providerAnimator() {
 
-        if (batchIndex >= batchCount) {
-            provider.cancel()
-            batchCount = random.nextInt(7) + 3
-            val randomDelay = (random.nextInt(500) + 500).toLong()
-            postDelayed({
-                provider.start()
-            }, randomDelay)
-        }
-        batchIndex++
+//        if (batchIndex >= batchCount) {
+//            provider.cancel()
+//            batchCount = random.nextInt(7) + 3
+//            val randomDelay = (random.nextInt(500) + 500).toLong()
+//            postDelayed({
+//                provider.start()
+//            }, randomDelay)
+//        }
+//        batchIndex++
 
         val lonelyEarthCircleBean = providerCircleBean()
         circles.add(lonelyEarthCircleBean)
@@ -152,7 +152,6 @@ class MusicLonelyEarthSpecialEffectView(
         if (isStart) {
             return
         }
-        provider
         provider.start()
         isStart = true
     }

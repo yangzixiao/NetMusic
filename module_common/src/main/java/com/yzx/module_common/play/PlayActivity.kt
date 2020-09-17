@@ -107,13 +107,13 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         if (PlayInfoManager.getPlayState()) {
             playSpecialEffect.start()
             if (posterAnimator!!.isStarted) {
-                posterAnimator!!.resume()
+                posterAnimator?.resume()
             } else {
-                posterAnimator!!.start()
+                posterAnimator?.start()
             }
         } else {
             playSpecialEffect.stop()
-            posterAnimator!!.pause()
+            posterAnimator?.pause()
         }
     }
 
