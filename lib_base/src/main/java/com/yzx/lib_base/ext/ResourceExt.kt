@@ -23,6 +23,10 @@ fun getDefaultStatusHeight(): Int {
     return result
 }
 
+
+fun getScreenWidth():Int{
+   return application().resources.displayMetrics.widthPixels
+}
 private fun application() = AppManager.application
 
 fun simpleGetString(@StringRes vararg stringRes: Int): String {

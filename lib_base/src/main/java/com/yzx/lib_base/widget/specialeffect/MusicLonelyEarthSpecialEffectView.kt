@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PathMeasure
+import android.os.CountDownTimer
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -32,7 +33,7 @@ class MusicLonelyEarthSpecialEffectView(
     private var maxRadius = 0F
 
     private var mPaint: Paint = Paint()
-    private val animator = ValueAnimator.ofFloat(0F, 1F)
+
 
     private val circles = mutableListOf<LonelyEarthCircleBean>()
     private val random = Random()
@@ -40,6 +41,10 @@ class MusicLonelyEarthSpecialEffectView(
     private var positionArray = floatArrayOf(0f, 0f)
     private var instance = 50
     private var canvasRotate = 0
+    private val provider = Provider(Long.MAX_VALUE, 500)
+    private var isStart = false
+    private var startSize = 0F
+    private var waveColor = 0xffffff
 
     init {
         Log.e(TAG, "init: ")
@@ -51,27 +56,6 @@ class MusicLonelyEarthSpecialEffectView(
         mPaint.color = Color.WHITE
         mPaint.isAntiAlias = true
         mPaint.strokeWidth = 2f
-
-        animator.duration = 5000
-        animator.repeatCount = -1
-
-        animator.addUpdateListener {
-            circles.forEachIndexed { index, lonelyEarthCircleBean ->
-                val radius = lonelyEarthCircleBean.startRadius
-                if (radius > maxRadius) {
-                    lonelyEarthCircleBean.startRadius = 0F
-                }
-
-                lonelyEarthCircleBean.startRadius += 2
-                if (lonelyEarthCircleBean.maxRadius != 0F) {
-                    lonelyEarthCircleBean.apply {
-                        val i = ((maxRadius - startRadius) / maxRadius * 255).toInt() + 50
-                        alpha = if (i > 255) 255 else i
-                    }
-                }
-            }
-            invalidate()
-        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -83,31 +67,61 @@ class MusicLonelyEarthSpecialEffectView(
         centerX = (measuredWidth / 2).toFloat()
         centerY = centerX
         maxRadius = centerX
-
-        Log.e(TAG, "onMeasure: ")
     }
 
 
-    private fun providerCircles() {
-        for (index in 0..10) {
-            circles.add(providerCircleBean(index))
-        }
-    }
-
-    private fun providerCircleBean(index: Int): LonelyEarthCircleBean {
+    private fun providerCircleBean(): LonelyEarthCircleBean {
         val lonelyEarthCircleBean = LonelyEarthCircleBean()
-        lonelyEarthCircleBean.startRadius = -index * 50F
+        lonelyEarthCircleBean.startRadius = startSize
         lonelyEarthCircleBean.maxRadius = maxRadius
         lonelyEarthCircleBean.startAngel = random.nextInt(360)
         lonelyEarthCircleBean.littleCircleRadius = random.nextInt(10) + 3
         return lonelyEarthCircleBean
     }
 
+    private var batchCount = 0
+    private var batchIndex = 0
+    private fun providerAnimator() {
+
+        if (batchIndex >= batchCount) {
+            provider.cancel()
+            batchCount = random.nextInt(7) + 3
+            val randomDelay = (random.nextInt(500) + 500).toLong()
+            postDelayed({
+                provider.start()
+            }, randomDelay)
+        }
+        batchIndex++
+
+        val lonelyEarthCircleBean = providerCircleBean()
+        circles.add(lonelyEarthCircleBean)
+        val animator = ValueAnimator.ofFloat(0F, 1F)
+        animator.duration = 5000
+        animator.repeatCount = 1
+
+        animator.addUpdateListener {
+            val radius = lonelyEarthCircleBean.startRadius
+            if (radius > maxRadius) {
+                circles.remove(lonelyEarthCircleBean)
+            }
+
+            lonelyEarthCircleBean.startRadius += 2
+            if (lonelyEarthCircleBean.maxRadius != 0F) {
+                lonelyEarthCircleBean.apply {
+                    val i = ((maxRadius - startRadius) / (maxRadius - startSize) * 255).toInt() + 50
+                    alpha = if (i > 255) 255 else i
+                }
+            }
+            invalidate()
+        }
+        animator.start()
+    }
+
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvasRotate += 1
         canvas.rotate(canvasRotate.toFloat(), centerX, centerY)
-
         if (!circles.isNullOrEmpty()) {
             circles.forEach {
                 if (it.startRadius > 0) {
@@ -129,31 +143,45 @@ class MusicLonelyEarthSpecialEffectView(
         }
     }
 
-    fun setStartAngle() {
 
-    }
-
-    fun setWaveColor(color: Int) {
-        mPaint.color = color
+    fun setStartSize(newStartSize: Float) {
+        startSize = newStartSize
     }
 
     fun start() {
-        providerCircles()
-        animator.start()
+        if (isStart) {
+            return
+        }
+        provider
+        provider.start()
+        isStart = true
     }
 
-    fun pause() {
-        if (animator.isRunning) {
-            animator.pause()
-        }
+    fun stop() {
+        provider.cancel()
+        isStart = false
     }
 
-    fun resume() {
-        if (circles.isNullOrEmpty()) {
-            providerCircles()
+    inner class Provider(millisInFuture: Long, countDownInterval: Long) :
+        CountDownTimer(millisInFuture, countDownInterval) {
+        override fun onTick(p0: Long) {
+            providerAnimator()
+            Log.e(TAG, "onTick:circleSize ${circles.size}")
         }
-        if (animator.isPaused) {
-            animator.resume()
+
+        override fun onFinish() {
         }
+
+
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        stop()
+    }
+
+    fun setWaveColor(newWaveColor: Int) {
+        waveColor = newWaveColor
+        mPaint.color = waveColor
     }
 }

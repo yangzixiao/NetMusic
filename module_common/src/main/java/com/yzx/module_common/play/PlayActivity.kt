@@ -8,6 +8,9 @@ import android.view.animation.LinearInterpolator
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
+import com.yzx.lib_base.ext.dp
+import com.yzx.lib_base.ext.getScreenWidth
+import com.yzx.lib_base.ext.simpleGetColor
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.glide.ColorCallBack
 import com.yzx.lib_base.utils.glide.DrawableCallBack
@@ -15,6 +18,8 @@ import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_common.R
 import com.yzx.module_common.databinding.ActivityPlayBinding
 import com.yzx.module_common.manager.PlayInfoManager
+import kotlinx.coroutines.flow.delayEach
+import kotlinx.coroutines.flow.flowOf
 
 @Route(path = ARouterPath.COMMON_PLAY)
 class PlayActivity : BaseActivity(), View.OnClickListener {
@@ -56,6 +61,7 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
             }
 
             layoutPlayAlbum.apply {
+                playSpecialEffect.setStartSize(getScreenWidth()/2 - 50.dp())
                 ivLike.setOnClickListener(this@PlayActivity)
                 ivDownload.setOnClickListener(this@PlayActivity)
                 ivComment.setOnClickListener(this@PlayActivity)
@@ -99,15 +105,14 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         }
         val playSpecialEffect = binding.layoutPlayAlbum.playSpecialEffect
         if (PlayInfoManager.getPlayState()) {
+            playSpecialEffect.start()
             if (posterAnimator!!.isStarted) {
                 posterAnimator!!.resume()
-                playSpecialEffect.resume()
             } else {
-                playSpecialEffect.start()
                 posterAnimator!!.start()
             }
         } else {
-            playSpecialEffect.pause()
+            playSpecialEffect.stop()
             posterAnimator!!.pause()
         }
     }
@@ -121,9 +126,11 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding.apply {
             tvTitle.text = track?.name
             tvSubTitle.text = track!!.ar[0].name
-            GlideUtils.getBitmapColor(posterUrl,ivBackground1,object :ColorCallBack{
+            GlideUtils.getBitmapColor(posterUrl, ivBackground1, object : ColorCallBack {
                 override fun onCallBack(color: Int) {
-                    binding.layoutPlayAlbum.playSpecialEffect.setWaveColor(ColorUtils.getColorByAlpha(color,1f))
+                    binding.layoutPlayAlbum.playSpecialEffect.setWaveColor(
+                        ColorUtils.getColorByAlpha(color, 1f)
+                    )
                 }
             })
             GlideUtils.simpleLoadImg(oldPoster, ivBackground1)
