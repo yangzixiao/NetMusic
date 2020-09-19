@@ -1,11 +1,11 @@
 package com.yzx.lib_base.widget.specialeffect
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.PathMeasure
 import android.os.CountDownTimer
 import android.util.AttributeSet
 import android.util.Log
@@ -37,15 +37,12 @@ class MusicLonelyEarthSpecialEffectView(
 
     private val circles = mutableListOf<LonelyEarthCircleBean>()
     private val random = Random()
-    private val pathMeasure = PathMeasure()
-    private var positionArray = floatArrayOf(0f, 0f)
-    private var instance = 50
     private var canvasRotate = 0
     private val provider = Provider(Long.MAX_VALUE, 500)
     private var isStart = false
     private var startSize = 0F
     private var waveColor = 0xffffff
-
+    private val animators = mutableListOf<Animator>()
     init {
         Log.e(TAG, "init: ")
         initPaint()
@@ -79,19 +76,8 @@ class MusicLonelyEarthSpecialEffectView(
         return lonelyEarthCircleBean
     }
 
-//    private var batchCount = 0
-//    private var batchIndex = 0
-    private fun providerAnimator() {
 
-//        if (batchIndex >= batchCount) {
-//            provider.cancel()
-//            batchCount = random.nextInt(7) + 3
-//            val randomDelay = (random.nextInt(500) + 500).toLong()
-//            postDelayed({
-//                provider.start()
-//            }, randomDelay)
-//        }
-//        batchIndex++
+    private fun providerAnimator() {
 
         val lonelyEarthCircleBean = providerCircleBean()
         circles.add(lonelyEarthCircleBean)
@@ -115,6 +101,7 @@ class MusicLonelyEarthSpecialEffectView(
             invalidate()
         }
         animator.start()
+        animators.add(animator)
     }
 
 
@@ -163,20 +150,49 @@ class MusicLonelyEarthSpecialEffectView(
 
     inner class Provider(millisInFuture: Long, countDownInterval: Long) :
         CountDownTimer(millisInFuture, countDownInterval) {
+
+        private var batchIndex = 0
+        private var batchCount = 3
+        private var isNewBatch = true
         override fun onTick(p0: Long) {
-            providerAnimator()
+            if (isNewBatch) {
+                if (batchIndex > batchCount) {
+                    batchCount = random.nextInt(7) + 3
+                    batchIndex = 0
+                    isNewBatch = false
+                }
+                batchIndex++
+                providerAnimator()
+            } else {
+                isNewBatch = true
+            }
             Log.e(TAG, "onTick:circleSize ${circles.size}")
         }
 
         override fun onFinish() {
         }
+    }
 
-
+    /**
+     * 取消创建、运行的动画
+     */
+    fun release(){
+        stop()
+        /**
+         * 遍历未结束的动画
+         */
+        if (animators.isNotEmpty()) {
+            animators.forEach {
+                if (it.isRunning) {
+                    it.cancel()
+                }
+            }
+        }
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        stop()
+        release()
     }
 
     fun setWaveColor(newWaveColor: Int) {

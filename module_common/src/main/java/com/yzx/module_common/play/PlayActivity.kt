@@ -3,18 +3,14 @@ package com.yzx.module_common.play
 import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.dp
 import com.yzx.lib_base.ext.getScreenWidth
-import com.yzx.lib_base.ext.simpleGetColor
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.glide.ColorCallBack
@@ -23,8 +19,6 @@ import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_common.R
 import com.yzx.module_common.databinding.ActivityPlayBinding
 import com.yzx.module_common.manager.PlayInfoManager
-import kotlinx.coroutines.flow.delayEach
-import kotlinx.coroutines.flow.flowOf
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Route(path = ARouterPath.COMMON_PLAY)
@@ -54,7 +48,6 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         })
         setupPoster()
         initView()
-        setupPlayPauseIconAndPosterAnimatorByPlayState()
     }
 
     private fun initView() {
@@ -97,6 +90,15 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupPlayPauseIconAndPosterAnimatorByPlayState()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.layoutPlayAlbum.playSpecialEffect.release()
+    }
 
     private fun onClickPlayPauseIcon() {
         PlayInfoManager.changePlayState()
