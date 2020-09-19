@@ -3,14 +3,19 @@ package com.yzx.module_common.play
 import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.dp
 import com.yzx.lib_base.ext.getScreenWidth
 import com.yzx.lib_base.ext.simpleGetColor
+import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.glide.ColorCallBack
 import com.yzx.lib_base.utils.glide.DrawableCallBack
@@ -20,6 +25,7 @@ import com.yzx.module_common.databinding.ActivityPlayBinding
 import com.yzx.module_common.manager.PlayInfoManager
 import kotlinx.coroutines.flow.delayEach
 import kotlinx.coroutines.flow.flowOf
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Route(path = ARouterPath.COMMON_PLAY)
 class PlayActivity : BaseActivity(), View.OnClickListener {
@@ -35,13 +41,17 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityPlayBinding
     private var oldPoster: Any = R.drawable.cd1
     private var posterAnimator: ObjectAnimator? = null
-
+    private val viewModel: PlayViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTransparentStatus()
         setStatusWhiteFont()
         binding = ActivityPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initViewModel(viewModel)
+        viewModel.musicUrlLiveData.observe(this, Observer {
+            toast(it.url)
+        })
         setupPoster()
         initView()
         setupPlayPauseIconAndPosterAnimatorByPlayState()
@@ -61,7 +71,7 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
             }
 
             layoutPlayAlbum.apply {
-                playSpecialEffect.setStartSize(getScreenWidth()/2 - 50.dp())
+                playSpecialEffect.setStartSize(getScreenWidth() / 2 - 50.dp())
                 ivLike.setOnClickListener(this@PlayActivity)
                 ivDownload.setOnClickListener(this@PlayActivity)
                 ivComment.setOnClickListener(this@PlayActivity)
@@ -122,6 +132,7 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
      */
     private fun setupPoster() {
         val track = PlayInfoManager.getTrack()
+//        viewModel.getMusicUrl(track!!.id)
         val posterUrl = track?.al?.picUrl
         binding.apply {
             tvTitle.text = track?.name
