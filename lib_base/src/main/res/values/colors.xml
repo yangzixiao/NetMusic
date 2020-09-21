@@ -33,5 +33,6 @@
     <color name="colorIconTintGrey">#B3B3B3</color>
     <color name="colorStrokeColor">#B3B3B3</color>
     <color name="colorRipple">#22000000</color>
+    <color name="colorGreyMask">#33000000</color>
 
 </resources>

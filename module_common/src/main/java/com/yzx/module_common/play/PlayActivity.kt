@@ -64,7 +64,7 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
             }
 
             layoutPlayAlbum.apply {
-                playSpecialEffect.setStartSize(getScreenWidth() / 2 - 50.dp())
+                playSpecialEffect.setStartSize(getScreenWidth() / 2 - 50f.dp)
                 ivLike.setOnClickListener(this@PlayActivity)
                 ivDownload.setOnClickListener(this@PlayActivity)
                 ivComment.setOnClickListener(this@PlayActivity)

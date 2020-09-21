@@ -30,11 +30,6 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
     private lateinit var binding: ActivityPlayListDetailBinding
     private var headViewHeight = 0
     private lateinit var viewTreeObserver: ViewTreeObserver
-
-    init {
-        e("init")
-    }
-
     private var toolbarHeight: Int = 0
 
     override fun getActivityEnterAnim(): Int {
@@ -47,7 +42,6 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        e("onCreate")
         binding = ActivityPlayListDetailBinding.inflate(layoutInflater)
 
         toolbarHeight = getDefaultStatusAndToolbarHeight()
@@ -176,7 +170,7 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
 
     override fun onGlobalLayout() {
         if (headViewHeight == 0) {
-            headViewHeight = mBottomDelegateLayout.headerView.measuredHeight - 50.dp()
+            headViewHeight = mBottomDelegateLayout.headerView.measuredHeight - 50f.dp
                 .toInt() - toolbarHeight
         }
         if (viewTreeObserver.isAlive) {

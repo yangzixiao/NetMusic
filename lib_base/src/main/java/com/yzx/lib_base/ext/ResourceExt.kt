@@ -13,7 +13,7 @@ fun getReSource(): Resources {
 }
 
 fun getDefaultStatusHeight(): Int {
-    var result = 25.dp().toInt()
+    var result = 25f.dp.toInt()
     val reSource = getReSource()
     val resourceId =
         reSource.getIdentifier("status_bar_height", "dimen", "android")
@@ -24,10 +24,10 @@ fun getDefaultStatusHeight(): Int {
 }
 
 
+private fun application() = AppManager.application
 fun getScreenWidth():Int{
    return application().resources.displayMetrics.widthPixels
 }
-private fun application() = AppManager.application
 
 fun simpleGetString(@StringRes vararg stringRes: Int): String {
     var result = ""

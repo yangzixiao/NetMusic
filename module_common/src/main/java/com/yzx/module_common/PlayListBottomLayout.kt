@@ -55,7 +55,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
     }
 
     override fun getHeaderStickyHeight(): Int {
-        return context.getDefaultStatusAndToolbarHeight() + 50.dp().toInt()
+        return context.getDefaultStatusAndToolbarHeight() + 50f.dp.toInt()
     }
 
 
@@ -78,7 +78,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
         footBinding.apply {
             recyclerView.apply {
                 adapter = PlayListSubscriberAdapter(playList.subscribers.toMutableList())
-                addItemDecoration(ExtraLinearItemDecoration(10.dp().toInt()))
+                addItemDecoration(ExtraLinearItemDecoration(10f.dp.toInt()))
             }
             tvCollectCount.text = "${playList.subscribedCount}人收藏"
         }
@@ -127,7 +127,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
                     tvCollect.text = "${context.getText(R.string.Collect)}(${subscribedCount})"
                     tvCollect.background =
                         DrawableCreator.Builder().setSolidColor(getColor(R.color.colorRed))
-                            .setCornersRadius(15.dp()).build()
+                            .setCornersRadius(15f.dp).build()
                     tvCollect.setTextColor(Color.WHITE)
                 }
             } else {
@@ -139,6 +139,9 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
     fun updateCover(coverImgUrl: String) {
         topViewBinding.apply {
             GlideUtils.loadImg(coverImgUrl, ivPoster)
+            val maskColor = simpleGetColor(R.color.colorGreyMask)
+            ivForeground.setMaskColor(maskColor)
+            ivBackground.setMaskColor(maskColor)
             GlideUtils.loadDrawable(coverImgUrl, ivBackground, 100, 8)
             GlideUtils.loadDrawable(coverImgUrl, ivForeground, 100, 8)
 
