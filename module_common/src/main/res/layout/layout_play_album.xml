@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/ic_default_poster"/>
 
     <com.google.android.material.imageview.ShapeableImageView
-        app:strokeColor="#BCBCAB"
+        app:strokeColor="#33ffffff"
         app:strokeWidth="6dp"
         android:id="@+id/ivPoster"
         android:padding="3dp"

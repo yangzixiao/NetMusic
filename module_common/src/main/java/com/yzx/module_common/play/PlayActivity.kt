@@ -5,16 +5,24 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.dp
+import com.yzx.lib_base.ext.e
 import com.yzx.lib_base.ext.getScreenWidth
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.glide.ColorCallBack
 import com.yzx.lib_base.utils.glide.DrawableCallBack
 import com.yzx.lib_base.utils.glide.GlideUtils
+import com.yzx.lib_play_client.PlayerManager
+import com.yzx.lib_play_client.client.bean.base.BaseAlbumItem
+import com.yzx.lib_play_client.client.bean.base.BaseArtistItem
+import com.yzx.lib_play_client.client.bean.base.BaseMusicItem
+import com.yzx.lib_play_client.client.bean.dto.ChangeMusic
+import com.yzx.lib_play_client.client.bean.dto.PlayingMusic
 import com.yzx.module_common.R
 import com.yzx.module_common.databinding.ActivityPlayBinding
 import com.yzx.module_common.manager.PlayInfoManager
@@ -42,11 +50,28 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViewModel(viewModel)
-        viewModel.musicUrlLiveData.observe(this, {
-            toast(it.url)
+        val playManager = PlayerManager.getInstance()
+        playManager.playingMusicLiveData.observe(this, {
+            onProgressChanged(it)
         })
-        setupPoster()
+
+        playManager.changeMusicLiveData.observe(this, {
+            setupPoster(it)
+        })
+
+        playManager.pauseLiveData.observe(this, {
+            setupPlayPauseIconAndPosterAnimatorByPlayState(!it)
+            e("$it")
+        })
+
         initView()
+    }
+
+    private fun onProgressChanged(playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>) {
+        binding.sliderSongDuration.valueTo = playingMusic.duration.toFloat()
+        binding.sliderSongDuration.value = playingMusic.playerPosition.toFloat()
+        binding.tvPlayedTime.text = playingMusic.nowTime
+        binding.tvLeftTime.text = playingMusic.allTime
     }
 
     private fun initView() {
@@ -72,7 +97,7 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
 
 
             sliderSongDuration.addOnChangeListener { slider, value, fromUser ->
-                if (fromUser){
+                if (fromUser) {
                     value.toInt()
                 }
 
@@ -90,16 +115,9 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private fun changeMusicLogic() {
-        setupPoster()
-        if (!PlayInfoManager.getPlayState()) {
-            onClickPlayPauseIcon()
-        }
-    }
-
     override fun onResume() {
         super.onResume()
-        setupPlayPauseIconAndPosterAnimatorByPlayState()
+        setupPlayPauseIconAndPosterAnimatorByPlayState(PlayerManager.getInstance().isPlaying)
     }
 
     override fun onPause() {
@@ -107,23 +125,19 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding.layoutPlayAlbum.playSpecialEffect.release()
     }
 
-    private fun onClickPlayPauseIcon() {
-        PlayInfoManager.changePlayState()
-        setupPlayPauseIconAndPosterAnimatorByPlayState()
-    }
 
     /**
      * 根据播放状态设置播放按钮和海报动画
      */
-    private fun setupPlayPauseIconAndPosterAnimatorByPlayState() {
+    private fun setupPlayPauseIconAndPosterAnimatorByPlayState(isPlaying: Boolean) {
         binding.layoutPlayIcon.ivPlayPause.setImageResource(
-            if (PlayInfoManager.getPlayState()) R.drawable.c_p else R.drawable.c_r
+            if (isPlaying) R.drawable.c_p else R.drawable.c_r
         )
         if (posterAnimator == null) {
             initPosterAnimator()
         }
         val playSpecialEffect = binding.layoutPlayAlbum.playSpecialEffect
-        if (PlayInfoManager.getPlayState()) {
+        if (isPlaying) {
             playSpecialEffect.start()
             if (posterAnimator!!.isStarted) {
                 posterAnimator?.resume()
@@ -139,13 +153,12 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
     /**
      * 设置海报
      */
-    private fun setupPoster() {
-        val track = PlayInfoManager.getTrack()
-        viewModel.getMusicUrl(track?.id)
-        val posterUrl = track?.al?.picUrl
+    private fun setupPoster(changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>) {
+
+        val posterUrl = changeMusic.img
         binding.apply {
-            tvTitle.text = track?.name
-            tvSubTitle.text = track!!.ar[0].name
+            tvTitle.text = changeMusic.title
+            tvSubTitle.text = changeMusic.artist.name
             GlideUtils.getBitmapColor(posterUrl, ivBackground1, object : ColorCallBack {
                 override fun onCallBack(color: Int) {
                     binding.layoutPlayAlbum.playSpecialEffect.setWaveColor(
@@ -175,15 +188,17 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
 
             }
             R.id.ivPlayPrevious -> {
-                PlayInfoManager.playPrevious()
-                changeMusicLogic()
+                PlayerManager.getInstance().playPrevious()
             }
             R.id.ivPlayPause -> {
-                onClickPlayPauseIcon()
+                if (PlayerManager.getInstance().isPlaying) {
+                    PlayerManager.getInstance().pauseAudio()
+                } else {
+                    PlayerManager.getInstance().playAudio()
+                }
             }
             R.id.ivPlayNext -> {
-                PlayInfoManager.playNext()
-                changeMusicLogic()
+                PlayerManager.getInstance().playNext()
             }
             R.id.ivPlayMenu -> {
 

@@ -14,12 +14,11 @@ class PlayListDetailViewModel(private val playListDetailRepository: PlayListDeta
 
     fun getPlayListDetail(id: Long) {
         showLoading()
-        viewModelScope.launch(coroutineExceptionHandler) {
+        viewModelScope.launch() {
             val playListDetail = playListDetailRepository.getPlayListDetail(id)
             if (playListDetail.code == 200) {
                 if (playListDetail.playlist.trackCount <= 10) {
-                    playListDetailLiveData.value = playListDetail
-                    hideLoading()
+                    getSongsUrl(ids, playListDetail)
                 } else {
                     getAllSongsByIds(playListDetail)
                 }
@@ -29,8 +28,37 @@ class PlayListDetailViewModel(private val playListDetailRepository: PlayListDeta
         }
     }
 
-    private suspend fun getAllSongsByIds(playListDetail: PlayListDetailResponse) {
+    /**
+     * 获取所有歌曲url
+     */
+    private suspend fun getSongsUrl(ids: StringBuilder, playListDetail: PlayListDetailResponse) {
+        if (ids.isEmpty()) {
+            val trackIds = playListDetail.playlist.trackIds
+            trackIds.forEachIndexed { index, trackId ->
+                this.ids.append(trackId.id)
+                if (trackIds.lastIndex != index) {
+                    this.ids.append(",")
+                }
+            }
+        }
 
+        val playListUrls = playListDetailRepository.getPlayListUrls(this.ids.toString())
+
+        if (playListUrls.code == 200) {
+            playListDetail.playlist.tracks.forEachIndexed { index, track ->
+                val url = playListUrls.data[index].url
+                if (url!=null) {
+                    track.url = url
+                }
+            }
+            playListDetailLiveData.value = playListDetail
+            hideLoading()
+        } else {
+            onFail(playListUrls.message)
+        }
+    }
+
+    private suspend fun getAllSongsByIds(playListDetail: PlayListDetailResponse) {
         ids.clear()
         val trackIds = playListDetail.playlist.trackIds
         trackIds.forEachIndexed { index, trackId ->
@@ -43,8 +71,7 @@ class PlayListDetailViewModel(private val playListDetailRepository: PlayListDeta
         val playListSongsResponse = playListDetailRepository.getPlayListDetail(ids.toString())
         if (playListSongsResponse.code == 200) {
             playListDetail.playlist.tracks = playListSongsResponse.songs
-            playListDetailLiveData.value = playListDetail
-            hideLoading()
+            getSongsUrl(ids, playListDetail)
         } else {
             onFail(playListSongsResponse.message)
         }

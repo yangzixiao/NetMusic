@@ -3,6 +3,7 @@ package com.yzx.module_common.service
 import com.yzx.module_common.model.MusicUrlResponse
 import com.yzx.module_common.model.PlayListDetailResponse
 import com.yzx.module_common.model.PlayListSongsResponse
+import com.yzx.module_common.model.PlayListUrlsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -21,4 +22,11 @@ interface CommonService {
      */
     @GET("song/url")
     suspend fun getMusicUrl(@Query("id") id: Long?): MusicUrlResponse
+
+    /**
+     * 歌曲Url
+     */
+    @GET("song/url")
+    suspend fun getPlayListUrls(@Query("id") id: String): PlayListUrlsResponse
+
 }

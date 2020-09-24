@@ -12,4 +12,5 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 
     implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
+    implementation project(path: ':lib_play_client')
 }

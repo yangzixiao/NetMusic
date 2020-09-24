@@ -119,7 +119,8 @@
                 app:ms_progressColor="#ffffffff"
                 app:ms_cache="90"
                 android:valueTo="100"
-                app:thumbRadius="@dimen/dim_10"
+                app:ms_loadingCircleRadius="8dp"
+                app:ms_successCircleRadius="5dp"
                 app:trackHeight="3dp" />
 
             <TextView

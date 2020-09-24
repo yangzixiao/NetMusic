@@ -33,5 +33,6 @@ data class Track(
     val s_id: Long,
     val st: Long,
     val t: Long,
-    val v: Long
+    val v: Long,
+    var url: String
 )

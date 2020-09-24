@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.yzx.lib_play_client">
+
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+
+        <service android:name=".notification.PlayerService" />
+
+
+        <receiver android:name=".notification.PlayerReceiver"
+            tools:ignore="ExportedReceiver">
+
+            <intent-filter>
+                <action android:name="pure_music.kunminx.close" />
+                <action android:name="pure_music.kunminx.pause" />
+                <action android:name="pure_music.kunminx.next" />
+                <action android:name="pure_music.kunminx.play" />
+                <action android:name="pure_music.kunminx.previous" />
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

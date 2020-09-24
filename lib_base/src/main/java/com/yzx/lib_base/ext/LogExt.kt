@@ -3,7 +3,7 @@ package com.yzx.lib_base.ext
 import android.util.Log
 import com.yzx.lib_base.BuildConfig
 
-const val TAG = "yzx"
+const val TAG = "ygl"
 
 
 fun i(msg: String) {
