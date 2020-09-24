@@ -59,7 +59,9 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
             toast("歌单获取异常")
             return
         }
-        playListViewModel.getPlayListDetail(playListId)
+        if (playListViewModel.playListDetailLiveData.value == null) {
+            playListViewModel.getPlayListDetail(playListId)
+        }
 
     }
 
@@ -93,22 +95,26 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
             qMUINestScrollView.setBottomAreaView(mBottomDelegateLayout, recyclerViewLp)
             qMUINestScrollView.addOnScrollListener(object :
                 QMUIContinuousNestedScrollLayout.OnScrollListener {
-                override fun onScroll(scrollLayout: QMUIContinuousNestedScrollLayout?,
-                                      topCurrent: Int,
-                                      topRange: Int,
-                                      offsetCurrent: Int,
-                                      offsetRange: Int,
-                                      bottomCurrent: Int,
-                                      bottomRange: Int) {
+                override fun onScroll(
+                    scrollLayout: QMUIContinuousNestedScrollLayout?,
+                    topCurrent: Int,
+                    topRange: Int,
+                    offsetCurrent: Int,
+                    offsetRange: Int,
+                    bottomCurrent: Int,
+                    bottomRange: Int
+                ) {
 
                     updateToolbarTitle(bottomCurrent)
                     updateHeadViewBackground(bottomCurrent)
 
                 }
 
-                override fun onScrollStateChange(scrollLayout: QMUIContinuousNestedScrollLayout?,
-                                                 newScrollState: Int,
-                                                 fromTopBehavior: Boolean) {
+                override fun onScrollStateChange(
+                    scrollLayout: QMUIContinuousNestedScrollLayout?,
+                    newScrollState: Int,
+                    fromTopBehavior: Boolean
+                ) {
                 }
             })
         }

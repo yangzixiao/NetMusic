@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
@@ -43,7 +42,7 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViewModel(viewModel)
-        viewModel.musicUrlLiveData.observe(this, Observer {
+        viewModel.musicUrlLiveData.observe(this, {
             toast(it.url)
         })
         setupPoster()
@@ -69,6 +68,14 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
                 ivDownload.setOnClickListener(this@PlayActivity)
                 ivComment.setOnClickListener(this@PlayActivity)
                 ivPlayAlbumMore.setOnClickListener(this@PlayActivity)
+            }
+
+
+            sliderSongDuration.addOnChangeListener { slider, value, fromUser ->
+                if (fromUser){
+                    value.toInt()
+                }
+
             }
         }
     }
@@ -134,7 +141,7 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
      */
     private fun setupPoster() {
         val track = PlayInfoManager.getTrack()
-//        viewModel.getMusicUrl(track!!.id)
+        viewModel.getMusicUrl(track?.id)
         val posterUrl = track?.al?.picUrl
         binding.apply {
             tvTitle.text = track?.name
@@ -195,5 +202,11 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
 
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.layoutPlayAlbum.playSpecialEffect.release()
+        posterAnimator?.cancel()
     }
 }

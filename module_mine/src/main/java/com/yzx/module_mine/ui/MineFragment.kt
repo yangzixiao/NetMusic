@@ -55,7 +55,7 @@ class MineFragment : BaseFragment() {
     }
 
     //第一次更新不需要调研
-    private var needRefresh = false
+//    private var needRefresh = false
     private lateinit var mineBinding: FragmentMineBinding
     private lateinit var mineAdapter: MultiTypeAdapter
     private lateinit var userDataBean: UserDataBean
@@ -85,13 +85,14 @@ class MineFragment : BaseFragment() {
             setupSwipeRefreshLayout()
             bindingRecyclerViewAndTabLayout(recyclerView, tabLayout)
         }
+
         userInfoLiveData.observe(viewLifecycleOwner, {
             userDataBean = it
             onUserStateChanged()
-            if (needRefresh) {
+            if (viewModel.minePagerLiveData.value == null) {
                 mineBinding.smartRefreshLayout.autoRefresh()
             }
-            needRefresh = true
+//            needRefresh = true
         })
 
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {

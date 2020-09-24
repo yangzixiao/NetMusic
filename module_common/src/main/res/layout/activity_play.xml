@@ -19,10 +19,10 @@
         android:scaleType="centerCrop" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:background="@color/colorGreyMask"
-        android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/colorGreyMask"
+        android:scaleType="centerCrop" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -107,14 +107,20 @@
                 android:textColor="@color/colorWhiteSubTitle"
                 android:textSize="@dimen/dim_textsize_12" />
 
-            <com.google.android.material.slider.Slider
+            <com.yzx.lib_base.widget.musicwidget.slider.MusicSlider
+                app:labelBehavior="gone"
                 android:id="@+id/sliderSongDuration"
-                app:haloRadius="20dp"
-                app:thumbRadius="@dimen/dim_5"
                 android:layout_width="0dp"
-                app:trackHeight="3dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:valueFrom="0"
+                app:ms_maxColor="#33ffffff"
+                app:ms_cacheColor="#66ffffff"
+                app:ms_progressColor="#ffffffff"
+                app:ms_cache="90"
+                android:valueTo="100"
+                app:thumbRadius="@dimen/dim_10"
+                app:trackHeight="3dp" />
 
             <TextView
                 android:id="@+id/tvLeftTime"

@@ -46,25 +46,36 @@
 
 
     <declare-styleable name="ImgTitleView">
-        <attr name="itv_show_red_point" format="boolean"/>
-        <attr name="itv_red_point_color" format="reference|color"/>
-        <attr name="itv_red_point_size" format="integer|dimension"/>
-        <attr name="itv_img" format="reference|color"/>
-        <attr name="itv_img_tint" format="reference|color"/>
-        <attr name="itv_title_margin_top" format="integer|dimension"/>
-        <attr name="itv_title" format="reference|string"/>
-        <attr name="itv_title_color" format="reference|color"/>
-        <attr name="itv_title_size" format="integer|dimension"/>
+        <attr name="itv_show_red_point" format="boolean" />
+        <attr name="itv_red_point_color" format="reference|color" />
+        <attr name="itv_red_point_size" format="integer|dimension" />
+        <attr name="itv_img" format="reference|color" />
+        <attr name="itv_img_tint" format="reference|color" />
+        <attr name="itv_title_margin_top" format="integer|dimension" />
+        <attr name="itv_title" format="reference|string" />
+        <attr name="itv_title_color" format="reference|color" />
+        <attr name="itv_title_size" format="integer|dimension" />
     </declare-styleable>
 
 
     <declare-styleable name="RedPointImgView">
-        <attr name="rpv_show_red_point" format="boolean"/>
-        <attr name="rpv_red_point_color" format="reference|color"/>
-        <attr name="rpv_red_point_size" format="integer|dimension"/>
-        <attr name="rpv_img" format="reference|color"/>
-        <attr name="rpv_img_tint" format="reference|color"/>
+        <attr name="rpv_show_red_point" format="boolean" />
+        <attr name="rpv_red_point_color" format="reference|color" />
+        <attr name="rpv_red_point_size" format="integer|dimension" />
+        <attr name="rpv_img" format="reference|color" />
+        <attr name="rpv_img_tint" format="reference|color" />
     </declare-styleable>
 
+
+    <!--    播放页面Slider-->
+    <declare-styleable name="MusicSlider">
+        <attr name="ms_maxColor" format="color|reference" />
+        <attr name="ms_cacheColor" format="color|reference" />
+        <attr name="ms_progressColor" format="color|reference" />
+        <attr name="ms_cache" format="float" />
+        <attr name="ms_loading_drawable" format="reference" />
+        <attr name="ms_successCircleRadius" format="reference|dimension" />
+        <attr name="ms_loadingCircleRadius" format="reference|dimension" />
+    </declare-styleable>
 
 </resources>

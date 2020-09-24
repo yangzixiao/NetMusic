@@ -67,9 +67,10 @@ class MainActivity : BaseBottomSongInfoActivity() {
         val fragment = ARouterNavUtils.getFragment(ARouterPath.FRAGMENT_MINE)
         mainFragmentPagerAdapter.fragments =
             listOf(
-                fragment, DiscoverFragment(),
-                TestFragment(),
-                TestFragment()
+                mainFragmentPagerAdapter.getRegisteredFragment(0) ?: fragment,
+                mainFragmentPagerAdapter.getRegisteredFragment(1) ?: DiscoverFragment(),
+                mainFragmentPagerAdapter.getRegisteredFragment(2) ?: TestFragment(),
+                mainFragmentPagerAdapter.getRegisteredFragment(3) ?: TestFragment()
             )
         mainFragmentPagerAdapter.notifyDataSetChanged()
 

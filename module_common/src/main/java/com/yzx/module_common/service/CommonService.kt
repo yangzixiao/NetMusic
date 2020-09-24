@@ -20,5 +20,5 @@ interface CommonService {
      * 歌曲Url
      */
     @GET("song/url")
-    suspend fun getMusicUrl(@Query("id") id: Long): MusicUrlResponse
+    suspend fun getMusicUrl(@Query("id") id: Long?): MusicUrlResponse
 }

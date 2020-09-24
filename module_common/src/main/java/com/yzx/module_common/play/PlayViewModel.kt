@@ -14,7 +14,10 @@ import kotlinx.coroutines.launch
 class PlayViewModel(private val playRepository: PlayRepository) : BaseViewModel() {
     val musicUrlLiveData = MutableLiveData<MusicUrlInfo>()
     private var musicUrlJob: Job? = null
-    fun getMusicUrl(id: Long) {
+    fun getMusicUrl(id: Long?) {
+        if (id==null){
+            return
+        }
         if (musicUrlJob != null && !musicUrlJob!!.isActive) {
             musicUrlJob?.cancel()
         }

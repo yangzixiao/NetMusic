@@ -12,6 +12,7 @@ import com.yzx.lib_base.mvvm.MvvmModel
 import com.yzx.lib_base.utils.LogUtils
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import org.json.JSONException
 import retrofit2.HttpException
@@ -32,6 +33,7 @@ open class BaseViewModel : MvvmModel() {
     var toastStringMsg: MutableLiveData<String> = MutableLiveData()
     var toastStringResourceMsg: MutableLiveData<Int> = MutableLiveData()
     var loadingState: MutableLiveData<Boolean> = MutableLiveData()
+    val jobs= mutableListOf<Job>()
 
     fun showLoading() {
         loadingState.postValue(true)
@@ -124,6 +126,12 @@ open class BaseViewModel : MvvmModel() {
     }
 
     fun cancelRequest() {
-        viewModelScope.cancel(null)
+        if (jobs.isNotEmpty()){
+            jobs.forEach {
+                if (it.isActive){
+                    it.cancel()
+                }
+            }
+        }
     }
 }

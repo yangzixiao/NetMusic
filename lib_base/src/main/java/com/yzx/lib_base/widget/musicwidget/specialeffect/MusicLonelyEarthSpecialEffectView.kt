@@ -1,4 +1,4 @@
-package com.yzx.lib_base.widget.specialeffect
+package com.yzx.lib_base.widget.musicwidget.specialeffect
 
 import android.animation.Animator
 import android.animation.ValueAnimator

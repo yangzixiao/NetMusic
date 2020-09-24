@@ -6,7 +6,7 @@
     tools:background="@color/colorRed"
     android:layout_height="match_parent">
 
-    <com.yzx.lib_base.widget.specialeffect.MusicLonelyEarthSpecialEffectView
+    <com.yzx.lib_base.widget.musicwidget.specialeffect.MusicLonelyEarthSpecialEffectView
         android:id="@+id/playSpecialEffect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,10 @@
         app:srcCompat="@drawable/ic_default_poster"/>
 
     <com.google.android.material.imageview.ShapeableImageView
+        app:strokeColor="#BCBCAB"
+        app:strokeWidth="6dp"
         android:id="@+id/ivPoster"
+        android:padding="3dp"
         style="@style/CircleShapeImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

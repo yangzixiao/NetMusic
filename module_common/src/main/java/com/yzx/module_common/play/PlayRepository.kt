@@ -6,7 +6,7 @@ import com.yzx.module_common.model.MusicUrlResponse
 
 class PlayRepository(private val provider: ModuleCommonServiceProvider) {
 
-    suspend fun getMusicUrl(id: Long): MusicUrlResponse {
+    suspend fun getMusicUrl(id: Long?): MusicUrlResponse {
         return provider.getCommonModuleService().getMusicUrl(id)
     }
 
