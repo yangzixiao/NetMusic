@@ -14,7 +14,7 @@ class PlayListDetailViewModel(private val playListDetailRepository: PlayListDeta
 
     fun getPlayListDetail(id: Long) {
         showLoading()
-        viewModelScope.launch() {
+        viewModelScope.launch(coroutineExceptionHandler) {
             val playListDetail = playListDetailRepository.getPlayListDetail(id)
             if (playListDetail.code == 200) {
                 if (playListDetail.playlist.trackCount <= 10) {
@@ -45,10 +45,13 @@ class PlayListDetailViewModel(private val playListDetailRepository: PlayListDeta
         val playListUrls = playListDetailRepository.getPlayListUrls(this.ids.toString())
 
         if (playListUrls.code == 200) {
-            playListDetail.playlist.tracks.forEachIndexed { index, track ->
-                val url = playListUrls.data[index].url
-                if (url!=null) {
-                    track.url = url
+            playListDetail.playlist.tracks.forEach { track ->
+                //歌单歌曲index和歌单url index并不是一一对应
+                playListUrls.data.forEach { songUrlBean->
+                    if (track.id == songUrlBean.id && songUrlBean.url != null) {
+                        track.url = songUrlBean.url
+                        return@forEach
+                    }
                 }
             }
             playListDetailLiveData.value = playListDetail

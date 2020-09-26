@@ -29,6 +29,8 @@ public class PlayingMusic<A extends BaseArtistItem, B extends BaseAlbumItem> ext
     private String allTime;
     private int duration;
     private int playerPosition;
+    private int buffer;
+    private boolean isLoading;
 
     public PlayingMusic(String nowTime, String allTime) {
         this.nowTime = nowTime;
@@ -45,6 +47,22 @@ public class PlayingMusic<A extends BaseArtistItem, B extends BaseAlbumItem> ext
         super(baseAlbumItem, playIndex);
         this.nowTime = nowTime;
         this.allTime = allTime;
+    }
+
+    public void setBuffer(int buffer) {
+        this.buffer = buffer;
+    }
+
+    public int getBuffer() {
+        return buffer;
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
     }
 
     public String getNowTime() {

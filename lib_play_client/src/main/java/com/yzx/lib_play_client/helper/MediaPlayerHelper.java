@@ -53,6 +53,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
     };
 
     private List<String> formatList = new ArrayList<>();
+    private int bufferPercent = 100;
 
     public List<String> getFormatList() {
         return formatList;
@@ -63,7 +64,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
     }
 
     public Holder uiHolder;
-    private MediaPlayerHelperCallBack MediaPlayerHelperCallBack = null;
+    private MediaPlayerHelperCallBack mediaPlayerHelperCallBack = null;
     private static MediaPlayerHelper instance;
     private int delaySecondTime = 1000;
 
@@ -161,7 +162,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
      * @return 类对象
      */
     public MediaPlayerHelper setMediaPlayerHelperCallBack(MediaPlayerHelperCallBack MediaPlayerHelperCallBack) {
-        this.MediaPlayerHelperCallBack = MediaPlayerHelperCallBack;
+        this.mediaPlayerHelperCallBack = MediaPlayerHelperCallBack;
         return instance;
     }
 
@@ -196,6 +197,8 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
             uiHolder.player.prepare();
         } catch (Exception e) {
             callBack(CallBackState.ERROR, uiHolder.player);
+            Log.e(TAG, "playAsset: ");
+
             return false;
         }
         return true;
@@ -224,6 +227,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
             uiHolder.player.prepare();
         } catch (Exception e) {
             callBack(CallBackState.ERROR, uiHolder.player);
+            Log.e(TAG, "play: ");
             return false;
         }
         return true;
@@ -267,7 +271,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
         public void run() {
             refress_time_handler.removeCallbacks(refress_time_Thread);
             if (uiHolder.player != null && uiHolder.player.isPlaying()) {
-                callBack(CallBackState.PROGRESS, 100 * uiHolder.player.getCurrentPosition() / uiHolder.player.getDuration());
+                callBack(CallBackState.PROGRESS, 100 * uiHolder.player.getCurrentPosition() / uiHolder.player.getDuration(), bufferPercent);
             }
             refress_time_handler.postDelayed(refress_time_Thread, delaySecondTime);
         }
@@ -285,17 +289,21 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
 
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
+        this.bufferPercent = percent;
+        Log.i(TAG, bufferPercent + "onBufferingUpdate: " + percent);
     }
+
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        callBack(CallBackState.PROGRESS, 100);
+        callBack(CallBackState.PROGRESS, 100, bufferPercent);
         callBack(CallBackState.COMPLETE, mp);
     }
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         callBack(CallBackState.ERROR, mp, what, extra);
+        Log.e(TAG, "onError: "+what+"~~"+extra );
         return false;
     }
 
@@ -314,6 +322,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
             uiHolder.player.start();
             refress_time_handler.postDelayed(refress_time_Thread, delaySecondTime);
         } catch (Exception e) {
+            Log.e(TAG, "onPrepared: "+e.toString());
             callBack(CallBackState.EXCEPTION, mp);
         }
         callBack(CallBackState.PREPARE, mp);
@@ -354,8 +363,8 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
      * @param args  若干参数
      */
     private void callBack(CallBackState state, Object... args) {
-        if (MediaPlayerHelperCallBack != null) {
-            MediaPlayerHelperCallBack.onCallBack(state, instance, args);
+        if (mediaPlayerHelperCallBack != null) {
+            mediaPlayerHelperCallBack.onCallBack(state, instance, args);
         }
     }
 

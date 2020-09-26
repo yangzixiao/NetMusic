@@ -17,6 +17,7 @@ import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.glide.ColorCallBack
 import com.yzx.lib_base.utils.glide.DrawableCallBack
 import com.yzx.lib_base.utils.glide.GlideUtils
+import com.yzx.lib_base.widget.musicwidget.slider.MusicSlider
 import com.yzx.lib_play_client.PlayerManager
 import com.yzx.lib_play_client.client.bean.base.BaseAlbumItem
 import com.yzx.lib_play_client.client.bean.base.BaseArtistItem
@@ -72,6 +73,15 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding.sliderSongDuration.value = playingMusic.playerPosition.toFloat()
         binding.tvPlayedTime.text = playingMusic.nowTime
         binding.tvLeftTime.text = playingMusic.allTime
+        binding.sliderSongDuration.cache =
+            playingMusic.duration * (playingMusic.buffer.toFloat() / 100)
+        if (playingMusic.isLoading) {
+            binding.layoutPlayAlbum.playSpecialEffect.stop()
+            binding.sliderSongDuration.setState(MusicSlider.MUSIC_STATE.LOADING)
+        } else {
+            binding.sliderSongDuration.setState(MusicSlider.MUSIC_STATE.SUCCESS)
+            binding.layoutPlayAlbum.playSpecialEffect.start()
+        }
     }
 
     private fun initView() {
@@ -98,9 +108,8 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
 
             sliderSongDuration.addOnChangeListener { slider, value, fromUser ->
                 if (fromUser) {
-                    value.toInt()
+                    PlayerManager.getInstance().setSeek(value.toInt())
                 }
-
             }
         }
     }

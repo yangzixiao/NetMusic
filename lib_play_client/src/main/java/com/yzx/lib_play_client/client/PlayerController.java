@@ -18,6 +18,7 @@ package com.yzx.lib_play_client.client;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
@@ -41,6 +42,7 @@ import java.util.List;
  */
 public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> {
 
+    private static String TAG = "PlayerController";
     private PlayingInfoManager<B, M> mPlayingInfoManager = new PlayingInfoManager<>();
     private boolean mIsPaused;
     private boolean mIsChangingPlayingMusic;
@@ -108,6 +110,11 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
             return;
         }
 
+        if (isPaused() && albumIndex == mPlayingInfoManager.getAlbumIndex()) {
+            resumeAudio();
+            return;
+        }
+
         mPlayingInfoManager.setAlbumIndex(albumIndex);
         setChangingPlayingMusic(context, true);
         playAudio(context);
@@ -170,7 +177,20 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
                         mCurrentPlay.setAllTime(calculateTime(duration / 1000));
                         mCurrentPlay.setDuration(duration);
                         mCurrentPlay.setPlayerPosition(position);
+
+                        //根据当前进度与缓存进度对比，设置音乐播放是否处于loading状态
+                        int progressPercent = (int) args[0];
+                        int bufferPercent = (int) args[1];
+
+                        mCurrentPlay.setBuffer(bufferPercent);
+                        if (progressPercent == -1 || progressPercent > bufferPercent) {
+                            mCurrentPlay.setLoading(true);
+                        } else {
+                            mCurrentPlay.setLoading(false);
+                        }
+
                         playingMusicLiveData.setValue(mCurrentPlay);
+
                         if (mCurrentPlay.getAllTime().equals(mCurrentPlay.getNowTime())
                                 //容许两秒内的误差，有的内容它就是会差那么 1 秒
                                 || duration / 1000 - position / 1000 < 2) {
@@ -180,6 +200,10 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
                                 playNext(context);
                             }
                         }
+                    } else if (state == MediaPlayerHelper.CallBackState.ERROR) {
+                        playNext(context);
+                    } else if (state == MediaPlayerHelper.CallBackState.EXCEPTION) {
+                        playNext(context);
                     }
                 });
     }

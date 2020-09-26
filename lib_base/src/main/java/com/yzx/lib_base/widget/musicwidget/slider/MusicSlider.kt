@@ -163,6 +163,9 @@ class MusicSlider(context: Context, attributeSet: AttributeSet?) : Slider(contex
 
 
     fun setState(newState: MUSIC_STATE) {
+        if (newState==state){
+            return
+        }
         state = newState
         if (newState == MUSIC_STATE.LOADING) {
             startAnim()

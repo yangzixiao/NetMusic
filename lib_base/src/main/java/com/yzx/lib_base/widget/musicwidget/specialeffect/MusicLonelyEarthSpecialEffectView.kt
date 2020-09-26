@@ -166,7 +166,6 @@ class MusicLonelyEarthSpecialEffectView(
             } else {
                 isNewBatch = true
             }
-            Log.e(TAG, "onTick:circleSize ${circles.size}")
         }
 
         override fun onFinish() {
@@ -188,6 +187,8 @@ class MusicLonelyEarthSpecialEffectView(
                 }
             }
         }
+
+        circles.clear()
     }
 
     override fun onDetachedFromWindow() {

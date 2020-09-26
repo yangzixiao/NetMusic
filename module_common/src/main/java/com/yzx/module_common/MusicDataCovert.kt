@@ -15,6 +15,7 @@ object MusicDataCovert {
         if (playList.isNullOrEmpty() || index < 0) {
             return
         }
+
         val playManagerInstance = PlayerManager.getInstance()
         if (playManagerInstance.album != null && TextUtils.equals(
                 playManagerInstance.album.albumId, playListId.toString()
@@ -22,8 +23,8 @@ object MusicDataCovert {
         ) {
             playManagerInstance.playAudio(index)
         } else {
-            playManagerInstance.loadAlbum(covertPlayList2Album(playListId, playList))
-            playManagerInstance.playAudio(index)
+            playManagerInstance.loadAlbum(covertPlayList2Album(playListId, playList),index)
+            playManagerInstance.playAudio()
         }
     }
 

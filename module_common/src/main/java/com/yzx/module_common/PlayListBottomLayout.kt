@@ -69,6 +69,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
     @SuppressLint("SetTextI18n")
     fun setData(playList: Playlist) {
         val songAdapter = recyclerView.adapter as PlayListSongAdapter
+        songAdapter.setPlayListId(playList.id)
         songAdapter.addData(playList.tracks)
         if (playList.subscribers.isNullOrEmpty()) {
             return
