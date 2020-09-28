@@ -7,4 +7,7 @@
     <string name="Report">举报</string>
     <string name="MuilChoose">多选</string>
     <string name="NoDesciption">介绍：无</string>
+    <string name="ListLoop">列表循环</string>
+    <string name="OneLoop">单曲循环</string>
+    <string name="RandomPlay">随机播放</string>
 </resources>

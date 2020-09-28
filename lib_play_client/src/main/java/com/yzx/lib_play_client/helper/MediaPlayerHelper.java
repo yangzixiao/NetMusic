@@ -159,11 +159,9 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
      * 设置回调
      *
      * @param MediaPlayerHelperCallBack 回调
-     * @return 类对象
      */
-    public MediaPlayerHelper setMediaPlayerHelperCallBack(MediaPlayerHelperCallBack MediaPlayerHelperCallBack) {
+    public void setMediaPlayerHelperCallBack(MediaPlayerHelperCallBack MediaPlayerHelperCallBack) {
         this.mediaPlayerHelperCallBack = MediaPlayerHelperCallBack;
-        return instance;
     }
 
     /**
@@ -194,7 +192,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
             uiHolder.player.setDisplay(null);
             uiHolder.player.reset();
             uiHolder.player.setDataSource(uiHolder.assetDescriptor.getFileDescriptor(), uiHolder.assetDescriptor.getStartOffset(), uiHolder.assetDescriptor.getLength());
-            uiHolder.player.prepare();
+            uiHolder.player.prepareAsync();
         } catch (Exception e) {
             callBack(CallBackState.ERROR, uiHolder.player);
             Log.e(TAG, "playAsset: ");
@@ -214,20 +212,19 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
         if (!checkAvalable(localPathOrURL)) {
             return false;
         }
+        /**
+         * 其实仔细观察优酷app切换播放网络视频时的确像是这样做的：先暂停当前视频，
+         * 让mediaplayer与先前的surfaceHolder脱离“绑定”,当mediaplayer再次准备好要start时，
+         * 再次让mediaplayer与surfaceHolder“绑定”在一起，显示下一个要播放的视频。
+         * 注：MediaPlayer.setDisplay()的作用： 设置SurfaceHolder用于显示的视频部分媒体。
+         */
         try {
-            /**
-             * 其实仔细观察优酷app切换播放网络视频时的确像是这样做的：先暂停当前视频，
-             * 让mediaplayer与先前的surfaceHolder脱离“绑定”,当mediaplayer再次准备好要start时，
-             * 再次让mediaplayer与surfaceHolder“绑定”在一起，显示下一个要播放的视频。
-             * 注：MediaPlayer.setDisplay()的作用： 设置SurfaceHolder用于显示的视频部分媒体。
-             */
             uiHolder.player.setDisplay(null);
             uiHolder.player.reset();
             uiHolder.player.setDataSource(localPathOrURL);
-            uiHolder.player.prepare();
+            uiHolder.player.prepareAsync();
         } catch (Exception e) {
             callBack(CallBackState.ERROR, uiHolder.player);
-            Log.e(TAG, "play: ");
             return false;
         }
         return true;

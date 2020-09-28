@@ -53,7 +53,6 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
     private MutableLiveData<PlayingMusic> playingMusicLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> pauseLiveData = new MutableLiveData<>();
     private MutableLiveData<Enum> playModeLiveData = new MutableLiveData<>();
-
     private IServiceNotifier mIServiceNotifier;
 
     private PlayingMusic mCurrentPlay = new PlayingMusic("00:00", "00:00");
@@ -91,7 +90,7 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
 
     public void loadAlbum(Context context, B musicAlbum, int albumIndex) {
         setAlbum(context, musicAlbum, albumIndex);
-        playAudio(context);
+//        playAudio(context);
     }
 
     public boolean isPlaying() {
@@ -254,8 +253,9 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
 
 
     public void playAgain(Context context) {
-        setChangingPlayingMusic(context, true);
-        playAudio(context);
+        setChangingPlayingMusic(context, false);
+        setSeek(0);
+//        playAudio(context);
     }
 
 
