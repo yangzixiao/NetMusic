@@ -81,7 +81,7 @@ public class PlayingMusic<A extends BaseArtistItem, B extends BaseAlbumItem> ext
         this.allTime = allTime;
     }
 
-    public int getDuration() {
+    public long getDuration() {
         return duration;
     }
 

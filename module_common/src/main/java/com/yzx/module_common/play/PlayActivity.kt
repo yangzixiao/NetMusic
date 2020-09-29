@@ -10,7 +10,6 @@ import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.dp
 import com.yzx.lib_base.ext.getScreenWidth
-import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.glide.ColorCallBack
 import com.yzx.lib_base.utils.glide.DrawableCallBack
@@ -56,6 +55,10 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
 
         playManager.changeMusicLiveData.observe(this, {
             setupPoster(it)
+            binding.sliderSongDuration.setState(MusicSlider.MUSIC_STATE.LOADING)
+            binding.sliderSongDuration.value = 0f
+            binding.sliderSongDuration.valueTo = it.duration.toFloat()
+            binding.sliderSongDuration.valueFrom = 0f
         })
 
         playManager.playModeLiveData.observe(this, {
@@ -69,7 +72,6 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
                         R.drawable.cb3
                 }
             )
-
         })
         playManager.pauseLiveData.observe(this, {
             setupPlayPauseIconAndPosterAnimatorByPlayState(!it)
@@ -95,11 +97,13 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
     /**
      * 根据播放音乐状态设置slide状态
      */
-    private fun setupSlideStateByPlayingMusic(playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
+    private fun setupSlideStateByPlayingMusic(
+        playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
         if (playingMusic == null) {
             return
         }
-        binding.sliderSongDuration.setState(if (playingMusic.isLoading) MusicSlider.MUSIC_STATE.LOADING else MusicSlider.MUSIC_STATE.SUCCESS)
+        binding.sliderSongDuration.setState(
+            if (playingMusic.isLoading) MusicSlider.MUSIC_STATE.LOADING else MusicSlider.MUSIC_STATE.SUCCESS)
     }
 
     private fun initView() {
@@ -127,7 +131,8 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
             sliderSongDuration.addOnChangeListener { _, value, fromUser ->
                 if (fromUser) {
                     PlayerManager.getInstance().setSeek(value.toInt())
-                    setupSlideStateByPlayingMusic(PlayerManager.getInstance().playingMusicLiveData.value)
+                    setupSlideStateByPlayingMusic(
+                        PlayerManager.getInstance().playingMusicLiveData.value)
                 }
             }
         }
@@ -145,7 +150,8 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        setupPlayPauseIconAndPosterAnimatorByPlayState(PlayerManager.getInstance().isPlaying)
+        setupPlayPauseIconAndPosterAnimatorByPlayState(
+            !PlayerManager.getInstance().pauseLiveData.value!!)
     }
 
     override fun onPause() {
@@ -181,7 +187,8 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
     /**
      * 设置海报
      */
-    private fun setupPoster(changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>) {
+    private fun setupPoster(
+        changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>) {
         val posterUrl = changeMusic.img
         binding.apply {
             tvTitle.text = changeMusic.title

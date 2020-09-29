@@ -1,5 +1,6 @@
 apply from:rootProject.file("module.gradle")
 
 dependencies {
+    implementation 'com.permissionx.guolindev:permissionx:1.4.0'
     implementation project(path: ':magicindicator')
 }

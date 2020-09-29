@@ -167,7 +167,7 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
     }
 
     private void bindProgressListener(Context context) {
-        MediaPlayerHelper.getInstance().setProgressInterval(1000).setMediaPlayerHelperCallBack(
+        MediaPlayerHelper.getInstance().setProgressInterval(500).setMediaPlayerHelperCallBack(
                 (state, mediaPlayerHelper, args) -> {
                     if (state == MediaPlayerHelper.CallBackState.PROGRESS) {
                         int position = mediaPlayerHelper.getMediaPlayer().getCurrentPosition();

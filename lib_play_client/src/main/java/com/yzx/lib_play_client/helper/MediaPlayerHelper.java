@@ -66,7 +66,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
     public Holder uiHolder;
     private MediaPlayerHelperCallBack mediaPlayerHelperCallBack = null;
     private static MediaPlayerHelper instance;
-    private int delaySecondTime = 1000;
+    private int delaySecondTime = 500;
 
 
     /**

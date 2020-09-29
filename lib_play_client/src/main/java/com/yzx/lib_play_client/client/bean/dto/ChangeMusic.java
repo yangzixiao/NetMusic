@@ -32,6 +32,7 @@ public class ChangeMusic<B extends BaseAlbumItem, M extends BaseMusicItem, A ext
     private String albumId;
     private String musicId;
     private String img;
+    private long duration;
 
     public ChangeMusic() {
     }
@@ -62,6 +63,16 @@ public class ChangeMusic<B extends BaseAlbumItem, M extends BaseMusicItem, A ext
         this.musicId = music.getMusicId();
         this.img = music.getCoverImg();
         this.artist = (A) music.getArtist();
+        this.duration=music.getDuration();
+    }
+
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     public String getTitle() {

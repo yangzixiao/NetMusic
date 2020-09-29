@@ -69,9 +69,9 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
         var poserUrl =
             intent.getStringExtra(ArouterNavKey.KEY_POSTER_URL)
         if (poserUrl.isNullOrEmpty()) {
-            poserUrl = "http://p2.music.126.net/HS7lAAaxrSIJx8et_nzwqw==/19065531626222037.jpg"
+            poserUrl = "http://p1.music.126.net/tqLJn-RnpIODwSX9UHQvzQ==/109951164869080240.jpg"
         }
-        playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 2181606783)
+        playListId = intent.getLongExtra(ArouterNavKey.KEY_PLAYLIST_ID, 111221399)
         mBottomDelegateLayout.updateCover(poserUrl)
     }
 

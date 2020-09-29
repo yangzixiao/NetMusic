@@ -49,6 +49,7 @@ object MusicDataCovert {
             music.coverImg = al.picUrl
             music.title = name
             music.url=url
+            music.duration=dt
             if (ar.isNotEmpty()) {
                 val singer = Singer()
                 singer.name = ar[0].name

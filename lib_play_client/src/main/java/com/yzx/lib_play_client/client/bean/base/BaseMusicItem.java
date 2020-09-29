@@ -26,6 +26,7 @@ public class BaseMusicItem<A extends BaseArtistItem> {
     private String musicId;
     private String coverImg;
     private String url;
+    private long duration;
     private String title;
     private boolean isChecked;
     private A artist;
@@ -39,6 +40,14 @@ public class BaseMusicItem<A extends BaseArtistItem> {
         this.url = url;
         this.title = title;
         this.artist = artist;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     public String getMusicId() {
