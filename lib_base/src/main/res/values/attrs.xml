@@ -78,4 +78,15 @@
         <attr name="ms_loadingCircleRadius" format="reference|dimension" />
     </declare-styleable>
 
+
+    <!--    底部圆形播放暂停进度条-->
+    <declare-styleable name="CirclePlayPauseProgressView">
+        <attr name="cppp_max" format="float" />
+        <attr name="cppp_progress" format="float" />
+        <attr name="cppp_max_color" format="color|reference" />
+        <attr name="cppp_progress_color" format="color|reference" />
+        <attr name="cppp_play_color" format="reference|color" />
+        <attr name="cppp_pause_color" format="reference|color" />
+    </declare-styleable>
+
 </resources>

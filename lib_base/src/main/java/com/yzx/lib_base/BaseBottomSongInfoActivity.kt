@@ -3,8 +3,6 @@ package com.yzx.lib_base
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.base.BaseActivity
@@ -26,23 +24,34 @@ import com.yzx.lib_play_client.client.bean.dto.PlayingMusic
 open class BaseBottomSongInfoActivity : BaseActivity() {
 
     private lateinit var bottomSongInfoBinding: ActivityBottomSongInfoBinding
+
+    /**
+     * 由于使用lambda表达式实例化的对象，竟然是同一个实例导致的LiveData错误
+     * https://blog.csdn.net/weixin_36762615/article/details/106719262
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bottomSongInfoBinding = ActivityBottomSongInfoBinding.inflate(layoutInflater)
 
         PlayerManager.getInstance().apply {
-            playingMusicLiveData.observe(this@BaseBottomSongInfoActivity, object :Observer<PlayingMusic<BaseArtistItem,BaseAlbumItem<*, *>>>{
+
+            pauseLiveData.observe(this@BaseBottomSongInfoActivity, object : Observer<Boolean> {
+                override fun onChanged(isPause: Boolean) {
+                    bottomSongInfoBinding.layoutBottomMusicInfo.playPauseView.setPlayingState(!isPause)
+                }
+            })
+            playingMusicLiveData.observe(this@BaseBottomSongInfoActivity, object : Observer<PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>> {
                 override fun onChanged(playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
                     onMusicProgressChanged(playingMusic)
                 }
             })
-
-            changeMusicLiveData.observe(this@BaseBottomSongInfoActivity,object :Observer<ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>>{
-                override fun onChanged(
-                    changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
-                    onMusicChanged(changeMusic)
-                }
-            })
+            changeMusicLiveData.observe(this@BaseBottomSongInfoActivity,
+                object : Observer<ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>> {
+                    override fun onChanged(
+                        changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
+                        onMusicChanged(changeMusic)
+                    }
+                })
         }
     }
 
@@ -53,6 +62,12 @@ open class BaseBottomSongInfoActivity : BaseActivity() {
                 FrameLayout.LayoutParams(-1, -1))
         }
         setContentView(bottomSongInfoBinding.root)
+
+        bottomSongInfoBinding.layoutBottomMusicInfo.apply {
+            playPauseView.setOnClickListener {
+                PlayerManager.getInstance().togglePlay()
+            }
+        }
     }
 
 
@@ -61,6 +76,10 @@ open class BaseBottomSongInfoActivity : BaseActivity() {
      */
     private fun onMusicProgressChanged(
         playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
+        if (playingMusic != null) {
+            bottomSongInfoBinding.layoutBottomMusicInfo.playPauseView.setMaxAndProgress(playingMusic.duration.toFloat(),
+                playingMusic.playerPosition.toFloat())
+        }
 
     }
 
@@ -80,10 +99,6 @@ open class BaseBottomSongInfoActivity : BaseActivity() {
             }
         }
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 }

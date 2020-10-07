@@ -56,15 +56,14 @@
         android:src="@color/colorDivider"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.yzx.lib_base.widget.musicwidget.CirclePlayPauseProgressView
         android:layout_marginEnd="@dimen/dim_10"
-        android:id="@+id/ivPlayPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/playPauseView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ivMenu"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_marginEnd="@dimen/dim_10"

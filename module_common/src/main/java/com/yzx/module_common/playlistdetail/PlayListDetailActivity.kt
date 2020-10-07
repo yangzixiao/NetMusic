@@ -54,15 +54,6 @@ class PlayListDetailActivity : BaseBottomSongInfoActivity(), ViewTreeObserver.On
         initView()
         doPrepareJob()
         initViewModel(playListViewModel)
-//        PlayerManager.getInstance().apply {
-//            playingMusicLiveData.observe(this@PlayListDetailActivity, Observer(){
-//
-//            })
-//
-//            changeMusicLiveData.observe(this@PlayListDetailActivity, Observer(){
-//                onMusicChanged(it)
-//            })
-//        }
         playListViewModel.playListDetailLiveData.observe(this, Observer(){
             setupData(it)
         })
