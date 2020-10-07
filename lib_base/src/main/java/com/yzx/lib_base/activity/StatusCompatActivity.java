@@ -13,7 +13,7 @@ import com.yzx.lib_base.widget.status.StatusBarCompat;
  * @date 2019/7/9
  * Description 状态栏优化
  */
-public abstract class StatusCompatActivity extends AnimCompatActivity {
+public  class StatusCompatActivity extends AnimCompatActivity {
 
     /**
      * 设置透明状态栏

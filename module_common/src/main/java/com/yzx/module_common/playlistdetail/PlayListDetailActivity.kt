@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.ViewTreeObserver
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomAreaBehavior
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
+import com.yzx.lib_base.BaseBottomSongInfoActivity
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.*
+import com.yzx.lib_play_client.PlayerManager
 import com.yzx.module_common.PlayListBottomLayout
 import com.yzx.module_common.R
 import com.yzx.module_common.databinding.ActivityPlayListDetailBinding
@@ -20,7 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 @Route(path = ARouterPath.COMMON_PLAYLIST_DETAIL)
-class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutListener {
+class PlayListDetailActivity : BaseBottomSongInfoActivity(), ViewTreeObserver.OnGlobalLayoutListener {
 
     private var isRequestFinished = false
     private lateinit var playListName: String
@@ -43,16 +46,24 @@ class PlayListDetailActivity : BaseActivity(), ViewTreeObserver.OnGlobalLayoutLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlayListDetailBinding.inflate(layoutInflater)
+        setBottomActivityContentView(binding.root)
 
         toolbarHeight = getDefaultStatusAndToolbarHeight()
-
-        setContentView(binding.root)
         setTransparentStatus()
         setStatusWhiteFont()
         initView()
         doPrepareJob()
         initViewModel(playListViewModel)
-        playListViewModel.playListDetailLiveData.observe(this, {
+//        PlayerManager.getInstance().apply {
+//            playingMusicLiveData.observe(this@PlayListDetailActivity, Observer(){
+//
+//            })
+//
+//            changeMusicLiveData.observe(this@PlayListDetailActivity, Observer(){
+//                onMusicChanged(it)
+//            })
+//        }
+        playListViewModel.playListDetailLiveData.observe(this, Observer(){
             setupData(it)
         })
         if (playListId == 0L) {

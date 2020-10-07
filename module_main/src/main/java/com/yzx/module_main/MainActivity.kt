@@ -3,6 +3,7 @@ package com.yzx.module_main
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.yzx.lib_base.BaseBottomSongInfoActivity
@@ -41,18 +42,15 @@ class MainActivity : BaseBottomSongInfoActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
-
-
+        setBottomActivityContentView(mainBinding.root)
         mainBinding.ivStatusView.layoutParams =
             AppBarLayout.LayoutParams(-1, getDefaultStatusHeight())
-        setContentView(mainBinding.root)
+
         setTransparentStatus()
         setupViewPagerAndIndicator()
-
         setStatusDarkFont()
         mainBinding.viewPager.currentItem = 1
         mainBinding.magicIndicator.onPageSelected(1)
-        setSongInfo("呜啦啦", "嘿嘿哈哈", "")
     }
 
     private fun setupViewPagerAndIndicator() {

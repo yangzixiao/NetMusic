@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
@@ -49,11 +50,11 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         setContentView(binding.root)
         initViewModel(viewModel)
         val playManager = PlayerManager.getInstance()
-        playManager.playingMusicLiveData.observe(this, {
+        playManager.playingMusicLiveData.observe(this, Observer(){
             onProgressChanged(it)
         })
 
-        playManager.changeMusicLiveData.observe(this, {
+        playManager.changeMusicLiveData.observe(this, Observer(){
             setupPoster(it)
             binding.sliderSongDuration.setState(MusicSlider.MUSIC_STATE.LOADING)
             binding.sliderSongDuration.value = 0f

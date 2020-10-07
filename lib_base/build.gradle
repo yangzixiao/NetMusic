@@ -40,4 +40,6 @@ dependencies {
     //第三方
     implementation 'com.tencent:mmkv-static:1.1.1'
     implementation "com.bytedance.boost_multidex:boost_multidex:1.0.0"
+
+    implementation project(path: ':lib_play_client')
 }

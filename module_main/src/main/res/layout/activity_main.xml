@@ -3,54 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    tools:openDrawer="start"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.yzx.module_main.MainActivity">
 
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <androidx.viewpager.widget.ViewPager
-            android:layout_weight="1"
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="match_parent" />
 
-        <include layout="@layout/layout_bottom_music_info"/>
-
-    </LinearLayout>
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:background="@color/colorTransparent"
-        android:id="@+id/titleContent"
-        app:elevation="0dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:background="@color/colorTransparent"
-            android:id="@+id/ivStatusView"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/titleContent"
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-
-
-        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_height="wrap_content"
             android:background="@color/colorTransparent"
-            app:layout_constraintTop_toBottomOf="@id/ivStatusView"
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolBarHeight">
+            android:orientation="vertical"
+            app:elevation="0dp">
 
-            <net.lucode.hackware.magicindicator.MagicIndicator
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivStatusView"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/colorTransparent" />
+
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolBarHeight"
                 android:background="@color/colorTransparent"
-                android:id="@+id/magicIndicator"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="44dp"/>
-        </com.google.android.material.appbar.MaterialToolbar>
+                app:layout_constraintTop_toBottomOf="@id/ivStatusView">
+
+                <net.lucode.hackware.magicindicator.MagicIndicator
+                    android:id="@+id/magicIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:background="@color/colorTransparent" />
+            </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
