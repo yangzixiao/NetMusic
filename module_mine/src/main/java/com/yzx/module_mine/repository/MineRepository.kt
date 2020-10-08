@@ -35,7 +35,7 @@ class MineRepository(private val mineApiProvider: MineApiProvider) {
                 val recommendPlayListsAsync = async {
                     getRecommendPlayLists()
                 }
-                awaitAll(recommendPlayListsAsync, personalFMAsync)
+                results = awaitAll(recommendPlayListsAsync, personalFMAsync)
             } else {
                 val playListAsync = async {
                     getUserPlayLists(uid)

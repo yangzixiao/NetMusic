@@ -106,21 +106,16 @@ open class BaseViewModel : MvvmModel() {
     private fun dealException(tag: String, e: Exception) {
         hideLoading()
         LogUtils.e(tag, "dealException$e")
-        //协程取消报错
-        if (e is CancellationException) {
-            return
-        }
-
         showToast("${getErrorMsgByExceptionType(e)}$e")
     }
 
     private fun getErrorMsgByExceptionType(e: Exception): Int {
-
         return when (e) {
             is HttpException -> R.string.wlyc
             is ConnectException, is UnknownHostException -> R.string.ljcw
             is InterruptedIOException -> R.string.ljcs
             is JsonParseException, is JSONException, is ParseException -> R.string.jscw
+            is CancellationException ->R.string.OperateCancel
             else -> R.string.wzcw
         }
     }
@@ -128,9 +123,7 @@ open class BaseViewModel : MvvmModel() {
     fun cancelRequest() {
         if (jobs.isNotEmpty()){
             jobs.forEach {
-                if (it.isActive){
-                    it.cancel()
-                }
+                it.cancel()
             }
         }
     }

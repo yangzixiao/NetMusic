@@ -39,9 +39,7 @@ open class UIActivity : StatusCompatActivity() {
         }
     }
 
-    private val loadingDialog: LoadingDialog by lazy {
-        LoadingDialog()
-    }
+    private lateinit var loadingDialog: LoadingDialog
 
     fun showLoadingDialog() {
         if (!isDialogShowing()) {
@@ -62,8 +60,9 @@ open class UIActivity : StatusCompatActivity() {
 
 
     fun initViewModel(baseViewModel: BaseViewModel) {
+
+        initLoadingDialog(baseViewModel)
         baseViewModel.loadingState.observe(this, Observer {
-            e("baseViewModel.loadingState")
             if (it) showLoadingDialog()
             else hideLoadingDialog()
         })
@@ -73,5 +72,12 @@ open class UIActivity : StatusCompatActivity() {
             }
             toast(it)
         })
+    }
+
+    private fun initLoadingDialog(baseViewModel: BaseViewModel) {
+        loadingDialog = LoadingDialog()
+        loadingDialog.dialog?.setOnCancelListener {
+            baseViewModel.cancelRequest()
+        }
     }
 }

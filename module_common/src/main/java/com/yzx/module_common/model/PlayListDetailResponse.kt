@@ -9,7 +9,7 @@ data class PlayListDetailResponse(
 
 data class Playlist(
     val adType: Int,
-    val backgroundCoverId: Int,
+    val backgroundCoverId: Long,
     val backgroundCoverUrl: Any,
     val cloudTrackCount: Int,
     val commentCount: Int,
@@ -36,7 +36,7 @@ data class Playlist(
     val subscribedCount: Int,
     val subscribers: List<Subscriber>,
     val tags: List<String>,
-    val titleImage: Int,
+    val titleImage: Long,
     val titleImageUrl: Any,
     val trackCount: Int,
     val trackIds: List<TrackId>,

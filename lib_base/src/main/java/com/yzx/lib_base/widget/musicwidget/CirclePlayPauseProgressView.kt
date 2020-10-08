@@ -17,7 +17,7 @@ class CirclePlayPauseProgressView(context: Context, attributeSet: AttributeSet?)
     View(context, attributeSet) {
 
     private var max = 100f
-    private var progress = 30f
+    private var progress = 0f
     private var maxColor = 0x000000
     private var progressColor = 0xff0000
     private var playColor = 0xff0000
@@ -29,16 +29,13 @@ class CirclePlayPauseProgressView(context: Context, attributeSet: AttributeSet?)
     private val playPausePath = Path()
 
     private var isPlaying = false
-        set(value) {
-            field = value
-        }
 
-    private val circleWidth = 3f.dp
+    private val circleWidth = 1f.dp
 
     init {
         mPaint.style = Paint.Style.STROKE
         mPaint.isAntiAlias = true
-        mPaint.textSize = circleWidth
+        mPaint.strokeWidth = circleWidth
         parseAttrSet(context, attributeSet)
     }
 
@@ -108,7 +105,7 @@ class CirclePlayPauseProgressView(context: Context, attributeSet: AttributeSet?)
         super.onSizeChanged(w, h, oldw, oldh)
         circleX = (w / 2).toFloat()
         circleY = (h / 2).toFloat()
-        radius = min(circleX, circleY) * 0.8f
+        radius = min(circleX, circleY) * 0.6f
 
     }
 

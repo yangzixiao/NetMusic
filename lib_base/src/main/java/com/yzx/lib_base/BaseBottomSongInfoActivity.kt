@@ -52,7 +52,9 @@ open class BaseBottomSongInfoActivity : BaseActivity() {
                         onMusicChanged(changeMusic)
                     }
                 })
+            bottomSongInfoBinding.layoutBottomMusicInfo.root.visibility = if (changeMusicLiveData.value == null) View.GONE else View.VISIBLE
         }
+
     }
 
     fun setBottomActivityContentView(contentView: View?) {
@@ -88,6 +90,7 @@ open class BaseBottomSongInfoActivity : BaseActivity() {
      */
     private fun onMusicChanged(
         changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
+        bottomSongInfoBinding.layoutBottomMusicInfo.root.visibility = if (changeMusic== null) View.GONE else View.VISIBLE
         if (changeMusic != null) {
             bottomSongInfoBinding.layoutBottomMusicInfo.apply {
                 tvSingerName.text = changeMusic.artist.name

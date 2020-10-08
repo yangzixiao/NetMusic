@@ -16,5 +16,6 @@
     <string name="Comment">评论</string>
     <string name="Collect">收藏</string>
     <string name="People">人</string>
+    <string name="OperateCancel">操作取消</string>
 
 </resources>

@@ -27,6 +27,7 @@ import android.media.MediaPlayer.OnInfoListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaPlayer.OnSeekCompleteListener;
 import android.media.MediaPlayer.OnVideoSizeChangedListener;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -221,7 +222,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
         try {
             uiHolder.player.setDisplay(null);
             uiHolder.player.reset();
-            uiHolder.player.setDataSource(localPathOrURL);
+            uiHolder.player.setDataSource(Uri.decode(localPathOrURL));
             uiHolder.player.prepareAsync();
         } catch (Exception e) {
             callBack(CallBackState.ERROR, uiHolder.player);

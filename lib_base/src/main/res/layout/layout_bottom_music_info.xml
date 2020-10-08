@@ -65,7 +65,8 @@
         app:layout_constraintEnd_toStartOf="@+id/ivMenu"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:tint="@color/colorBlack"
         android:layout_marginEnd="@dimen/dim_10"
         android:id="@+id/ivMenu"
         android:layout_width="wrap_content"
@@ -73,5 +74,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+        app:srcCompat="@drawable/cby" />
 </androidx.constraintlayout.widget.ConstraintLayout>

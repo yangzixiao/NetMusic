@@ -15,7 +15,7 @@ data class Playlist(
     val adType: Int,
     val anonimous: Boolean,
     val artists: Any,
-    val backgroundCoverId: Int,
+    val backgroundCoverId: Long,
     val backgroundCoverUrl: Any,
     val cloudTrackCount: Int,
     val commentThreadId: String,

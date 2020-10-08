@@ -30,23 +30,7 @@ open class MineViewModel(private val mineRepository: MineRepository) : BaseViewM
      */
     fun getMinePagerData(uid: String? = null) {
         viewModelScope.launch(coroutineExceptionHandler) {
-
-//            val minePageData =
             dealResponse(mineRepository.getMinePageData(uid))
-//            val personalFMAsync = async {
-//                mineRepository.getPersonalFM()
-//            }
-//            if (uid.isNullOrBlank()) {
-//                val recommendPlayListsAsync = async {
-//                    mineRepository.getRecommendPlayLists()
-//                }
-//                dealResponse(awaitAll(recommendPlayListsAsync, personalFMAsync))
-//            } else {
-//                val playListAsync = async {
-//                    mineRepository.getUserPlayLists(uid)
-//                }
-//                dealResponse(awaitAll(playListAsync, personalFMAsync))
-//           }
         }
     }
 
