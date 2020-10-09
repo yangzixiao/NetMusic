@@ -24,7 +24,7 @@
         android:layout_marginStart="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/ivSongPost"
-        app:layout_constraintEnd_toStartOf="@+id/ivPlayPause"
+        app:layout_constraintEnd_toStartOf="@+id/playPauseView"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@id/ivSongPost"
         app:layout_constraintTop_toTopOf="@id/ivSongPost">
@@ -32,15 +32,15 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvSongName"
             android:textColor="@color/colorBlack"
-            style="@style/SingleLine_Marquee"
+            style="@style/StyleMarquee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="小幸运" />
+            tools:text="小幸运hfjashjfhajshfjashdjksadkjas见覅asifUI算法jf" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvSingerName"
-            style="@style/SingleLine_Marquee"
+            style="@style/StyleMarquee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -50,9 +50,9 @@
     </LinearLayout>
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dividerHeight"
+        android:layout_height="1dp"
         android:src="@color/colorDivider"
         app:layout_constraintTop_toTopOf="parent" />
 

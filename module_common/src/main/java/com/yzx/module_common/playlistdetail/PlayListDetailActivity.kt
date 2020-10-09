@@ -132,11 +132,6 @@ class PlayListDetailActivity : BaseBottomSongInfoActivity(), ViewTreeObserver.On
             )
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        return super.onCreateOptionsMenu(menu)
-    }
-
     private fun initView() {
         updateToolbarTitle(0)
         binding.layoutToolBar.toolbar.apply {
@@ -185,6 +180,4 @@ class PlayListDetailActivity : BaseBottomSongInfoActivity(), ViewTreeObserver.On
             viewTreeObserver.removeOnGlobalLayoutListener(this)
         }
     }
-
-
 }

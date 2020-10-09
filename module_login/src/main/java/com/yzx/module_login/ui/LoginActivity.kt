@@ -31,7 +31,7 @@ class LoginActivity : BaseActivity() {
 
     private lateinit var loginBinding: ActivityLoginBinding
 
-    val viewModel: LoginViewModel by viewModel()
+    private val viewModel: LoginViewModel by viewModel()
 
     @SuppressLint("LogNotTimber")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class LoginActivity : BaseActivity() {
 
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(loginBinding.root)
-
+        initViewModel(viewModel)
         viewModel.loginResponseLiveData.observe(this, {
             hideLoadingDialog()
             UserDataUtils.updateTouristState(false)

@@ -130,16 +130,19 @@
         <item name="android:minHeight">0dp</item>
     </style>
 
-
-    <style name="StyleWhiteTitle">
+    <style name="StyleMarquee">
         <item name="android:marqueeRepeatLimit">marquee_forever</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
+    </style>
+
+    <style name="StyleWhiteTitle" parent="StyleMarquee">
         <item name="android:textSize">@dimen/titleTextSize</item>
         <item name="android:textColor">@color/colorWhiteTitle</item>
     </style>
+
 
     <style name="StyleToolbar">
         <item name="navigationIcon">@drawable/ic_nav_back</item>

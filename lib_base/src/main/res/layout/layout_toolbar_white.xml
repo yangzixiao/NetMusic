@@ -22,7 +22,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
             style="@style/StyleWhiteTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="jdskajkfjsdkajfksdkdksjgkajg艰苦奋斗撒刚开始打发大水哥还是大哥还是打火锅" />
     </androidx.appcompat.widget.LinearLayoutCompat>

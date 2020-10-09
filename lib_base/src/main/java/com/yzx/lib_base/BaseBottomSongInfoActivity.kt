@@ -3,6 +3,7 @@ package com.yzx.lib_base
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.base.BaseActivity

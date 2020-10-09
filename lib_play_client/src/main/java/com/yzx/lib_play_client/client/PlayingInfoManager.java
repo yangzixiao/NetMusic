@@ -70,33 +70,33 @@ public class PlayingInfoManager<B extends BaseAlbumItem, M extends BaseMusicItem
 
 
     public void init(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(
-                SP_NAME, Context.MODE_PRIVATE);
-
-        String musicAlbum = sp.getString(LAST_BOOK_DETAIL, "");
-        mPlayIndex = sp.getInt(LAST_CHAPTER_INDEX, 0);
-        if (!TextUtils.isEmpty(musicAlbum)) {
-            Gson gson = new Gson();
-            Type genType = getClass().getSuperclass();
-            Type type = ((ParameterizedType) genType).getActualTypeArguments()[0];
-            B data = gson.fromJson(musicAlbum, type);
-            setMusicAlbum(data);
-            mAlbumIndex = mOriginPlayingList.indexOf(getCurrentPlayingMusic());
-        }
-
-        int repeatMode = sp.getInt(REPEAT_MODE, 1);
-
-        switch (repeatMode) {
-            case 0:
-                mRepeatMode = RepeatMode.ONE_LOOP;
-                break;
-            case 2:
-                mRepeatMode = RepeatMode.RANDOM;
-                break;
-            default:
-                mRepeatMode = RepeatMode.LIST_LOOP;
-                break;
-        }
+//        SharedPreferences sp = context.getSharedPreferences(
+//                SP_NAME, Context.MODE_PRIVATE);
+//
+//        String musicAlbum = sp.getString(LAST_BOOK_DETAIL, "");
+//        mPlayIndex = sp.getInt(LAST_CHAPTER_INDEX, 0);
+//        if (!TextUtils.isEmpty(musicAlbum)) {
+//            Gson gson = new Gson();
+//            Type genType = getClass().getSuperclass();
+//            Type type = ((ParameterizedType) genType).getActualTypeArguments()[0];
+//            B data = gson.fromJson(musicAlbum, type);
+//            setMusicAlbum(data);
+//            mAlbumIndex = mOriginPlayingList.indexOf(getCurrentPlayingMusic());
+//        }
+//
+//        int repeatMode = sp.getInt(REPEAT_MODE, 1);
+//
+//        switch (repeatMode) {
+//            case 0:
+//                mRepeatMode = RepeatMode.ONE_LOOP;
+//                break;
+//            case 2:
+//                mRepeatMode = RepeatMode.RANDOM;
+//                break;
+//            default:
+//                mRepeatMode = RepeatMode.LIST_LOOP;
+//                break;
+//        }
     }
 
     public boolean isInited() {
@@ -183,21 +183,21 @@ public class PlayingInfoManager<B extends BaseAlbumItem, M extends BaseMusicItem
     }
 
     public void saveRecords(Context context) {
-        Gson gson = new Gson();
-
-        SharedPreferences sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-
-        sp.edit().putString(LAST_BOOK_DETAIL, gson.toJson(mMusicAlbum)).apply();
-        sp.edit().putInt(LAST_CHAPTER_INDEX, mPlayIndex).apply();
-
-        int repeatMode = -1;
-        if (RepeatMode.ONE_LOOP==mRepeatMode) {
-            repeatMode=0;
-        } else if (RepeatMode.RANDOM.equals(mRepeatMode)) {
-            repeatMode=3;
-        } else {
-            repeatMode=1;
-        }
-        sp.edit().putInt(REPEAT_MODE, repeatMode).apply();
+//        Gson gson = new Gson();
+//
+//        SharedPreferences sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+//
+//        sp.edit().putString(LAST_BOOK_DETAIL, gson.toJson(mMusicAlbum)).apply();
+//        sp.edit().putInt(LAST_CHAPTER_INDEX, mPlayIndex).apply();
+//
+//        int repeatMode = -1;
+//        if (RepeatMode.ONE_LOOP==mRepeatMode) {
+//            repeatMode=0;
+//        } else if (RepeatMode.RANDOM.equals(mRepeatMode)) {
+//            repeatMode=3;
+//        } else {
+//            repeatMode=1;
+//        }
+//        sp.edit().putInt(REPEAT_MODE, repeatMode).apply();
     }
 }
