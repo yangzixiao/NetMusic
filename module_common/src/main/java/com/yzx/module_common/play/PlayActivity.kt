@@ -71,17 +71,30 @@ class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
 
     override fun onPlayPauseStateChanged(isPlaying: Boolean) {
         super.onPlayPauseStateChanged(isPlaying)
-        setupPlayPauseIconAndPosterAnimatorByPlayState(isPlaying)
+        setupPlayPauseIconByPlayPauseState(isPlaying)
+        setupPosterAnimatorAndEffectByPlayPauseAndLoadingState(isPlaying, PlayerManager.getInstance().loadingLiveData.value ?: false)
     }
 
+
+    override fun onLoadingStateChanged(isLoading: Boolean) {
+        super.onLoadingStateChanged(isLoading)
+        setupPosterAnimatorAndEffectByPlayPauseAndLoadingState(PlayerManager.getInstance().isPlaying, isLoading)
+        binding.sliderSongDuration.setState(if (isLoading) MusicSlider.MUSIC_STATE.LOADING else MusicSlider.MUSIC_STATE.SUCCESS)
+    }
+
+    /**
+     * 音乐改变---设置海报，重置音乐进度条，停止音乐动效
+     */
     override fun onMusicChanged(changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
         super.onMusicChanged(changeMusic)
         if (changeMusic != null) {
             setupPoster(changeMusic)
-            binding.sliderSongDuration.setState(MusicSlider.MUSIC_STATE.LOADING)
             binding.sliderSongDuration.value = 0f
             binding.sliderSongDuration.valueTo = changeMusic.duration.toFloat()
             binding.sliderSongDuration.valueFrom = 0f
+            binding.sliderSongDuration.cache = 0f
+            binding.sliderSongDuration.setState(MusicSlider.MUSIC_STATE.LOADING)
+            setupPosterAnimatorAndEffectByPlayPauseAndLoadingState(false, false)
         }
     }
 
@@ -99,19 +112,6 @@ class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
             binding.sliderSongDuration.cache =
                 playingMusic.duration * (playingMusic.buffer.toFloat() / 100)
         }
-        setupSlideStateByPlayingMusic(playingMusic)
-    }
-
-    /**
-     * 根据播放音乐状态设置slide状态
-     */
-    private fun setupSlideStateByPlayingMusic(
-        playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
-        if (playingMusic == null) {
-            return
-        }
-        binding.sliderSongDuration.setState(
-            if (playingMusic.isLoading) MusicSlider.MUSIC_STATE.LOADING else MusicSlider.MUSIC_STATE.SUCCESS)
     }
 
     private fun initView() {
@@ -139,8 +139,8 @@ class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
             sliderSongDuration.addOnChangeListener { _, value, fromUser ->
                 if (fromUser) {
                     PlayerManager.getInstance().setSeek(value.toInt())
-                    setupSlideStateByPlayingMusic(
-                        PlayerManager.getInstance().playingMusicLiveData.value)
+                    setupPosterAnimatorAndEffectByPlayPauseAndLoadingState(PlayerManager.getInstance().isPlaying,
+                        PlayerManager.getInstance().loadingLiveData.value ?: true)
                 }
             }
         }
@@ -158,8 +158,7 @@ class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        setupPlayPauseIconAndPosterAnimatorByPlayState(
-            !PlayerManager.getInstance().pauseLiveData.value!!)
+        setupPlayPauseIconByPlayPauseState(!(PlayerManager.getInstance().pauseLiveData.value ?: true))
     }
 
     override fun onPause() {
@@ -167,19 +166,24 @@ class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
         binding.layoutPlayAlbum.playSpecialEffect.release()
     }
 
-
     /**
-     * 根据播放状态设置播放按钮和海报动画
+     * 根据播放状态设置icon
      */
-    private fun setupPlayPauseIconAndPosterAnimatorByPlayState(isPlaying: Boolean) {
+    private fun setupPlayPauseIconByPlayPauseState(isPlaying: Boolean) {
         binding.layoutPlayIcon.ivPlayPause.setImageResource(
             if (isPlaying) R.drawable.c_p else R.drawable.c_r
         )
+    }
+
+    /**
+     * 只有在加载完成并且播放状态才播放动画和特效
+     */
+    private fun setupPosterAnimatorAndEffectByPlayPauseAndLoadingState(isPlaying: Boolean, isLoading: Boolean) {
         if (posterAnimator == null) {
             initPosterAnimator()
         }
         val playSpecialEffect = binding.layoutPlayAlbum.playSpecialEffect
-        if (isPlaying) {
+        if (isPlaying && !isLoading) {
             playSpecialEffect.start()
             if (posterAnimator!!.isStarted) {
                 posterAnimator?.resume()
@@ -201,13 +205,6 @@ class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
         binding.apply {
             tvTitle.text = changeMusic.title
             tvSubTitle.text = changeMusic.artist.name
-            GlideUtils.getBitmapColor(posterUrl, ivBackground1, object : ColorCallBack {
-                override fun onCallBack(color: Int) {
-                    binding.layoutPlayAlbum.playSpecialEffect.setWaveColor(
-                        ColorUtils.getColorByAlpha(color, 1f)
-                    )
-                }
-            })
             GlideUtils.simpleLoadImg(oldPoster, ivBackground1)
             GlideUtils.loadBlurImage(posterUrl, ivBackground1, object : DrawableCallBack {
                 override fun onGetDrawable(drawable: Drawable?) {
@@ -220,6 +217,13 @@ class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
             GlideUtils.loadImg(
                 posterUrl, GlideUtils.TYPE_PLAY_ALBUM, layoutPlayAlbum.ivPoster,
             )
+            GlideUtils.getBitmapColor(posterUrl, ivBackground1, object : ColorCallBack {
+                override fun onCallBack(color: Int) {
+                    binding.layoutPlayAlbum.playSpecialEffect.setWaveColor(
+                        ColorUtils.getColorByAlpha(color, 1f)
+                    )
+                }
+            })
         }
     }
 

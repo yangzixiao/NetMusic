@@ -192,6 +192,11 @@ public class PlayerManager implements IPlayController<Album, Music> {
     }
 
     @Override
+    public MutableLiveData<Boolean> getLoadingLiveData() {
+        return mController.getLoadingLiveData();
+    }
+
+    @Override
     public MutableLiveData<Enum> getPlayModeLiveData() {
         return mController.getPlayModeLiveData();
     }

@@ -52,6 +52,7 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
     private MutableLiveData<ChangeMusic> changeMusicLiveData = new MutableLiveData<>();
     private MutableLiveData<PlayingMusic> playingMusicLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> pauseLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
     private MutableLiveData<Enum> playModeLiveData = new MutableLiveData<>();
     private IServiceNotifier mIServiceNotifier;
 
@@ -96,6 +97,7 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
     public boolean isPlaying() {
         return MediaPlayerHelper.getInstance().getMediaPlayer().isPlaying();
     }
+
 
     public boolean isPaused() {
         return mIsPaused;
@@ -189,6 +191,9 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
                         }
 
                         playingMusicLiveData.setValue(mCurrentPlay);
+
+                        //加载
+                        loadingLiveData.setValue(mCurrentPlay.isLoading());
 
                         if (mCurrentPlay.getAllTime().equals(mCurrentPlay.getNowTime())
                                 //容许两秒内的误差，有的内容它就是会差那么 1 秒
@@ -316,6 +321,7 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
         if (mIsChangingPlayingMusic) {
             mChangeMusic.setBaseInfo(mPlayingInfoManager.getMusicAlbum(), getCurrentPlayingMusic());
             changeMusicLiveData.setValue(mChangeMusic);
+            loadingLiveData.setValue(true);
             mCurrentPlay.setBaseInfo(mPlayingInfoManager.getMusicAlbum(), getCurrentPlayingMusic());
             mPlayingInfoManager.saveRecords(context);
         }
@@ -335,6 +341,10 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
 
     public MutableLiveData<Boolean> getPauseLiveData() {
         return pauseLiveData;
+    }
+
+    public MutableLiveData<Boolean> getLoadingLiveData() {
+        return loadingLiveData;
     }
 
     public MutableLiveData<Enum> getPlayModeLiveData() {

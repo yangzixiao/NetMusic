@@ -24,6 +24,10 @@ open class BaseMusicInfoChangedActivity : BaseActivity() {
         onPlayPauseStateChanged(!isPause)
     }
 
+    private val loadingStateObserver: Observer<Boolean> = Observer { isLoading ->
+        onLoadingStateChanged(isLoading)
+    }
+
     private val changeMusicObserver: Observer<ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>> = Observer { changeMusic ->
         onMusicChanged(changeMusic)
     }
@@ -35,6 +39,7 @@ open class BaseMusicInfoChangedActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PlayerManager.getInstance().pauseLiveData.observe(this, playPauseStateObserver)
+        PlayerManager.getInstance().loadingLiveData.observe(this, loadingStateObserver)
         PlayerManager.getInstance().changeMusicLiveData.observe(this, changeMusicObserver)
     }
 
@@ -59,6 +64,10 @@ open class BaseMusicInfoChangedActivity : BaseActivity() {
      * 音乐信息改变
      */
     open fun onMusicChanged(changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
+
+    }
+
+    open fun onLoadingStateChanged(isLoading: Boolean) {
 
     }
 

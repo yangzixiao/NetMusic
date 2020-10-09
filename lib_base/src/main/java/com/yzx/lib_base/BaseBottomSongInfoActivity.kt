@@ -20,7 +20,7 @@ import com.yzx.lib_play_client.client.bean.dto.PlayingMusic
 /**
  * @author yzx
  * @date 2020/4/22
- * Description 底部有
+ * Description 底部音乐部件
  */
 open class BaseBottomSongInfoActivity : BaseMusicInfoChangedActivity() {
 
