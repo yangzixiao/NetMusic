@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
-import com.multitype.adapter.MultiTypeAdapter
-import com.multitype.adapter.binder.MultiTypeBinder
-import com.multitype.adapter.createMultiTypeAdapter
+import com.yzx.lib_multitype_adapter.MultiTypeAdapter
+import com.yzx.lib_multitype_adapter.binder.MultiTypeBinder
+import com.yzx.lib_multitype_adapter.createMultiTypeAdapter
 import com.noober.background.drawable.DrawableCreator
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.api.RefreshHeader
@@ -57,9 +57,9 @@ class MineFragment : BaseFragment() {
     //第一次更新不需要调研
 //    private var needRefresh = false
     private lateinit var mineBinding: FragmentMineBinding
-    private lateinit var mineAdapter: MultiTypeAdapter
+    private lateinit var mineAdapter: com.yzx.lib_multitype_adapter.MultiTypeAdapter
     private lateinit var userDataBean: UserDataBean
-    private val binders = arrayListOf<MultiTypeBinder<*>>()
+    private val binders = arrayListOf<com.yzx.lib_multitype_adapter.binder.MultiTypeBinder<*>>()
     private val layoutManager: LinearLayoutManager by lazy {
         LinearLayoutManager(context)
     }
@@ -77,7 +77,7 @@ class MineFragment : BaseFragment() {
 
     private fun initView() {
         mineAdapter =
-            createMultiTypeAdapter(mineBinding.recyclerView, layoutManager)
+            com.yzx.lib_multitype_adapter.createMultiTypeAdapter(mineBinding.recyclerView, layoutManager)
         mineBinding.apply {
             initToolBar()
             initHeadMenu()

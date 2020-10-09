@@ -1,8 +1,8 @@
 package com.yzx.module_main.widget
 
 import android.content.Context
-import net.lucode.hackware.magicindicator.buildins.ArgbEvaluatorHolder
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
+import com.yzx.lib_magic_indicator.buildins.ArgbEvaluatorHolder
+import com.yzx.lib_magic_indicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
 /**
  * @author yzx

@@ -3,8 +3,8 @@ package com.yzx.module_mine.adapter
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.multitype.adapter.binder.MultiTypeBinder
-import com.multitype.adapter.createMultiTypeAdapter
+import com.yzx.lib_multitype_adapter.binder.MultiTypeBinder
+import com.yzx.lib_multitype_adapter.createMultiTypeAdapter
 import com.yzx.lib_base.ext.visible
 import com.yzx.lib_base.utils.ColorUtils.getColorByAlpha
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
@@ -28,7 +28,7 @@ class MyMusicBinder(title: String, var data: List<MyMusicItemBinder>) :
         binding.recyclerView.addItemDecoration(
             ExtraLinearItemDecoration(dip2px(context, 16f), dip2px(context, 8f))
         )
-        createMultiTypeAdapter(
+        com.yzx.lib_multitype_adapter.createMultiTypeAdapter(
             binding.recyclerView,
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         ).apply {
@@ -37,7 +37,7 @@ class MyMusicBinder(title: String, var data: List<MyMusicItemBinder>) :
     }
 }
 
-class MyMusicItemBinder(var myMusicBean: MyMusicBean) : MultiTypeBinder<ItemChildMyMusicBinding>() {
+class MyMusicItemBinder(var myMusicBean: MyMusicBean) : com.yzx.lib_multitype_adapter.binder.MultiTypeBinder<ItemChildMyMusicBinding>() {
     override fun layoutId(): Int = R.layout.item_child_my_music
 
     override fun areContentsTheSame(other: Any): Boolean {

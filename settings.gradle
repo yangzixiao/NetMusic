@@ -1,10 +1,10 @@
+include ':lib_multitype_adapter'
+include ':lib_magic_indicator'
 include ':lib_play_client'
 include ':module_common'
 include ':module_mine'
 include ':module_login'
 include ':module_main'
-include ':multitype-adapter'
-include ':magicindicator'
 include ':lib_base'
 include ':app'
 rootProject.name = "NetMusic"

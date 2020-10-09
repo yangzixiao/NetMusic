@@ -7,6 +7,7 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.yzx.lib_base.BaseMusicInfoChangedActivity
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.dp
@@ -28,7 +29,7 @@ import com.yzx.module_common.databinding.ActivityPlayBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Route(path = ARouterPath.COMMON_PLAY)
-class PlayActivity : BaseActivity(), View.OnClickListener {
+class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
 
     override fun getActivityEnterAnim(): Int {
         return R.anim.slide_in_bottom
@@ -49,18 +50,8 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViewModel(viewModel)
-        val playManager = PlayerManager.getInstance()
-        playManager.playingMusicLiveData.observe(this, Observer(){
-            onProgressChanged(it)
-        })
 
-        playManager.changeMusicLiveData.observe(this, Observer(){
-            setupPoster(it)
-            binding.sliderSongDuration.setState(MusicSlider.MUSIC_STATE.LOADING)
-            binding.sliderSongDuration.value = 0f
-            binding.sliderSongDuration.valueTo = it.duration.toFloat()
-            binding.sliderSongDuration.valueFrom = 0f
-        })
+        val playManager = PlayerManager.getInstance()
 
         playManager.playModeLiveData.observe(this, {
             binding.layoutPlayIcon.ivPlayModel.setImageResource(
@@ -74,26 +65,42 @@ class PlayActivity : BaseActivity(), View.OnClickListener {
                 }
             )
         })
-        playManager.pauseLiveData.observe(this, {
-            setupPlayPauseIconAndPosterAnimatorByPlayState(!it)
-        })
         initView()
     }
 
-    private fun onProgressChanged(playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>) {
-        val duration = playingMusic.duration.toFloat()
-        val current = playingMusic.playerPosition.toFloat()
-        binding.sliderSongDuration.valueTo = duration
-        if (current <= duration) {
-            binding.sliderSongDuration.value = current
-        }
-        binding.tvPlayedTime.text = playingMusic.nowTime
-        binding.tvLeftTime.text = playingMusic.allTime
-        binding.sliderSongDuration.cache =
-            playingMusic.duration * (playingMusic.buffer.toFloat() / 100)
-        setupSlideStateByPlayingMusic(playingMusic)
+
+    override fun onPlayPauseStateChanged(isPlaying: Boolean) {
+        super.onPlayPauseStateChanged(isPlaying)
+        setupPlayPauseIconAndPosterAnimatorByPlayState(isPlaying)
     }
 
+    override fun onMusicChanged(changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
+        super.onMusicChanged(changeMusic)
+        if (changeMusic != null) {
+            setupPoster(changeMusic)
+            binding.sliderSongDuration.setState(MusicSlider.MUSIC_STATE.LOADING)
+            binding.sliderSongDuration.value = 0f
+            binding.sliderSongDuration.valueTo = changeMusic.duration.toFloat()
+            binding.sliderSongDuration.valueFrom = 0f
+        }
+    }
+
+    override fun onMusicProgressChanged(playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
+        super.onMusicProgressChanged(playingMusic)
+        if (playingMusic != null) {
+            val duration = playingMusic.duration.toFloat()
+            val current = playingMusic.playerPosition.toFloat()
+            binding.sliderSongDuration.valueTo = duration
+            if (current <= duration) {
+                binding.sliderSongDuration.value = current
+            }
+            binding.tvPlayedTime.text = playingMusic.nowTime
+            binding.tvLeftTime.text = playingMusic.allTime
+            binding.sliderSongDuration.cache =
+                playingMusic.duration * (playingMusic.buffer.toFloat() / 100)
+        }
+        setupSlideStateByPlayingMusic(playingMusic)
+    }
 
     /**
      * 根据播放音乐状态设置slide状态

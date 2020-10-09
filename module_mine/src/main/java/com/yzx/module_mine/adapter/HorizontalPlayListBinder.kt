@@ -2,8 +2,8 @@ package com.yzx.module_mine.adapter
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.multitype.adapter.binder.MultiTypeBinder
-import com.multitype.adapter.createMultiTypeAdapter
+import com.yzx.lib_multitype_adapter.binder.MultiTypeBinder
+import com.yzx.lib_multitype_adapter.createMultiTypeAdapter
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.utils.glide.GlideUtils
@@ -23,7 +23,7 @@ class HorizontalPlayListBinder(
     override fun onBindViewHolder(binding: ItemTitleRecyclerviewBinding) {
         super.onBindViewHolder(binding)
 
-        createMultiTypeAdapter(
+        com.yzx.lib_multitype_adapter.createMultiTypeAdapter(
             binding.recyclerView,
             LinearLayoutManager(binding.recyclerView.context)
         ).apply {
@@ -32,7 +32,7 @@ class HorizontalPlayListBinder(
     }
 }
 
-class ItemPlayListBinder(var playlistBean: Any) : MultiTypeBinder<ItemPlaylistBinding>() {
+class ItemPlayListBinder(var playlistBean: Any) : com.yzx.lib_multitype_adapter.binder.MultiTypeBinder<ItemPlaylistBinding>() {
     override fun layoutId(): Int = R.layout.item_playlist
 
     override fun areContentsTheSame(other: Any): Boolean {

@@ -34,7 +34,7 @@
                 android:background="@color/colorTransparent"
                 app:layout_constraintTop_toBottomOf="@id/ivStatusView">
 
-                <net.lucode.hackware.magicindicator.MagicIndicator
+                <com.yzx.lib_magic_indicator.MagicIndicator
                     android:id="@+id/magicIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"

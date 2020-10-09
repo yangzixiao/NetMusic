@@ -3,7 +3,6 @@ package com.yzx.module_main
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.yzx.lib_base.BaseBottomSongInfoActivity
@@ -15,12 +14,12 @@ import com.yzx.module_main.databinding.ActivityMainBinding
 import com.yzx.module_main.test.DiscoverFragment
 import com.yzx.module_main.test.TestFragment
 import com.yzx.module_main.widget.MainTitleView
-import net.lucode.hackware.magicindicator.ViewPagerHelper
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
+import com.yzx.lib_magic_indicator.ViewPagerHelper
+import com.yzx.lib_magic_indicator.buildins.commonnavigator.CommonNavigator
+import com.yzx.lib_magic_indicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
+import com.yzx.lib_magic_indicator.buildins.commonnavigator.abs.IPagerIndicator
+import com.yzx.lib_magic_indicator.buildins.commonnavigator.abs.IPagerTitleView
+import com.yzx.lib_magic_indicator.buildins.commonnavigator.indicators.LinePagerIndicator
 
 
 /**
@@ -99,7 +98,7 @@ class MainActivity : BaseBottomSongInfoActivity() {
 
         }
         mainBinding.magicIndicator.navigator = commonNavigator
-        ViewPagerHelper.bind(mainBinding.magicIndicator, mainBinding.viewPager)
+        com.yzx.lib_magic_indicator.ViewPagerHelper.bind(mainBinding.magicIndicator, mainBinding.viewPager)
     }
 
 }
