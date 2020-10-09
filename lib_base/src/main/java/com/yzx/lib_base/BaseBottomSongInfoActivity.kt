@@ -69,7 +69,7 @@ open class BaseBottomSongInfoActivity : BaseMusicInfoChangedActivity() {
             bottomSongInfoBinding.layoutBottomMusicInfo.apply {
                 tvSingerName.text = changeMusic.artist.name
                 tvSongName.text = changeMusic.title
-                GlideUtils.loadImg(changeMusic.img, ivSongPost)
+                GlideUtils.loadImg(changeMusic.img, GlideUtils.TYPE_PLAY_ALBUM,ivSongPost)
                 root.setOnClickListener {
                     ARouterNavUtils.navToPlay(changeMusic.musicId.toLong(), changeMusic.img)
                 }

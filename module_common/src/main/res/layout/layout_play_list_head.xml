@@ -67,7 +67,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="centerCrop"
-            tools:src="@color/colorImg" />
+            android:src="@color/colorImg" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_marginStart="@dimen/dim_10"

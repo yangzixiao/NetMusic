@@ -34,7 +34,6 @@ class PlayListSongAdapter(songs: MutableList<Track>? = null) :
 
         holder.itemView.setOnClickListener {
             MusicDataCovert.coverPlayList(playListId,data, holder.layoutPosition)
-            ARouterNavUtils.navToPlay(item.id, item.al.picUrl)
         }
     }
 

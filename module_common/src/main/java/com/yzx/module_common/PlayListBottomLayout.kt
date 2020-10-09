@@ -81,7 +81,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
                 adapter = PlayListSubscriberAdapter(playList.subscribers.toMutableList())
                 addItemDecoration(ExtraLinearItemDecoration(10f.dp.toInt()))
             }
-            tvCollectCount.text = "${playList.subscribedCount}人收藏"
+            tvCollectCount.text = "${playList.subscribedCount.format()}人收藏"
         }
         songAdapter.addFooterView(footBinding.root)
     }
@@ -97,7 +97,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
             val creator = playlist.creator
             val isSelf = creator.userId == UserInfoManager.userInfoLiveData.value?.uid
             tvCreatorName.text = creator.nickname
-            GlideUtils.loadImg(creator.avatarUrl, ivCreatorHead)
+            GlideUtils.loadImg(creator.avatarUrl, GlideUtils.TYPE_HEAD,ivCreatorHead)
             llCreator.setOnClickListener {
 
             }
@@ -121,11 +121,11 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
                 tvCollect.visible()
                 if (isSelf) {
                     tvCollect.text =
-                        "${subscribedCount}${simpleGetString(R.string.People, R.string.Collect)}"
+                        "${subscribedCount.format()}${simpleGetString(R.string.People, R.string.Collect)}"
                     tvCollect.setBackgroundColor(Color.TRANSPARENT)
                     tvCollect.setTextColor(simpleGetColor(R.color.colorSubTitle))
                 } else {
-                    tvCollect.text = "${context.getText(R.string.Collect)}(${subscribedCount})"
+                    tvCollect.text = "${context.getText(R.string.Collect)}(${subscribedCount.format()})"
                     tvCollect.background =
                         DrawableCreator.Builder().setSolidColor(getColor(R.color.colorRed))
                             .setCornersRadius(15f.dp).build()

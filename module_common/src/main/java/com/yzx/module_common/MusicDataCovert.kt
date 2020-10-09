@@ -1,6 +1,7 @@
 package com.yzx.module_common
 
 import android.text.TextUtils
+import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.player.model.Album
 import com.yzx.lib_base.player.model.Music
 import com.yzx.lib_base.player.model.Singer
@@ -21,11 +22,16 @@ object MusicDataCovert {
                 playManagerInstance.album.albumId, playListId.toString()
             )
         ) {
+            if (playManagerInstance.albumIndex == index) {
+                val track = playList[index]
+                ARouterNavUtils.navToPlay(track.id, track.al.picUrl)
+            }
             playManagerInstance.playAudio(index)
         } else {
-            playManagerInstance.loadAlbum(covertPlayList2Album(playListId, playList),index)
+            playManagerInstance.loadAlbum(covertPlayList2Album(playListId, playList), index)
             playManagerInstance.playAudio()
         }
+
     }
 
     private fun covertPlayList2Album(playListId: Long, playList: List<Track>): Album? {
@@ -48,8 +54,8 @@ object MusicDataCovert {
             music.musicId = id.toString()
             music.coverImg = al.picUrl
             music.title = name
-            music.url=url
-            music.duration=dt
+            music.url = url
+            music.duration = dt
             if (ar.isNotEmpty()) {
                 val singer = Singer()
                 singer.name = ar[0].name

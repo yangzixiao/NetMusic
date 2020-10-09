@@ -59,6 +59,9 @@ public class GlideUtils {
             case TYPE_PLAY_ALBUM:
                 drawableResource = R.drawable.ic_default_poster;
                 break;
+            case TYPE_HEAD:
+                drawableResource = R.drawable.ic_default_head;
+                break;
             default:
                 drawableResource = R.color.colorTransparent;
                 break;

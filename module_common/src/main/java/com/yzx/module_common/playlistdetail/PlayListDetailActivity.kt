@@ -54,7 +54,7 @@ class PlayListDetailActivity : BaseBottomSongInfoActivity(), ViewTreeObserver.On
         initView()
         doPrepareJob()
         initViewModel(playListViewModel)
-        playListViewModel.playListDetailLiveData.observe(this, Observer(){
+        playListViewModel.playListDetailLiveData.observe(this, {
             setupData(it)
         })
         if (playListId == 0L) {
