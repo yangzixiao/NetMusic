@@ -3,11 +3,11 @@ package com.yzx.lib_base
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.databinding.ActivityBottomSongInfoBinding
+import com.yzx.lib_base.ext.e
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.lib_play_client.PlayerManager
 import com.yzx.lib_play_client.client.bean.base.BaseAlbumItem
@@ -22,7 +22,7 @@ import com.yzx.lib_play_client.client.bean.dto.PlayingMusic
  * @date 2020/4/22
  * Description 底部有
  */
-open class BaseBottomSongInfoActivity : BaseActivity() {
+open class BaseBottomSongInfoActivity : BaseMusicInfoChangedActivity() {
 
     private lateinit var bottomSongInfoBinding: ActivityBottomSongInfoBinding
 
@@ -32,29 +32,10 @@ open class BaseBottomSongInfoActivity : BaseActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         bottomSongInfoBinding = ActivityBottomSongInfoBinding.inflate(layoutInflater)
-
-        PlayerManager.getInstance().apply {
-
-            pauseLiveData.observe(this@BaseBottomSongInfoActivity, object : Observer<Boolean> {
-                override fun onChanged(isPause: Boolean) {
-                    bottomSongInfoBinding.layoutBottomMusicInfo.playPauseView.setPlayingState(!isPause)
-                }
-            })
-            playingMusicLiveData.observe(this@BaseBottomSongInfoActivity, object : Observer<PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>> {
-                override fun onChanged(playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
-                    onMusicProgressChanged(playingMusic)
-                }
-            })
-            changeMusicLiveData.observe(this@BaseBottomSongInfoActivity,
-                object : Observer<ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>> {
-                    override fun onChanged(
-                        changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
-                        onMusicChanged(changeMusic)
-                    }
-                })
-            bottomSongInfoBinding.layoutBottomMusicInfo.root.visibility = if (changeMusicLiveData.value == null) View.GONE else View.VISIBLE
-        }
+        bottomSongInfoBinding.layoutBottomMusicInfo.root.visibility =
+            if (PlayerManager.getInstance().changeMusicLiveData.value == null) View.GONE else View.VISIBLE
 
     }
 
@@ -73,25 +54,17 @@ open class BaseBottomSongInfoActivity : BaseActivity() {
         }
     }
 
-
-    /**
-     * 音乐进度改变
-     */
-    private fun onMusicProgressChanged(
-        playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
+    override fun onMusicProgressChanged(playingMusic: PlayingMusic<BaseArtistItem, BaseAlbumItem<*, *>>?) {
+        super.onMusicProgressChanged(playingMusic)
         if (playingMusic != null) {
             bottomSongInfoBinding.layoutBottomMusicInfo.playPauseView.setMaxAndProgress(playingMusic.duration.toFloat(),
                 playingMusic.playerPosition.toFloat())
         }
-
     }
 
-    /**
-     * 歌曲改变
-     */
-    private fun onMusicChanged(
-        changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
-        bottomSongInfoBinding.layoutBottomMusicInfo.root.visibility = if (changeMusic== null) View.GONE else View.VISIBLE
+    override fun onMusicChanged(changeMusic: ChangeMusic<BaseAlbumItem<*, *>, BaseMusicItem<*>, BaseArtistItem>?) {
+        super.onMusicChanged(changeMusic)
+        bottomSongInfoBinding.layoutBottomMusicInfo.root.visibility = if (changeMusic == null) View.GONE else View.VISIBLE
         if (changeMusic != null) {
             bottomSongInfoBinding.layoutBottomMusicInfo.apply {
                 tvSingerName.text = changeMusic.artist.name
@@ -102,8 +75,12 @@ open class BaseBottomSongInfoActivity : BaseActivity() {
                 }
             }
         }
-
     }
 
+
+    override fun onPlayPauseStateChanged(isPlaying: Boolean) {
+        super.onPlayPauseStateChanged(isPlaying)
+        bottomSongInfoBinding.layoutBottomMusicInfo.playPauseView.setPlayingState(isPlaying)
+    }
 }
 
