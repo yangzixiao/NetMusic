@@ -79,7 +79,8 @@ class PlayActivity : BaseMusicInfoChangedActivity(), View.OnClickListener {
     override fun onLoadingStateChanged(isLoading: Boolean) {
         super.onLoadingStateChanged(isLoading)
         setupPosterAnimatorAndEffectByPlayPauseAndLoadingState(PlayerManager.getInstance().isPlaying, isLoading)
-        binding.sliderSongDuration.setState(if (isLoading) MusicSlider.MUSIC_STATE.LOADING else MusicSlider.MUSIC_STATE.SUCCESS)
+        binding.sliderSongDuration.setState(
+            if (isLoading && !PlayerManager.getInstance().isPaused) MusicSlider.MUSIC_STATE.LOADING else MusicSlider.MUSIC_STATE.SUCCESS)
     }
 
     /**

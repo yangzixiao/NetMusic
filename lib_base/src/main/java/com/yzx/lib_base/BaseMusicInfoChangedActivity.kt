@@ -38,9 +38,9 @@ open class BaseMusicInfoChangedActivity : BaseActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        PlayerManager.getInstance().changeMusicLiveData.observe(this, changeMusicObserver)
         PlayerManager.getInstance().pauseLiveData.observe(this, playPauseStateObserver)
         PlayerManager.getInstance().loadingLiveData.observe(this, loadingStateObserver)
-        PlayerManager.getInstance().changeMusicLiveData.observe(this, changeMusicObserver)
     }
 
     override fun onResume() {

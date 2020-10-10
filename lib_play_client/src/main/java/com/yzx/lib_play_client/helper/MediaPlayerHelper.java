@@ -192,6 +192,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
             uiHolder.assetDescriptor = assetMg.openFd(assetName);
             uiHolder.player.setDisplay(null);
             uiHolder.player.reset();
+            bufferPercent=100;
             uiHolder.player.setDataSource(uiHolder.assetDescriptor.getFileDescriptor(), uiHolder.assetDescriptor.getStartOffset(), uiHolder.assetDescriptor.getLength());
             uiHolder.player.prepareAsync();
         } catch (Exception e) {
@@ -222,6 +223,7 @@ public class MediaPlayerHelper implements OnCompletionListener, OnBufferingUpdat
         try {
             uiHolder.player.setDisplay(null);
             uiHolder.player.reset();
+            bufferPercent=100;
             uiHolder.player.setDataSource(Uri.decode(localPathOrURL));
             uiHolder.player.prepareAsync();
         } catch (Exception e) {
