@@ -12,32 +12,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
-import com.yzx.lib_multitype_adapter.MultiTypeAdapter
-import com.yzx.lib_multitype_adapter.binder.MultiTypeBinder
-import com.yzx.lib_multitype_adapter.createMultiTypeAdapter
+
 import com.noober.background.drawable.DrawableCreator
 import com.scwang.smartrefresh.header.MaterialHeader
+
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseFragment
-import com.yzx.lib_base.ext.getColor
-import com.yzx.lib_base.ext.getDefaultStatusAndToolbarHeight
-import com.yzx.lib_base.ext.gone
-import com.yzx.lib_base.ext.visible
+import com.yzx.lib_base.ext.*
+
 import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
 import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_mine.R
-import com.yzx.module_mine.adapter.HorizontalPlayListBinder
-import com.yzx.module_mine.adapter.ItemPlayListBinder
 import com.yzx.module_mine.adapter.MineHeadMenuAdapter
+import com.yzx.module_mine.adapter.MinePlayListSectionAdapter
 import com.yzx.module_mine.databinding.FragmentMineBinding
 import com.yzx.module_mine.model.MineHeadMenuBean
 import com.yzx.module_mine.model.MinePagerData
+import com.yzx.module_mine.model.section.MinePlayListHeadBean
+import com.yzx.module_mine.model.section.MinePlayListSection
 import com.yzx.module_mine.viewmodel.MineViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
@@ -45,7 +43,7 @@ import kotlin.math.abs
 /**
  * @author yzx
  * @date 2020/4/1
- * Description
+ * Description  我的页面
  */
 @Route(path = ARouterPath.FRAGMENT_MINE)
 class MineFragment : BaseFragment() {
@@ -55,11 +53,12 @@ class MineFragment : BaseFragment() {
     }
 
     //第一次更新不需要调研
-//    private var needRefresh = false
+    private var needRefresh = false
     private lateinit var mineBinding: FragmentMineBinding
-    private lateinit var mineAdapter: com.yzx.lib_multitype_adapter.MultiTypeAdapter
+    private lateinit var mineAdapter: MinePlayListSectionAdapter
     private lateinit var userDataBean: UserDataBean
-    private val binders = arrayListOf<com.yzx.lib_multitype_adapter.binder.MultiTypeBinder<*>>()
+    private val playLists = mutableListOf<MinePlayListSection>()
+    private var collectionHeadIndex = 0
     private val layoutManager: LinearLayoutManager by lazy {
         LinearLayoutManager(context)
     }
@@ -76,29 +75,31 @@ class MineFragment : BaseFragment() {
     }
 
     private fun initView() {
-        mineAdapter =
-            com.yzx.lib_multitype_adapter.createMultiTypeAdapter(mineBinding.recyclerView, layoutManager)
+        mineAdapter = MinePlayListSectionAdapter(R.layout.item_mine_head_play_list, R.layout.item_playlist)
         mineBinding.apply {
+
             initToolBar()
             initHeadMenu()
             setAppBarLayoutScrollListener()
             setupSwipeRefreshLayout()
+            recyclerView.adapter = mineAdapter
+            recyclerView.layoutManager = layoutManager
             bindingRecyclerViewAndTabLayout(recyclerView, tabLayout)
         }
 
         userInfoLiveData.observe(viewLifecycleOwner, {
+            e("用户信息改变")
             userDataBean = it
             onUserStateChanged()
-            if (viewModel.minePagerLiveData.value == null) {
+            if (needRefresh) {
                 mineBinding.smartRefreshLayout.autoRefresh()
+                needRefresh = true
             }
-//            needRefresh = true
         })
 
         viewModel.minePagerLiveData.observe(viewLifecycleOwner, {
             setupData(it)
             updateMyFavoriteMusic(it)
-
             mineBinding.smartRefreshLayout.finishRefresh()
         })
     }
@@ -125,8 +126,7 @@ class MineFragment : BaseFragment() {
 
                 val findFirstVisibleItemPosition =
                     layoutManager.findFirstVisibleItemPosition()
-                tabLayout.setScrollPosition(findFirstVisibleItemPosition, 0f, true)
-
+                tabLayout.setScrollPosition(if (findFirstVisibleItemPosition < collectionHeadIndex) 0 else 1, 0f, true)
             }
         })
     }
@@ -164,7 +164,8 @@ class MineFragment : BaseFragment() {
             newTab.setText(title)
             newTab.view.setOnClickListener {
                 mineBinding.appBarLayout.setExpanded(false)
-                layoutManager.scrollToPositionWithOffset(index, 0)
+                e("${if (index == 0) 0 else collectionHeadIndex}")
+                layoutManager.scrollToPositionWithOffset(if (index == 0) 0 else collectionHeadIndex, 0)
             }
             tabLayout.addTab(newTab)
         }
@@ -206,41 +207,40 @@ class MineFragment : BaseFragment() {
     }
 
     private fun setupData(minePagerData: MinePagerData) {
-        binders.clear()
+        playLists.clear()
         if (minePagerData.recommendPlaylist == null) {
             val playlist = minePagerData.playlist
-            val createPlayListBinders = arrayListOf<ItemPlayListBinder>()
-            val collectionPlayListBinders = arrayListOf<ItemPlayListBinder>()
-            playlist!!.filter { it != playlist[0] }.forEach {
+            val createPlayLists = arrayListOf<MinePlayListSection>()
 
+            val collectionPlayLists = arrayListOf<MinePlayListSection>()
+
+            playlist!!.filter { it != playlist[0] }.forEach {
                 if (it.creator.userId == userInfoLiveData.value!!.uid) {
-                    createPlayListBinders.add(ItemPlayListBinder(it))
+                    createPlayLists.add(MinePlayListSection(false, it))
                 } else {
-                    collectionPlayListBinders.add(ItemPlayListBinder(it))
+                    collectionPlayLists.add(MinePlayListSection(false, it))
                 }
             }
 
-            binders.apply {
-                add(
-                    HorizontalPlayListBinder(
-                        "创建歌单(${createPlayListBinders.size}个)", createPlayListBinders
-                    )
-                )
-                add(
-                    HorizontalPlayListBinder(
-                        "收藏歌单(${collectionPlayListBinders.size}个)",
-                        collectionPlayListBinders
-                    )
-                )
-            }
+            createPlayLists.last().isLast = true
+            collectionPlayLists.last().isLast = true
+
+            createPlayLists.add(0, MinePlayListSection(true, MinePlayListHeadBean("创建歌单", createPlayLists.size)))
+            val collectionHeadSection = MinePlayListSection(true, MinePlayListHeadBean("收藏歌单", collectionPlayLists.size))
+            collectionPlayLists.add(0, collectionHeadSection)
+
+            playLists.addAll(createPlayLists)
+            playLists.addAll(collectionPlayLists)
+            collectionHeadIndex = createPlayLists.size
         } else {
-            binders.apply {
-                add(HorizontalPlayListBinder("推荐歌单", minePagerData.recommendPlaylist!!.map {
-                    ItemPlayListBinder(it)
-                }))
+            val recommendPlaylist = minePagerData.recommendPlaylist!!
+            playLists.add(MinePlayListSection(true, MinePlayListHeadBean("创建歌单", recommendPlaylist.size)))
+            recommendPlaylist.forEach {
+                playLists.add(MinePlayListSection(false, it))
             }
         }
-        mineAdapter.notifyAdapterChanged(binders)
+        mineAdapter.addData(playLists)
+        e("${mineAdapter.itemCount}~~${collectionHeadIndex}")
     }
 
 

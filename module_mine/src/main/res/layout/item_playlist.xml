@@ -1,62 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/WaterEffect"
+    android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:paddingHorizontal="@dimen/edg"
+    android:paddingBottom="@dimen/dim_8"
+    android:layout_height="wrap_content">
 
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivSongSheetPost"
-            style="@style/RoundShapeImageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:strokeWidth="@dimen/dim_stroke_width"
-            app:strokeColor="@color/dividerColor"
-            android:src="@color/colorLightBlack"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@color/colorLightBlack" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivSongSheetPost"
+        style="@style/RoundShapeImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@color/colorLightBlack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorLightBlack"
+        app:strokeColor="@color/dividerColor"
+        app:strokeWidth="@dimen/dim_stroke_width" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_10"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/ivSongSheetPost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/ivSongSheetPost"
+        app:layout_constraintTop_toTopOf="@+id/ivSongSheetPost">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim_10"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/ivSongSheetPost"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/ivSongSheetPost"
-            app:layout_constraintTop_toTopOf="@+id/ivSongSheetPost">
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="标题"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/dim_textsize_12" />
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="标题"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/dim_textsize_12" />
-
-            <TextView
-                android:id="@+id/tvSubTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dim_5"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="副标题"
-                android:textColor="@color/colorLightBlack"
-                android:textSize="@dimen/dim_textsize_10" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_5"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="副标题"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="@dimen/dim_textsize_10" />
+    </LinearLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.noober.background.view.BLLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingHorizontal="@dimen/edg"
+    android:layout_height="40dp"
+    android:layout_marginTop="@dimen/dim_10"
+    app:bl_corners_topLeftRadius="@dimen/dim_round_layout_corner"
+    app:bl_corners_topRightRadius="@dimen/dim_round_layout_corner"
+    app:bl_solid_color="@color/colorWhite"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/colorSubTitle"
+        android:textSize="@dimen/dim_textsize_12"
+        tools:text="标题" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/be8"
+        app:tint="@color/colorLightBlack" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/iv_next" />
+</com.noober.background.view.BLLinearLayout>
