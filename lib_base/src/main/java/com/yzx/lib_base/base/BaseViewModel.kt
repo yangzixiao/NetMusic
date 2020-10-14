@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 
 import com.google.gson.JsonParseException
 import com.yzx.lib_base.R
+import com.yzx.lib_base.ext.e
 import com.yzx.lib_base.ext.stringOf
 
 import com.yzx.lib_base.http.BaseResult
@@ -34,7 +35,7 @@ open class BaseViewModel : MvvmModel() {
     var toastStringMsg: MutableLiveData<String> = MutableLiveData()
     var toastStringResourceMsg: MutableLiveData<Int> = MutableLiveData()
     var loadingState: MutableLiveData<Boolean> = MutableLiveData()
-    val jobs= mutableListOf<Job>()
+    val jobs = mutableListOf<Job>()
 
     fun showLoading() {
         loadingState.postValue(true)
@@ -53,7 +54,7 @@ open class BaseViewModel : MvvmModel() {
     }
 
 
-    private fun  isAllRequestSuccess(responses: List<BaseResult>): Boolean {
+    private fun isAllRequestSuccess(responses: List<BaseResult>): Boolean {
 
         responses.forEach {
             if ((it.code != 200) && (it.code != 1)) {
@@ -63,7 +64,7 @@ open class BaseViewModel : MvvmModel() {
         return true
     }
 
-    private fun  getErrorMsg(responses: List<BaseResult>): String {
+    private fun getErrorMsg(responses: List<BaseResult>): String {
         responses.forEach {
             if ((it.code != 200) && (it.code != 1)) {
                 return it.message
@@ -89,12 +90,12 @@ open class BaseViewModel : MvvmModel() {
 
     }
 
-    open fun  onSuccess(responses: List<BaseResult>) {
+    open fun onSuccess(responses: List<BaseResult>) {
         hideLoading()
     }
 
 
-    open fun  onSuccess(response: BaseResult) {
+    open fun onSuccess(response: BaseResult) {
         hideLoading()
     }
 
@@ -118,13 +119,14 @@ open class BaseViewModel : MvvmModel() {
             is ConnectException, is UnknownHostException -> R.string.ljcw
             is InterruptedIOException -> R.string.ljcs
             is JsonParseException, is JSONException, is ParseException -> R.string.jscw
-            is CancellationException ->R.string.OperateCancel
+            is CancellationException -> R.string.OperateCancel
             else -> R.string.wzcw
         }
     }
 
     fun cancelRequest() {
-        if (jobs.isNotEmpty()){
+        toastStringMsg.postValue("请求取消")
+        if (jobs.isNotEmpty()) {
             jobs.forEach {
                 it.cancel()
             }

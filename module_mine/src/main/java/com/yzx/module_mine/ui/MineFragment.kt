@@ -72,6 +72,7 @@ class MineFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         this.mineBinding = FragmentMineBinding.inflate(inflater)
+        initViewModel(viewModel)
         initView()
         return mineBinding.root
     }

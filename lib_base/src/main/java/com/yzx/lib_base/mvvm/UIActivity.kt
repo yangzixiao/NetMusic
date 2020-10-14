@@ -1,15 +1,15 @@
 package com.yzx.lib_base.mvvm
 
-import android.os.Bundle
+
+import android.app.Dialog
 import android.view.View
 import androidx.annotation.MenuRes
 import androidx.lifecycle.Observer
+import com.yzx.lib_base.R
 import com.yzx.lib_base.activity.StatusCompatActivity
 import com.yzx.lib_base.base.BaseViewModel
-import com.yzx.lib_base.ext.e
 import com.yzx.lib_base.ext.getDefaultStatusHeight
-import com.yzx.lib_base.ext.toast
-import com.yzx.lib_base.widget.dialog.LoadingDialog
+
 
 /**
  * @author yzx
@@ -18,6 +18,7 @@ import com.yzx.lib_base.widget.dialog.LoadingDialog
  */
 open class UIActivity : StatusCompatActivity() {
 
+    private var baseViewModel: BaseViewModel? = null
 
     fun initStatus(statusView: View) {
         val layoutParams = statusView.layoutParams
@@ -34,29 +35,32 @@ open class UIActivity : StatusCompatActivity() {
         }
     }
 
-    private lateinit var loadingDialog: LoadingDialog
+    private var loadingDialog: Dialog? = null
 
     fun showLoadingDialog() {
-        if (!isDialogShowing()) {
-            loadingDialog.show(supportFragmentManager, "loadingDialog")
+        if (loadingDialog == null) {
+            loadingDialog = Dialog(this)
+            loadingDialog!!.setCanceledOnTouchOutside(false)
+            loadingDialog!!.setContentView(R.layout.layout_loaidng_dialog)
+            loadingDialog!!.setOnCancelListener {
+                baseViewModel?.cancelRequest()
+            }
+        }
+
+        if (!loadingDialog!!.isShowing) {
+            loadingDialog!!.show()
         }
     }
+
 
     fun hideLoadingDialog() {
-        if (isDialogShowing()) {
-            loadingDialog.dismiss()
+        if (loadingDialog != null && loadingDialog!!.isShowing) {
+            loadingDialog!!.dismiss()
         }
     }
 
-    private fun isDialogShowing(): Boolean {
-        val dialog = loadingDialog.dialog ?: return false
-        return dialog.isShowing
-    }
-
-
     fun initViewModel(baseViewModel: BaseViewModel) {
-
-        initLoadingDialog(baseViewModel)
+        this.baseViewModel = baseViewModel
         baseViewModel.loadingState.observe(this, {
             if (it) showLoadingDialog()
             else hideLoadingDialog()
@@ -65,15 +69,6 @@ open class UIActivity : StatusCompatActivity() {
             if (it.isNullOrEmpty()) {
                 return@Observer
             }
-            toast(it)
         })
-    }
-
-    private fun initLoadingDialog(baseViewModel: BaseViewModel) {
-        loadingDialog = LoadingDialog()
-        loadingDialog.dialog?.setOnCancelListener {
-            e("取消请求")
-            baseViewModel.cancelRequest()
-        }
     }
 }

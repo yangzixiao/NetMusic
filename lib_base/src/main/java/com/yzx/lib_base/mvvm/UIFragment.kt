@@ -1,7 +1,12 @@
 package com.yzx.lib_base.mvvm
 
+import android.app.Dialog
+import androidx.lifecycle.Observer
+import com.yzx.lib_base.R
+import com.yzx.lib_base.base.BaseViewModel
 import com.yzx.lib_base.base.LazyFragment
-import com.yzx.lib_base.widget.dialog.LoadingDialog
+import com.yzx.lib_base.ext.toast
+
 
 /**
  * @author yzx
@@ -9,25 +14,43 @@ import com.yzx.lib_base.widget.dialog.LoadingDialog
  * Description
  */
 open class UIFragment : LazyFragment() {
-
-    private val loadingDialog: LoadingDialog by lazy {
-        LoadingDialog()
-    }
+    private var baseViewModel: BaseViewModel? = null
+    private  var loadingDialog: Dialog?=null
 
     fun showLoadingDialog() {
-        if (!isDialogShowing()) {
-            loadingDialog.show(childFragmentManager, "loadingDialog")
+        if (loadingDialog == null) {
+            loadingDialog = Dialog(requireContext())
+            loadingDialog!!.setCanceledOnTouchOutside(false)
+            loadingDialog!!.setContentView(R.layout.layout_loaidng_dialog)
+            loadingDialog!!.setOnCancelListener {
+                baseViewModel?.cancelRequest()
+            }
+        }
+
+        if (!loadingDialog!!.isShowing) {
+            loadingDialog!!.show()
         }
     }
+
+
 
     fun hideLoadingDialog() {
-        if (isDialogShowing()) {
-            loadingDialog.dismiss()
+        if (loadingDialog!=null&&loadingDialog!!.isShowing) {
+            loadingDialog!!.dismiss()
         }
     }
 
-    private fun isDialogShowing(): Boolean {
-        val dialog = loadingDialog.dialog ?: return false
-        return dialog.isShowing
+    fun initViewModel(baseViewModel: BaseViewModel) {
+        this.baseViewModel = baseViewModel
+        baseViewModel.loadingState.observe(this, {
+            if (it) showLoadingDialog()
+            else hideLoadingDialog()
+        })
+        baseViewModel.toastStringMsg.observe(this, Observer {
+            if (it.isNullOrEmpty()) {
+                return@Observer
+            }
+            toast(it)
+        })
     }
 }

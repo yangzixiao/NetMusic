@@ -31,18 +31,18 @@
         <attr name="clip_background" />
     </declare-styleable>
 
-    <!--假体：用于提示-->
-    <declare-styleable name="RCImageView">
-        <attr name="round_as_circle" />
-        <attr name="round_corner" />
-        <attr name="round_corner_top_left" />
-        <attr name="round_corner_top_right" />
-        <attr name="round_corner_bottom_left" />
-        <attr name="round_corner_bottom_right" />
-        <attr name="stroke_color" />
-        <attr name="stroke_width" />
-        <attr name="clip_background" />
-    </declare-styleable>
+<!--    &lt;!&ndash;假体：用于提示&ndash;&gt;-->
+<!--    <declare-styleable name="RCImageView">-->
+<!--        <attr name="round_as_circle" />-->
+<!--        <attr name="round_corner" />-->
+<!--        <attr name="round_corner_top_left" />-->
+<!--        <attr name="round_corner_top_right" />-->
+<!--        <attr name="round_corner_bottom_left" />-->
+<!--        <attr name="round_corner_bottom_right" />-->
+<!--        <attr name="stroke_color" />-->
+<!--        <attr name="stroke_width" />-->
+<!--        <attr name="clip_background" />-->
+<!--    </declare-styleable>-->
 
 
     <declare-styleable name="ImgTitleView">
