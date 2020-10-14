@@ -13,8 +13,3 @@ fun Fragment.toast(msg: String) {
 fun Fragment.toast(@StringRes msg: Int) {
     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 }
-
-fun Fragment.getColor(@ColorRes colorRes: Int): Int {
-    return if (context == null) 0x00000000
-    else ContextCompat.getColor(context!!, colorRes)
-}

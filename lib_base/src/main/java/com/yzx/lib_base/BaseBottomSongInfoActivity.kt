@@ -66,6 +66,8 @@ open class BaseBottomSongInfoActivity : BaseMusicInfoChangedActivity() {
         super.onMusicChanged(changeMusic)
         bottomSongInfoBinding.layoutBottomMusicInfo.root.visibility = if (changeMusic == null) View.GONE else View.VISIBLE
         if (changeMusic != null) {
+            bottomSongInfoBinding.layoutBottomMusicInfo.playPauseView.setMaxAndProgress(changeMusic.duration.toFloat(),
+                0f)
             bottomSongInfoBinding.layoutBottomMusicInfo.apply {
                 tvSingerName.text = changeMusic.artist.name
                 tvSongName.text = changeMusic.title

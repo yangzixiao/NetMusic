@@ -42,4 +42,5 @@ dependencies {
     implementation "com.bytedance.boost_multidex:boost_multidex:1.0.0"
 
     implementation project(path: ':lib_play_client')
+    implementation project(path: ':lib_core')
 }

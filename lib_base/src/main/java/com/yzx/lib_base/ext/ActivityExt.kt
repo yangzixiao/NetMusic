@@ -13,16 +13,3 @@ fun AppCompatActivity.toast(msg: String) {
 fun AppCompatActivity.toast(@StringRes msg: Int) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
-
-
-//fun AppCompatActivity.simpleGetString(@StringRes vararg stringRes: Int): String {
-//    var result = ""
-//    stringRes.forEach {
-//        result += getString(it)
-//    }
-//    return result
-//}
-
-//fun AppCompatActivity.simpleGetDrawable(@DrawableRes  drawableRes: Int): Drawable {
-//    return ContextCompat.getDrawable(this,drawableRes)!!
-//}

@@ -19,11 +19,6 @@ import com.yzx.lib_base.widget.dialog.LoadingDialog
 open class UIActivity : StatusCompatActivity() {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     fun initStatus(statusView: View) {
         val layoutParams = statusView.layoutParams
         layoutParams.height = getDefaultStatusHeight()
@@ -62,7 +57,7 @@ open class UIActivity : StatusCompatActivity() {
     fun initViewModel(baseViewModel: BaseViewModel) {
 
         initLoadingDialog(baseViewModel)
-        baseViewModel.loadingState.observe(this, Observer {
+        baseViewModel.loadingState.observe(this, {
             if (it) showLoadingDialog()
             else hideLoadingDialog()
         })
@@ -77,6 +72,7 @@ open class UIActivity : StatusCompatActivity() {
     private fun initLoadingDialog(baseViewModel: BaseViewModel) {
         loadingDialog = LoadingDialog()
         loadingDialog.dialog?.setOnCancelListener {
+            e("取消请求")
             baseViewModel.cancelRequest()
         }
     }

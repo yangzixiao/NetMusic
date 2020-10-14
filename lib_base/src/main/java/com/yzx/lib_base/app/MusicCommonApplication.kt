@@ -9,6 +9,8 @@ import com.yzx.lib_base.BuildConfig
 import com.yzx.lib_base.Constant
 import com.yzx.lib_base.http.RetrofitHelper
 import com.yzx.lib_base.manager.AppManager
+import com.yzx.lib_base.manager.UserInfoManager
+import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.LogUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
@@ -92,6 +94,9 @@ import org.koin.core.context.startKoin
         LogUtils.e(TAG, "onCreateEndTime$endTime--TotalTime${endTime - startTime}")
         initModuleApp(this)
         initModuleData(this)
+
+        //单独调试某个模块时，设置空的用户信息
+        UserInfoManager.userInfoLiveData.value = UserDataBean()
     }
 
     abstract fun loadModules()

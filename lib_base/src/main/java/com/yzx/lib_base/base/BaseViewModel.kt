@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 
 import com.google.gson.JsonParseException
 import com.yzx.lib_base.R
+import com.yzx.lib_base.ext.stringOf
 
 import com.yzx.lib_base.http.BaseResult
 import com.yzx.lib_base.mvvm.MvvmModel
@@ -104,9 +105,11 @@ open class BaseViewModel : MvvmModel() {
 
 
     private fun dealException(tag: String, e: Exception) {
-        hideLoading()
-        LogUtils.e(tag, "dealException$e")
-        showToast("${getErrorMsgByExceptionType(e)}$e")
+
+        LogUtils.e(tag, "${Thread.currentThread()}dealException$e")
+        onFail("${stringOf(getErrorMsgByExceptionType(e))}$e")
+//        hideLoading()
+//        showToast("${stringOf(getErrorMsgByExceptionType(e))}$e")
     }
 
     private fun getErrorMsgByExceptionType(e: Exception): Int {

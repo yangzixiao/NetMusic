@@ -29,7 +29,7 @@ fun getScreenWidth():Int{
    return application().resources.displayMetrics.widthPixels
 }
 
-fun simpleGetString(@StringRes vararg stringRes: Int): String {
+fun stringOf(@StringRes vararg stringRes: Int): String {
     var result = ""
     stringRes.forEach {
         result += application().getString(it)
@@ -38,10 +38,10 @@ fun simpleGetString(@StringRes vararg stringRes: Int): String {
 }
 
 
-fun simpleGetColor(@ColorRes colorRes: Int): Int {
+fun colorOf(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(application(), colorRes)
 }
 
-fun simpleGetDrawable(@DrawableRes drawableRes: Int): Drawable {
+fun drawableOf(@DrawableRes drawableRes: Int): Drawable {
     return ContextCompat.getDrawable(application(), drawableRes)!!
 }

@@ -5,18 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.yzx.lib_base.widget.rcimagevuew.RCImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        style="@style/CircleShapeImageView"
         android:id="@+id/ivSongPost"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="@dimen/dim_10"
         android:layout_marginTop="@dimen/dim_5"
         android:layout_marginBottom="@dimen/dim_5"
-        android:src="@color/colorBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:round_corner="3dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -57,7 +56,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.yzx.lib_base.widget.musicwidget.CirclePlayPauseProgressView
-        android:layout_marginEnd="@dimen/dim_10"
         android:id="@+id/playPauseView"
         android:layout_width="40dp"
         android:layout_height="40dp"

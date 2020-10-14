@@ -60,7 +60,7 @@ fun Int.defaultDes(defaultDes: String): String {
  * 如果某些数据为空或者为0
  */
 fun Int.defaultDes(@StringRes defaultDes: Int): String {
-    return defaultDes(simpleGetString(defaultDes))
+    return defaultDes(stringOf(defaultDes))
 }
 
 
@@ -93,5 +93,5 @@ fun Long.defaultDes(defaultDes: String): String {
  * 如果某些数据为空或者为0
  */
 fun Long.defaultDes(@StringRes defaultDes: Int): String {
-    return defaultDes(simpleGetString(defaultDes))
+    return defaultDes(stringOf(defaultDes))
 }

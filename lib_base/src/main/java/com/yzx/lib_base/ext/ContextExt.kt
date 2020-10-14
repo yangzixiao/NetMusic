@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.widget.Toast
 import androidx.annotation.StringRes
-import com.bumptech.glide.load.engine.Resource
 import com.yzx.lib_base.R
 
 
@@ -17,7 +16,7 @@ fun Context.toast(msg: String) {
 }
 
 fun Context.toast(@StringRes msg: Int) {
-    toast(simpleGetString(msg))
+    toast(stringOf(msg))
 }
 
 @SuppressLint("Recycle")
