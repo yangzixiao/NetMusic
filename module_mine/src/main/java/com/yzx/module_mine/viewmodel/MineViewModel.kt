@@ -9,6 +9,8 @@ import com.yzx.module_mine.model.net.MinePagerRecommendPlayListResponse
 import com.yzx.module_mine.model.net.PersonalFMResponse
 import com.yzx.module_mine.model.net.PlayListResponse
 import com.yzx.module_mine.repository.MineRepository
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 /**
@@ -30,7 +32,22 @@ open class MineViewModel(private val mineRepository: MineRepository) : BaseViewM
      */
     fun getMinePagerData(uid: String? = null) {
         viewModelScope.launch(coroutineExceptionHandler) {
-            dealResponse(mineRepository.getMinePageData(uid))
+
+            val personalFMAsync = async {
+                mineRepository.getPersonalFM()
+            }
+            val result = if (uid.isNullOrBlank()) {
+                val recommendPlayListsAsync = async {
+                    mineRepository.getRecommendPlayLists()
+                }
+                awaitAll(recommendPlayListsAsync, personalFMAsync)
+            } else {
+                val playListAsync = async {
+                    mineRepository.getUserPlayLists(uid)
+                }
+                awaitAll(playListAsync, personalFMAsync)
+            }
+            dealResponse(result)
         }
     }
 

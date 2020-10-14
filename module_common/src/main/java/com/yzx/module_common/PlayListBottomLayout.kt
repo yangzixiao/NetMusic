@@ -15,6 +15,9 @@ import com.yzx.lib_base.ext.*
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.lib_base.widget.recyclerview.ExtraLinearItemDecoration
+import com.yzx.lib_core.ext.getColor
+import com.yzx.lib_core.ext.gone
+import com.yzx.lib_core.ext.visible
 import com.yzx.module_common.adpter.PlayListSongAdapter
 import com.yzx.module_common.adpter.PlayListSubscriberAdapter
 import com.yzx.module_common.databinding.LayoutPlayListFootBinding
@@ -104,7 +107,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
 
             tvPlayListDes.apply {
                 val description = playlist.description
-                text = if (TextUtils.isEmpty(description)) simpleGetString(
+                text = if (TextUtils.isEmpty(description)) stringOf(
                     if (isSelf) R.string.EditInfo else R.string.NoDesciption
                 ) else description
                 setOnClickListener {
@@ -121,9 +124,9 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
                 tvCollect.visible()
                 if (isSelf) {
                     tvCollect.text =
-                        "${subscribedCount.format()}${simpleGetString(R.string.People, R.string.Collect)}"
+                        "${subscribedCount.format()}${stringOf(R.string.People, R.string.Collect)}"
                     tvCollect.setBackgroundColor(Color.TRANSPARENT)
-                    tvCollect.setTextColor(simpleGetColor(R.color.colorSubTitle))
+                    tvCollect.setTextColor(colorOf(R.color.colorSubTitle))
                 } else {
                     tvCollect.text = "${context.getText(R.string.Collect)}(${subscribedCount.format()})"
                     tvCollect.background =
@@ -140,7 +143,7 @@ class PlayListBottomLayout(context: Context, attrs: AttributeSet? = null, defaul
     fun updateCover(coverImgUrl: String) {
         topViewBinding.apply {
             GlideUtils.loadImg(coverImgUrl, ivPoster)
-            val maskColor = simpleGetColor(R.color.colorGreyMask)
+            val maskColor = colorOf(R.color.colorGreyMask)
             ivForeground.setMaskColor(maskColor)
             ivBackground.setMaskColor(maskColor)
             GlideUtils.loadDrawable(coverImgUrl, ivBackground, 100, 8)

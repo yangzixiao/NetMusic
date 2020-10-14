@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib_base" />
+            <option value="$PROJECT_DIR$/lib_core" />
             <option value="$PROJECT_DIR$/lib_magic_indicator" />
             <option value="$PROJECT_DIR$/lib_multitype_adapter" />
             <option value="$PROJECT_DIR$/lib_play_client" />

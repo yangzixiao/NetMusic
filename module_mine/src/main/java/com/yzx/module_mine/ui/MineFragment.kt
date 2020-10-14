@@ -28,6 +28,8 @@ import com.yzx.lib_base.model.UserDataBean
 import com.yzx.lib_base.utils.ColorUtils
 import com.yzx.lib_base.utils.DenistyUtils.dip2px
 import com.yzx.lib_base.utils.glide.GlideUtils
+import com.yzx.lib_core.ext.gone
+import com.yzx.lib_core.ext.visible
 import com.yzx.module_mine.R
 import com.yzx.module_mine.adapter.MineHeadMenuAdapter
 import com.yzx.module_mine.adapter.MinePlayListSectionAdapter
@@ -77,13 +79,10 @@ class MineFragment : BaseFragment() {
     private fun initView() {
         mineAdapter = MinePlayListSectionAdapter(R.layout.item_mine_head_play_list, R.layout.item_playlist)
         mineBinding.apply {
-
             initToolBar()
             initHeadMenu()
             setAppBarLayoutScrollListener()
             setupSwipeRefreshLayout()
-            recyclerView.adapter = mineAdapter
-            recyclerView.layoutManager = layoutManager
             bindingRecyclerViewAndTabLayout(recyclerView, tabLayout)
         }
 
@@ -120,6 +119,13 @@ class MineFragment : BaseFragment() {
 
 
     private fun bindingRecyclerViewAndTabLayout(recyclerView: RecyclerView, tabLayout: TabLayout) {
+        recyclerView.adapter = mineAdapter
+        recyclerView.layoutManager = layoutManager
+        mineAdapter.setOnItemChildClickListener { adapter, view, position ->
+
+            e("${view.id}${view::class.java.simpleName}$position")
+        }
+
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -225,8 +231,10 @@ class MineFragment : BaseFragment() {
             createPlayLists.last().isLast = true
             collectionPlayLists.last().isLast = true
 
-            createPlayLists.add(0, MinePlayListSection(true, MinePlayListHeadBean("创建歌单", createPlayLists.size)))
-            val collectionHeadSection = MinePlayListSection(true, MinePlayListHeadBean("收藏歌单", collectionPlayLists.size))
+            createPlayLists.add(0,
+                MinePlayListSection(true, MinePlayListHeadBean("创建歌单", createPlayLists.size), type = MinePlayListSection.TYPE_CREATE))
+            val collectionHeadSection =
+                MinePlayListSection(true, MinePlayListHeadBean("收藏歌单", collectionPlayLists.size), type = MinePlayListSection.TYPE_COLLECTION)
             collectionPlayLists.add(0, collectionHeadSection)
 
             playLists.addAll(createPlayLists)
@@ -234,13 +242,12 @@ class MineFragment : BaseFragment() {
             collectionHeadIndex = createPlayLists.size
         } else {
             val recommendPlaylist = minePagerData.recommendPlaylist!!
-            playLists.add(MinePlayListSection(true, MinePlayListHeadBean("创建歌单", recommendPlaylist.size)))
+            playLists.add(MinePlayListSection(true, MinePlayListHeadBean("创建歌单", recommendPlaylist.size), type = MinePlayListSection.TYPE_RECOMMEND))
             recommendPlaylist.forEach {
                 playLists.add(MinePlayListSection(false, it))
             }
         }
         mineAdapter.addData(playLists)
-        e("${mineAdapter.itemCount}~~${collectionHeadIndex}")
     }
 
 
@@ -295,7 +302,7 @@ class MineFragment : BaseFragment() {
             ivBackground.setImageDrawable(
                 DrawableCreator.Builder().setGradientAngle(90)
                     .setGradientColor(
-                        getColor(R.color.colorTransparent),
+                        colorOf(R.color.colorTransparent),
                         ColorUtils.getColorByAlpha(handledColor, 0.5f)
                     )
                     .build()

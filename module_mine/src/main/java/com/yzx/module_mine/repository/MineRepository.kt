@@ -23,26 +23,4 @@ class MineRepository(private val mineApiProvider: MineApiProvider) {
     suspend fun getUserPlayLists(uid: String): PlayListResponse {
         return mineApiProvider.getMineApi().getUserPlayLists(uid, 1000)
     }
-
-    suspend fun getMinePageData(uid: String? = null): List<BaseResult> {
-
-        var results = listOf<BaseResult>()
-        coroutineScope {
-            val personalFMAsync = async {
-                getPersonalFM()
-            }
-            if (uid.isNullOrBlank()) {
-                val recommendPlayListsAsync = async {
-                    getRecommendPlayLists()
-                }
-                results = awaitAll(recommendPlayListsAsync, personalFMAsync)
-            } else {
-                val playListAsync = async {
-                    getUserPlayLists(uid)
-                }
-                results = awaitAll(playListAsync, personalFMAsync)
-            }
-        }
-        return results
-    }
 }

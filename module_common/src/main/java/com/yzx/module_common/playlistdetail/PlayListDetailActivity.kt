@@ -1,10 +1,8 @@
 package com.yzx.module_common.playlistdetail
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.ViewTreeObserver
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomAreaBehavior
@@ -12,9 +10,7 @@ import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
 import com.yzx.lib_base.BaseBottomSongInfoActivity
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
-import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.*
-import com.yzx.lib_play_client.PlayerManager
 import com.yzx.module_common.PlayListBottomLayout
 import com.yzx.module_common.R
 import com.yzx.module_common.databinding.ActivityPlayListDetailBinding
@@ -127,7 +123,7 @@ class PlayListDetailActivity : BaseBottomSongInfoActivity(), ViewTreeObserver.On
      */
     private fun updateToolbarTitle(bottomCurrent: Int) {
         binding.layoutToolBar.tvTitle.text =
-            if (bottomCurrent > toolbarHeight && isRequestFinished && playListName.isNotBlank()) playListName else simpleGetString(
+            if (bottomCurrent > toolbarHeight && isRequestFinished && playListName.isNotBlank()) playListName else stringOf(
                 com.yzx.lib_base.R.string.PlayList
             )
     }
@@ -140,7 +136,7 @@ class PlayListDetailActivity : BaseBottomSongInfoActivity(), ViewTreeObserver.On
             setPadding(0, getDefaultStatusHeight(), 0, 0)
             this.layoutParams = layoutParams
             inflateMenu(R.menu.menu_play_list_detail)
-            overflowIcon = simpleGetDrawable(R.drawable.ic_elipsis)
+            overflowIcon = drawableOf(R.drawable.ic_elipsis)
             setMenuIconVisible(this)
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {

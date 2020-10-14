@@ -11,7 +11,7 @@ import com.yzx.lib_base.arouter.ARouterPath.LOGIN
 import com.yzx.lib_base.arouter.ARouterPath.MAIN
 import com.yzx.lib_base.arouter.ArouterNavKey.KEY_IS_FROM_Login_GUIDE
 import com.yzx.lib_base.base.BaseActivity
-import com.yzx.lib_base.ext.getContent
+import com.yzx.lib_core.ext.getContent
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.utils.FormatUtil
 import com.yzx.module_login.R

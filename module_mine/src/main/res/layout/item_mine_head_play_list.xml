@@ -22,15 +22,20 @@
         tools:text="标题" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivAdd"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/be8"
+        android:scaleType="center"
+        android:src="@drawable/ic_add_white_48"
         app:tint="@color/colorLightBlack" />
 
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/iv_next" />
+        style="@style/RoundShapeImageView"
+        android:id="@+id/ivMore"
+        android:scaleType="center"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/ic_elipsis_48"
+        app:tint="@color/colorLightBlack" />
 </com.noober.background.view.BLLinearLayout>

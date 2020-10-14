@@ -4,7 +4,7 @@ import android.content.res.ColorStateList
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.yzx.lib_base.ext.getColor
+import com.yzx.lib_core.ext.getColor
 import com.yzx.module_mine.R
 import com.yzx.module_mine.model.MineHeadMenuBean
 

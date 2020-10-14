@@ -11,7 +11,7 @@ import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ARouterPath.LOGIN_GUIDE
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
-import com.yzx.lib_base.ext.simpleGetString
+import com.yzx.lib_base.ext.stringOf
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.mmkv.MmkvUtils
@@ -54,7 +54,7 @@ class LoginGuideActivity : BaseActivity() {
                 shakeAgreementLayout(loginGuideBinding.layoutProtocol)
                 toast(
                     "请勾选${
-                        simpleGetString(
+                        stringOf(
                             R.string.Agree, R.string.UserAgreement, R.string.PrivacyAgreement, R.string.ChildPrivacyAgreement
                         )
                     }"

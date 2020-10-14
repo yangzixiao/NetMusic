@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/WaterEffect"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/colorWhite"
     android:paddingHorizontal="@dimen/edg"
-    android:paddingBottom="@dimen/dim_8"
-    android:layout_height="wrap_content">
+    android:paddingBottom="@dimen/dim_8">
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -24,12 +24,13 @@
         app:strokeWidth="@dimen/dim_stroke_width" />
 
     <LinearLayout
+        android:id="@+id/llPlayListInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dim_10"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/ivSongSheetPost"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivMore"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/ivSongSheetPost"
         app:layout_constraintTop_toTopOf="@+id/ivSongSheetPost">
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:text="标题"
+            tools:text="标题"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/dim_textsize_12" />
 
@@ -51,10 +52,21 @@
             android:layout_marginTop="@dimen/dim_5"
             android:ellipsize="end"
             android:lines="1"
-            android:text="副标题"
+            tools:text="副标题"
             android:textColor="@color/colorLightBlack"
             android:textSize="@dimen/dim_textsize_10" />
     </LinearLayout>
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:src="@drawable/ic_elipsis_48"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@id/ivSongSheetPost"
+        app:layout_constraintTop_toTopOf="@id/ivSongSheetPost"
+        android:id="@+id/ivMore"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/llPlayListInfo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,4 +64,6 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.2.5"
 
     implementation project(path: ':lib_base')
+    implementation project(path: ':lib_core')
+
 }
