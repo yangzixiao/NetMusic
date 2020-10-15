@@ -68,7 +68,6 @@
     <androidx.appcompat.widget.AppCompatImageView
         style="@style/WaterEffect"
         android:id="@+id/ivMV"
-        android:visibility="gone"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:tint="@color/colorIconTintGrey"

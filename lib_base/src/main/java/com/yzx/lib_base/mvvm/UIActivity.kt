@@ -10,7 +10,6 @@ import com.yzx.lib_base.activity.StatusCompatActivity
 import com.yzx.lib_base.base.BaseViewModel
 import com.yzx.lib_base.ext.getDefaultStatusHeight
 
-
 /**
  * @author yzx
  * @date 2020/3/25

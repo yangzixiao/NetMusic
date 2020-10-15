@@ -54,6 +54,7 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
+                app:tabRippleColor="@color/colorRipple"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:tabIndicator="@drawable/tab_indicator"

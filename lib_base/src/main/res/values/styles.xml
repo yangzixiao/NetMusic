@@ -57,7 +57,12 @@
 
     <style name="WaterEffect">
         <item name="android:clickable">true</item>
-        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+    <style name="BLWaterEffect">
+        <item name="rippleColor">@color/colorRipple</item>
+        <item name="bl_ripple_enable">true</item>
+        <item name="bl_ripple_color">@color/colorRipple</item>
     </style>
 
 

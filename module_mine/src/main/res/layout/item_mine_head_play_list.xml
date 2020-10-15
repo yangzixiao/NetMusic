@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingHorizontal="@dimen/edg"
     android:layout_height="40dp"
     android:layout_marginTop="@dimen/dim_10"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/edg"
     app:bl_corners_topLeftRadius="@dimen/dim_round_layout_corner"
     app:bl_corners_topRightRadius="@dimen/dim_round_layout_corner"
-    app:bl_solid_color="@color/colorWhite"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+    app:bl_solid_color="@color/colorWhite">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -21,8 +21,9 @@
         android:textSize="@dimen/dim_textsize_12"
         tools:text="标题" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.noober.background.view.BLImageView
         android:id="@+id/ivAdd"
+        style="@style/BLWaterEffect"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:scaleType="center"
@@ -30,12 +31,12 @@
         app:tint="@color/colorLightBlack" />
 
 
-    <androidx.appcompat.widget.AppCompatImageView
-        style="@style/RoundShapeImageView"
+    <com.noober.background.view.BLImageView
         android:id="@+id/ivMore"
-        android:scaleType="center"
+        style="@style/BLWaterEffect"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:scaleType="center"
         app:srcCompat="@drawable/ic_elipsis_48"
         app:tint="@color/colorLightBlack" />
 </com.noober.background.view.BLLinearLayout>

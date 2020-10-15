@@ -1,9 +1,12 @@
 package com.yzx.module_common.adpter
 
+import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yzx.lib_base.arouter.ARouterNavUtils
+import com.yzx.lib_core.ext.gone
+import com.yzx.lib_core.ext.visible
 import com.yzx.module_common.MusicDataCovert
 import com.yzx.module_common.R
 import com.yzx.module_common.model.PlayListSinger
@@ -21,19 +24,25 @@ class PlayListSongAdapter(songs: MutableList<Track>? = null) :
         holder.setText(R.id.tvSongName, item.name)
         holder.setText(R.id.tvSongSinger, getSingers(item.ar, item.al.name))
 
-        if (item.url.isNullOrEmpty()){
-            holder.getView<TextView>(R.id.tvSongName).alpha=0.6f
-            holder.getView<TextView>(R.id.tvSongSinger).alpha=0.6f
-            holder.itemView.isClickable=false
-        }else{
-            holder.getView<TextView>(R.id.tvSongName).alpha=1f
-            holder.getView<TextView>(R.id.tvSongSinger).alpha=1f
-            holder.itemView.isClickable=true
+        if (item.url.isNullOrEmpty()) {
+            holder.getView<TextView>(R.id.tvSongName).alpha = 0.6f
+            holder.getView<TextView>(R.id.tvSongSinger).alpha = 0.6f
+            holder.itemView.isClickable = false
+        } else {
+            holder.getView<TextView>(R.id.tvSongName).alpha = 1f
+            holder.getView<TextView>(R.id.tvSongSinger).alpha = 1f
+            holder.itemView.isClickable = true
         }
 
+        val ivMV = holder.getView<ImageView>(R.id.ivMV)
+        if (item.mv == 0L) {
+            ivMV.gone()
+        } else {
+            ivMV.visible()
+        }
 
         holder.itemView.setOnClickListener {
-            MusicDataCovert.coverPlayList(playListId,data, holder.layoutPosition)
+            MusicDataCovert.coverPlayList(playListId, data, holder.layoutPosition)
         }
     }
 

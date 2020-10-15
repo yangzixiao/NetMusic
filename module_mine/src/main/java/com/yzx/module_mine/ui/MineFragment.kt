@@ -88,7 +88,6 @@ class MineFragment : BaseFragment() {
         }
 
         userInfoLiveData.observe(viewLifecycleOwner, {
-            e("用户信息改变")
             userDataBean = it
             onUserStateChanged()
             if (needRefresh) {
@@ -122,9 +121,29 @@ class MineFragment : BaseFragment() {
     private fun bindingRecyclerViewAndTabLayout(recyclerView: RecyclerView, tabLayout: TabLayout) {
         recyclerView.adapter = mineAdapter
         recyclerView.layoutManager = layoutManager
+        mineAdapter.setOnItemClickListener { adapter, view, position ->
+            val minePlayListSection = mineAdapter.data[position]
+            if (minePlayListSection.isHeader) {
+                toast("head")
+            } else {
+                toast("playList")
+            }
+        }
         mineAdapter.setOnItemChildClickListener { adapter, view, position ->
 
-            e("${view.id}${view::class.java.simpleName}$position")
+            val minePlayListSection = mineAdapter.data[position]
+            when (view.id) {
+                R.id.ivAdd -> {
+                    toast("添加歌单")
+                }
+                R.id.ivMore -> {
+                    if (minePlayListSection.isHeader) {
+                        toast("head更多")
+                    } else {
+                        toast("playList更多")
+                    }
+                }
+            }
         }
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -171,7 +190,6 @@ class MineFragment : BaseFragment() {
             newTab.setText(title)
             newTab.view.setOnClickListener {
                 mineBinding.appBarLayout.setExpanded(false)
-                e("${if (index == 0) 0 else collectionHeadIndex}")
                 layoutManager.scrollToPositionWithOffset(if (index == 0) 0 else collectionHeadIndex, 0)
             }
             tabLayout.addTab(newTab)
@@ -248,7 +266,7 @@ class MineFragment : BaseFragment() {
                 playLists.add(MinePlayListSection(false, it))
             }
         }
-        mineAdapter.addData(playLists)
+        mineAdapter.setList(playLists)
     }
 
 

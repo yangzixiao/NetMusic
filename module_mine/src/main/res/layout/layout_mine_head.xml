@@ -117,6 +117,7 @@
         android:layout_margin="@dimen/edg"
         android:gravity="center_vertical"
         android:padding="@dimen/dim_10"
+        style="@style/BLWaterEffect"
         app:bl_corners_radius="@dimen/dim_round_layout_corner"
         app:bl_solid_color="@color/colorBackgroundWhite"
         app:layout_constraintStart_toStartOf="parent"

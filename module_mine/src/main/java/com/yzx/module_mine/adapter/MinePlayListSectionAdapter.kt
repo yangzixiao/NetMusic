@@ -25,6 +25,7 @@ class MinePlayListSectionAdapter(headLayout: Int, itemLayout: Int, playListSecti
 
     init {
         setNormalLayout(itemLayout)
+        addChildClickViewIds(R.id.ivAdd,R.id.ivMore)
     }
 
     override fun convert(holder: BaseViewHolder, item: MinePlayListSection) {
@@ -57,13 +58,12 @@ class MinePlayListSectionAdapter(headLayout: Int, itemLayout: Int, playListSecti
             ARouterNavUtils.navToPlayListDetails(playListId, coverUrl)
         }
         holder.itemView.background = if (item.isLast) lastItemDrawable else normalItemDrawable
-        addChildClickViewIds(R.id.ivMore)
+
     }
 
     override fun convertHeader(helper: BaseViewHolder, item: MinePlayListSection) {
         val minePlayListHeadBean = item.data as MinePlayListHeadBean
         helper.setText(R.id.tvTitle, "${minePlayListHeadBean.title}(${minePlayListHeadBean.count}个)")
         helper.setVisible(R.id.ivAdd, item.type == MinePlayListSection.TYPE_CREATE)
-        addChildClickViewIds(R.id.ivMore)
     }
 }

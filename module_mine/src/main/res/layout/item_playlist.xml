@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.yzx.lib_base.widget.bl.BLConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/WaterEffect"
+    app:rippleColor="@color/colorRipple"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
     android:paddingHorizontal="@dimen/edg"
     android:paddingBottom="@dimen/dim_8">
 
@@ -23,7 +22,7 @@
         app:strokeColor="@color/dividerColor"
         app:strokeWidth="@dimen/dim_stroke_width" />
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llPlayListInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -55,12 +54,15 @@
             tools:text="副标题"
             android:textColor="@color/colorLightBlack"
             android:textSize="@dimen/dim_textsize_10" />
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <androidx.appcompat.widget.AppCompatImageView
         android:src="@drawable/ic_elipsis_48"
         android:scaleType="center"
+        app:bl_ripple_color="@color/colorRipple"
+        app:bl_ripple_enable="true"
+        app:bl_solid_color="@color/colorTransparent"
         app:layout_constraintBottom_toBottomOf="@id/ivSongSheetPost"
         app:layout_constraintTop_toTopOf="@id/ivSongSheetPost"
         android:id="@+id/ivMore"
@@ -69,4 +71,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/llPlayListInfo" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.yzx.lib_base.widget.bl.BLConstraintLayout>
