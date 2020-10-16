@@ -1,4 +1,4 @@
-package com.yzx.lib_base.manager
+package com.yzx.lib_core.manager
 
 import android.app.Application
 
@@ -7,6 +7,6 @@ object AppManager {
     lateinit var application: Application
 
     fun init(application: Application) {
-        this.application = application
+        AppManager.application = application
     }
 }

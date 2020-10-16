@@ -6,7 +6,7 @@ import com.permissionx.guolindev.PermissionX
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.base.BaseActivity
-import com.yzx.lib_base.ext.toast
+import com.yzx.lib_core.ext.toast
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.module_main.databinding.ActivitySplashBinding
 import org.jetbrains.annotations.NotNull

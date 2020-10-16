@@ -1,4 +1,4 @@
-package com.yzx.lib_base.utils
+package com.yzx.lib_core.utils
 
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -8,6 +8,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import androidx.palette.graphics.Palette
+
 
 object ColorUtils {
 

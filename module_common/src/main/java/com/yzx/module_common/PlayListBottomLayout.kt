@@ -11,13 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.noober.background.drawable.DrawableCreator
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomDelegateLayout
 import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedBottomRecyclerView
-import com.yzx.lib_base.ext.*
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.lib_base.widget.recyclerview.ExtraLinearItemDecoration
-import com.yzx.lib_core.ext.getColor
-import com.yzx.lib_core.ext.gone
-import com.yzx.lib_core.ext.visible
+import com.yzx.lib_core.ext.*
 import com.yzx.module_common.adpter.PlayListSongAdapter
 import com.yzx.module_common.adpter.PlayListSubscriberAdapter
 import com.yzx.module_common.databinding.LayoutPlayListFootBinding

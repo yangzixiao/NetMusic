@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 
 import com.yzx.lib_base.R;
-import com.yzx.lib_base.utils.LogUtils;
 
 /**
  * @author yzx

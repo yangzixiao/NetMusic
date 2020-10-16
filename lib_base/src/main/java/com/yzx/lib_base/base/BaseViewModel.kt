@@ -2,20 +2,17 @@ package com.yzx.lib_base.base
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 
 import com.google.gson.JsonParseException
 import com.yzx.lib_base.R
-import com.yzx.lib_base.ext.e
-import com.yzx.lib_base.ext.stringOf
+import com.yzx.lib_core.ext.stringOf
 
 import com.yzx.lib_base.http.BaseResult
 import com.yzx.lib_base.mvvm.MvvmModel
-import com.yzx.lib_base.utils.LogUtils
+import com.yzx.lib_core.utils.LogUtils
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import org.json.JSONException
 import retrofit2.HttpException
 import java.io.InterruptedIOException

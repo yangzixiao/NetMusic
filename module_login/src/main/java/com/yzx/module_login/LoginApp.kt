@@ -3,8 +3,8 @@ package com.yzx.module_login
 import android.app.Application
 import com.yzx.lib_base.app.BaseApplication
 import com.yzx.lib_core.mmkv.MmkvUtils
-import com.yzx.lib_base.utils.JsonUtils
-import com.yzx.lib_base.utils.LogUtils
+import com.yzx.lib_core.utils.JsonUtils
+import com.yzx.lib_core.utils.LogUtils
 import com.yzx.module_login.model.LoginResponse
 
 /**

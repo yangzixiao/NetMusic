@@ -8,7 +8,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.yzx.lib_base.BaseBottomSongInfoActivity
 import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath
-import com.yzx.lib_base.ext.getDefaultStatusHeight
+import com.yzx.lib_core.ext.getDefaultStatusHeight
 import com.yzx.module_main.adapter.MainFragmentPagerAdapter
 import com.yzx.module_main.databinding.ActivityMainBinding
 import com.yzx.module_main.test.DiscoverFragment

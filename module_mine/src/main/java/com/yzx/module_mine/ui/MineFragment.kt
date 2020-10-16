@@ -21,15 +21,13 @@ import com.yzx.lib_base.arouter.ARouterNavUtils
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseFragment
-import com.yzx.lib_base.ext.*
 
 import com.yzx.lib_base.manager.UserInfoManager.userInfoLiveData
 import com.yzx.lib_base.model.UserDataBean
-import com.yzx.lib_base.utils.ColorUtils
-import com.yzx.lib_base.utils.DenistyUtils.dip2px
+import com.yzx.lib_core.ext.*
+import com.yzx.lib_core.utils.ColorUtils
+import com.yzx.lib_core.utils.DenistyUtils.dip2px
 import com.yzx.lib_base.utils.glide.GlideUtils
-import com.yzx.lib_core.ext.gone
-import com.yzx.lib_core.ext.visible
 import com.yzx.module_mine.R
 import com.yzx.module_mine.adapter.MineHeadMenuAdapter
 import com.yzx.module_mine.adapter.MinePlayListSectionAdapter

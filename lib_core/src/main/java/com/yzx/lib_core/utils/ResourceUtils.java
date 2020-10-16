@@ -1,4 +1,4 @@
-package com.yzx.lib_base.utils;
+package com.yzx.lib_core.utils;
 
 /**
  * @author yzx

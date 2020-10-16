@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseSectionQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.noober.background.drawable.DrawableCreator
 import com.yzx.lib_base.arouter.ARouterNavUtils
-import com.yzx.lib_base.ext.dp
+import com.yzx.lib_core.ext.dp
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.module_mine.R

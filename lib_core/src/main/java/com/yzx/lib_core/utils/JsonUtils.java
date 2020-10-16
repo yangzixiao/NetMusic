@@ -1,4 +1,4 @@
-package com.yzx.lib_base.utils;
+package com.yzx.lib_core.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

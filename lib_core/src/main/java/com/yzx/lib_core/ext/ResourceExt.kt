@@ -1,4 +1,4 @@
-package com.yzx.lib_base.ext
+package com.yzx.lib_core.ext
 
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
@@ -6,7 +6,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.yzx.lib_base.manager.AppManager
+import com.yzx.lib_core.manager.AppManager
 
 fun getReSource(): Resources {
     return Resources.getSystem()

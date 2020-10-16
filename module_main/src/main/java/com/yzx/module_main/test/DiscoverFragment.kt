@@ -5,10 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.noober.background.drawable.DrawableCreator
 import com.yzx.lib_base.base.BaseFragment
-import com.yzx.lib_base.ext.toast
-import com.yzx.module_main.R
+import com.yzx.lib_core.ext.toast
 import com.yzx.module_main.databinding.FragmentTestBinding
 
 

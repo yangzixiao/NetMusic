@@ -5,14 +5,12 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yzx.lib_base.BaseMusicInfoChangedActivity
 import com.yzx.lib_base.arouter.ARouterPath
-import com.yzx.lib_base.base.BaseActivity
-import com.yzx.lib_base.ext.dp
-import com.yzx.lib_base.ext.getScreenWidth
-import com.yzx.lib_base.utils.ColorUtils
+import com.yzx.lib_core.ext.dp
+import com.yzx.lib_core.ext.getScreenWidth
+import com.yzx.lib_core.utils.ColorUtils
 import com.yzx.lib_base.utils.glide.ColorCallBack
 import com.yzx.lib_base.utils.glide.DrawableCallBack
 import com.yzx.lib_base.utils.glide.GlideUtils

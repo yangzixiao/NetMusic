@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.yzx.lib_base.R;
-import com.yzx.lib_base.utils.LogUtils;
+import com.yzx.lib_core.utils.LogUtils;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 

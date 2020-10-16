@@ -1,8 +1,8 @@
-package com.yzx.lib_base.utils;
+package com.yzx.lib_core.utils;
 
 import android.util.Log;
 
-import static com.yzx.lib_base.BuildConfig.DEBUG;
+import static com.yzx.lib_core.BuildConfig.DEBUG;
 
 /**
  *

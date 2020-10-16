@@ -9,7 +9,7 @@ import android.view.MotionEvent
 import android.view.animation.LinearInterpolator
 import com.google.android.material.slider.Slider
 import com.yzx.lib_base.R
-import com.yzx.lib_base.ext.dp
+import com.yzx.lib_core.ext.dp
 
 class MusicSlider(context: Context, attributeSet: AttributeSet?) : Slider(context, attributeSet) {
 

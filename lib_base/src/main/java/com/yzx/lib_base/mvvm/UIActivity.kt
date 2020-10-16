@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import com.yzx.lib_base.R
 import com.yzx.lib_base.activity.StatusCompatActivity
 import com.yzx.lib_base.base.BaseViewModel
-import com.yzx.lib_base.ext.getDefaultStatusHeight
+import com.yzx.lib_core.ext.getDefaultStatusHeight
 
 /**
  * @author yzx

@@ -10,7 +10,7 @@ import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout
 import com.yzx.lib_base.BaseBottomSongInfoActivity
 import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ArouterNavKey
-import com.yzx.lib_base.ext.*
+import com.yzx.lib_core.ext.*
 import com.yzx.module_common.PlayListBottomLayout
 import com.yzx.module_common.R
 import com.yzx.module_common.databinding.ActivityPlayListDetailBinding

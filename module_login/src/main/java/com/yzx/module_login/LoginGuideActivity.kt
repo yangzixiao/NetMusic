@@ -11,8 +11,8 @@ import com.yzx.lib_base.arouter.ARouterPath
 import com.yzx.lib_base.arouter.ARouterPath.LOGIN_GUIDE
 import com.yzx.lib_base.arouter.ArouterNavKey
 import com.yzx.lib_base.base.BaseActivity
-import com.yzx.lib_base.ext.stringOf
-import com.yzx.lib_base.ext.toast
+import com.yzx.lib_core.ext.stringOf
+import com.yzx.lib_core.ext.toast
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_core.mmkv.MmkvUtils
 import com.yzx.module_login.databinding.ActivityLoginGuideBinding

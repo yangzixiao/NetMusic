@@ -3,12 +3,11 @@ apply from:rootProject.file("base.gradle")
 
 dependencies {
 
-    //glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
-    implementation 'jp.wasabeef:glide-transformations:4.1.0'
     //palette
     implementation 'androidx.palette:palette-ktx:1.0.0'
-    implementation 'androidx.palette:palette-ktx:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+
     implementation 'com.tencent:mmkv-static:1.1.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 }

@@ -1,11 +1,11 @@
-package com.yzx.lib_base.ext
+package com.yzx.lib_core.ext
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.widget.Toast
 import androidx.annotation.StringRes
-import com.yzx.lib_base.R
+import com.yzx.lib_core.R
 
 
 fun Context.toast(msg: String) {

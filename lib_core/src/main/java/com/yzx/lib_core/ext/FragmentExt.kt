@@ -1,4 +1,4 @@
-package com.yzx.lib_base.ext
+package com.yzx.lib_core.ext
 
 import android.widget.Toast
 import androidx.annotation.ColorRes

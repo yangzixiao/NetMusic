@@ -1,7 +1,7 @@
-package com.yzx.lib_base.ext
+package com.yzx.lib_core.ext
 
 import android.util.Log
-import com.yzx.lib_base.BuildConfig
+import com.yzx.lib_core.BuildConfig
 
 const val TAG = "ygl"
 

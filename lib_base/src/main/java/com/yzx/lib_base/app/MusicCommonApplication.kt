@@ -4,14 +4,14 @@ import android.app.Application
 import android.content.Context
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bytedance.boost_multidex.BoostMultiDex
-import com.tencent.mmkv.MMKV
 import com.yzx.lib_base.BuildConfig
 import com.yzx.lib_base.Constant
 import com.yzx.lib_base.http.RetrofitHelper
-import com.yzx.lib_base.manager.AppManager
+import com.yzx.lib_core.manager.AppManager
 import com.yzx.lib_base.manager.UserInfoManager
 import com.yzx.lib_base.model.UserDataBean
-import com.yzx.lib_base.utils.LogUtils
+import com.yzx.lib_core.mmkv.MmkvUtils
+import com.yzx.lib_core.utils.LogUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -82,7 +82,7 @@ import org.koin.core.context.startKoin
 
         val startTime = System.currentTimeMillis()
         LogUtils.e(TAG, "onCreateStartTime$startTime")
-        MMKV.initialize(this)
+        MmkvUtils.init(this)
         ARouter.init(this)
 
         if (BuildConfig.DEBUG) {

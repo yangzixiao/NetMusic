@@ -3,11 +3,8 @@ package com.yzx.lib_base
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import androidx.lifecycle.Observer
 import com.yzx.lib_base.arouter.ARouterNavUtils
-import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.databinding.ActivityBottomSongInfoBinding
-import com.yzx.lib_base.ext.e
 import com.yzx.lib_base.utils.glide.GlideUtils
 import com.yzx.lib_play_client.PlayerManager
 import com.yzx.lib_play_client.client.bean.base.BaseAlbumItem

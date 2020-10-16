@@ -1,5 +1,6 @@
 package com.yzx.lib_core.mmkv
 
+import android.app.Application
 import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 
@@ -64,5 +65,9 @@ object MmkvUtils {
 
     fun get(key: String, clz: Class<Parcelable>): Parcelable {
         return MMKV.defaultMMKV().decodeParcelable(key, clz)
+    }
+
+    fun init(application: Application) {
+        MMKV.initialize(application)
     }
 }
