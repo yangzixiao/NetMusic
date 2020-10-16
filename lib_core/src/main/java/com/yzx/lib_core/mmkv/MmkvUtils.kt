@@ -1,4 +1,4 @@
-package com.yzx.lib_base.mmkv
+package com.yzx.lib_core.mmkv
 
 import android.os.Parcelable
 import com.tencent.mmkv.MMKV

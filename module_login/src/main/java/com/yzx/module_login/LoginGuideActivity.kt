@@ -14,7 +14,7 @@ import com.yzx.lib_base.base.BaseActivity
 import com.yzx.lib_base.ext.stringOf
 import com.yzx.lib_base.ext.toast
 import com.yzx.lib_base.manager.UserInfoManager
-import com.yzx.lib_base.mmkv.MmkvUtils
+import com.yzx.lib_core.mmkv.MmkvUtils
 import com.yzx.module_login.databinding.ActivityLoginGuideBinding
 
 /**
