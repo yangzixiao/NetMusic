@@ -21,9 +21,9 @@
         android:textSize="@dimen/dim_textsize_12"
         tools:text="标题" />
 
-    <com.noober.background.view.BLImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivAdd"
-        style="@style/BLWaterEffect"
+        style="@style/WaterEffect"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:scaleType="center"
@@ -31,9 +31,9 @@
         app:tint="@color/colorLightBlack" />
 
 
-    <com.noober.background.view.BLImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivMore"
-        style="@style/BLWaterEffect"
+        style="@style/WaterEffect"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:scaleType="center"

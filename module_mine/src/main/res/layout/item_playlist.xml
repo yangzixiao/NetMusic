@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.yzx.lib_base.widget.bl.BLConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:rippleColor="@color/colorRipple"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/WaterEffect"
+    android:background="@color/colorWhite"
     android:paddingHorizontal="@dimen/edg"
     android:paddingBottom="@dimen/dim_8">
 
@@ -60,9 +61,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:src="@drawable/ic_elipsis_48"
         android:scaleType="center"
-        app:bl_ripple_color="@color/colorRipple"
-        app:bl_ripple_enable="true"
-        app:bl_solid_color="@color/colorTransparent"
+        style="@style/WaterEffect"
         app:layout_constraintBottom_toBottomOf="@id/ivSongSheetPost"
         app:layout_constraintTop_toTopOf="@id/ivSongSheetPost"
         android:id="@+id/ivMore"
@@ -71,4 +70,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/llPlayListInfo" />
 
-</com.yzx.lib_base.widget.bl.BLConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

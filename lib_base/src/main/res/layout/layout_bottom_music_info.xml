@@ -2,6 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/WaterEffect"
+    tools:layout_marginTop="100dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -49,12 +51,6 @@
     </LinearLayout>
 
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:src="@color/colorDivider"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.yzx.lib_base.widget.musicwidget.CirclePlayPauseProgressView
         android:id="@+id/playPauseView"
         android:layout_width="40dp"
@@ -73,4 +69,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cby" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@color/colorGreyBackground"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

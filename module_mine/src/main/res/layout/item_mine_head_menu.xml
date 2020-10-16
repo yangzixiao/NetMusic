@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    style="@style/WaterEffect"
     android:orientation="vertical"
     android:paddingTop="@dimen/dim_10"
-    android:paddingBottom="@dimen/dim_10"
-    android:theme="@style/Theme.MaterialComponents">
+    android:paddingBottom="@dimen/dim_10">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivIcon"

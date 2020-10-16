@@ -4,11 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/Theme.MaterialComponents"
     app:layout_collapseMode="none"
     tools:background="@color/colorLightBlack">
 
 
+    <androidx.constraintlayout.widget.Group
+        style="@style/WaterEffect"
+        android:id="@+id/groupUserInfo"
+        app:constraint_referenced_ids="ivHead,blLogin,llUserInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivHead"
         style="@style/CircleShapeImageView"
@@ -39,7 +44,7 @@
         app:layout_constraintStart_toEndOf="@id/ivHead"
         app:layout_constraintTop_toTopOf="@id/ivHead" />
 
-    <LinearLayout
+    <com.noober.background.view.BLLinearLayout
         android:id="@+id/llUserInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -91,7 +96,7 @@
             android:src="@drawable/iv_next"
             android:tint="@color/colorBlack" />
 
-    </LinearLayout>
+    </com.noober.background.view.BLLinearLayout>
 
 
     <com.yzx.lib_base.widget.bl.BLRecyclerView
@@ -105,21 +110,21 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivHead"
-        app:spanCount="2"
-        tools:itemCount="4"
+        app:spanCount="4"
+        tools:itemCount="8"
         tools:listitem="@layout/item_mine_head_menu" />
 
 
     <com.noober.background.view.BLLinearLayout
+        app:bl_corners_radius="@dimen/dim_round_layout_corner"
         android:id="@+id/llMyFavorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/edg"
         android:gravity="center_vertical"
         android:padding="@dimen/dim_10"
-        style="@style/BLWaterEffect"
-        app:bl_corners_radius="@dimen/dim_round_layout_corner"
-        app:bl_solid_color="@color/colorBackgroundWhite"
+        app:bl_solid_color="@color/colorWhite"
+        style="@style/WaterEffect"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_mine_menu">
 

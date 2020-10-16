@@ -2,7 +2,8 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
         <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">#ffffff</item>
         <item name="colorAccent">@color/colorWhite</item>
@@ -56,11 +57,16 @@
 
 
     <style name="WaterEffect">
+        <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
     </style>
     <style name="BLWaterEffect">
-        <item name="rippleColor">@color/colorRipple</item>
+<!--        <item name="background">@color/colorWhite</item>-->
+        <item name="bl_solid_color">#01000000</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="bl_corners_radius">0dp</item>
         <item name="bl_ripple_enable">true</item>
         <item name="bl_ripple_color">@color/colorRipple</item>
     </style>
@@ -107,7 +113,6 @@
 
 
     <style name="StrokeMaterialButton" parent="@style/BaseMaterialButton">
-
         <item name="strokeWidth">@dimen/dim_stroke_width</item>
     </style>
 

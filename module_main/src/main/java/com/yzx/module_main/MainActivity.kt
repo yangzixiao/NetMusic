@@ -12,7 +12,6 @@ import com.yzx.lib_base.ext.getDefaultStatusHeight
 import com.yzx.module_main.adapter.MainFragmentPagerAdapter
 import com.yzx.module_main.databinding.ActivityMainBinding
 import com.yzx.module_main.test.DiscoverFragment
-import com.yzx.module_main.test.TestFragment
 import com.yzx.module_main.widget.MainTitleView
 import com.yzx.lib_magic_indicator.ViewPagerHelper
 import com.yzx.lib_magic_indicator.buildins.commonnavigator.CommonNavigator
@@ -66,8 +65,8 @@ class MainActivity : BaseBottomSongInfoActivity() {
             listOf(
                 mainFragmentPagerAdapter.getRegisteredFragment(0) ?: fragment,
                 mainFragmentPagerAdapter.getRegisteredFragment(1) ?: DiscoverFragment(),
-                mainFragmentPagerAdapter.getRegisteredFragment(2) ?: TestFragment(),
-                mainFragmentPagerAdapter.getRegisteredFragment(3) ?: TestFragment()
+                mainFragmentPagerAdapter.getRegisteredFragment(2) ?: DiscoverFragment(),
+                mainFragmentPagerAdapter.getRegisteredFragment(3) ?: DiscoverFragment()
             )
         mainFragmentPagerAdapter.notifyDataSetChanged()
 
@@ -98,7 +97,7 @@ class MainActivity : BaseBottomSongInfoActivity() {
 
         }
         mainBinding.magicIndicator.navigator = commonNavigator
-        com.yzx.lib_magic_indicator.ViewPagerHelper.bind(mainBinding.magicIndicator, mainBinding.viewPager)
+        ViewPagerHelper.bind(mainBinding.magicIndicator, mainBinding.viewPager)
     }
 
 }

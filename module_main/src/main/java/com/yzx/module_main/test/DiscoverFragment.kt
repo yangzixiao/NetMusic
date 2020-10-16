@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.noober.background.drawable.DrawableCreator
 import com.yzx.lib_base.base.BaseFragment
 import com.yzx.lib_base.ext.toast
+import com.yzx.module_main.R
 import com.yzx.module_main.databinding.FragmentTestBinding
 
 
@@ -23,6 +25,9 @@ class DiscoverFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTestBinding.inflate(inflater)
+        binding.iv1.setOnClickListener {
+            toast("点击了Ripple")
+        }
         return binding.root
     }
 

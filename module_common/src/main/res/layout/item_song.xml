@@ -6,10 +6,9 @@
     android:layout_height="wrap_content"
     android:paddingStart="@dimen/edg"
     android:paddingTop="@dimen/dim_10"
+    style="@style/WaterEffect"
     android:paddingEnd="@dimen/edg"
-    android:paddingBottom="@dimen/dim_10"
-    android:background="@color/colorBackgroundWhite"
-    android:theme="@style/Theme.MaterialComponents">
+    android:paddingBottom="@dimen/dim_10">
 
 
     <TextView
