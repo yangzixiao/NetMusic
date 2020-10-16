@@ -21,6 +21,10 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.yzx.lib_base.player.model.Album;
+import com.yzx.lib_base.player.model.Music;
+import com.yzx.lib_core.mmkv.MmkvUtils;
+import com.yzx.lib_core.utils.JsonUtils;
 import com.yzx.lib_play_client.client.bean.base.BaseAlbumItem;
 import com.yzx.lib_play_client.client.bean.base.BaseMusicItem;
 
@@ -33,7 +37,7 @@ import java.util.List;
 /**
  * Create by KunMinX at 18/9/24
  */
-public class PlayingInfoManager<B extends BaseAlbumItem, M extends BaseMusicItem> {
+public class PlayingInfoManager {
 
     private static final String SP_NAME = "KunMinX_Music";
     private static final String REPEAT_MODE = "REPEAT_MODE";
@@ -53,50 +57,44 @@ public class PlayingInfoManager<B extends BaseAlbumItem, M extends BaseMusicItem
     private int mAlbumIndex = 0;
 
     //循环模式
-    private Enum mRepeatMode=RepeatMode.LIST_LOOP;
+    private Enum mRepeatMode = RepeatMode.LIST_LOOP;
 
     public enum RepeatMode {
         ONE_LOOP, LIST_LOOP, RANDOM
     }
 
     //原始列表
-    private List<M> mOriginPlayingList = new ArrayList<>();
+    private List<Music> mOriginPlayingList = new ArrayList<>();
 
     //随机播放列表
-    private List<M> mShufflePlayingList = new ArrayList<>();
+    private List<Music> mShufflePlayingList = new ArrayList<>();
 
     //专辑详情
-    private B mMusicAlbum;
+    private Album mMusicAlbum;
 
 
     public void init(Context context) {
-//        SharedPreferences sp = context.getSharedPreferences(
-//                SP_NAME, Context.MODE_PRIVATE);
-//
-//        String musicAlbum = sp.getString(LAST_BOOK_DETAIL, "");
-//        mPlayIndex = sp.getInt(LAST_CHAPTER_INDEX, 0);
-//        if (!TextUtils.isEmpty(musicAlbum)) {
-//            Gson gson = new Gson();
-//            Type genType = getClass().getSuperclass();
-//            Type type = ((ParameterizedType) genType).getActualTypeArguments()[0];
-//            B data = gson.fromJson(musicAlbum, type);
-//            setMusicAlbum(data);
-//            mAlbumIndex = mOriginPlayingList.indexOf(getCurrentPlayingMusic());
-//        }
-//
-//        int repeatMode = sp.getInt(REPEAT_MODE, 1);
-//
-//        switch (repeatMode) {
-//            case 0:
-//                mRepeatMode = RepeatMode.ONE_LOOP;
-//                break;
-//            case 2:
-//                mRepeatMode = RepeatMode.RANDOM;
-//                break;
-//            default:
-//                mRepeatMode = RepeatMode.LIST_LOOP;
-//                break;
-//        }
+
+        String musicAlbum = MmkvUtils.INSTANCE.get(LAST_BOOK_DETAIL, "");
+        mPlayIndex = MmkvUtils.INSTANCE.get(LAST_CHAPTER_INDEX, 0);
+        int repeatMode = MmkvUtils.INSTANCE.get(REPEAT_MODE, 1);
+        if (!TextUtils.isEmpty(musicAlbum)) {
+            setMusicAlbum((Album) JsonUtils.stringToObject(musicAlbum, Album.class));
+            mAlbumIndex = mOriginPlayingList.indexOf(getCurrentPlayingMusic());
+        }
+
+
+        switch (repeatMode) {
+            case 0:
+                mRepeatMode = RepeatMode.ONE_LOOP;
+                break;
+            case 2:
+                mRepeatMode = RepeatMode.RANDOM;
+                break;
+            default:
+                mRepeatMode = RepeatMode.LIST_LOOP;
+                break;
+        }
     }
 
     public boolean isInited() {
@@ -120,18 +118,18 @@ public class PlayingInfoManager<B extends BaseAlbumItem, M extends BaseMusicItem
         return mRepeatMode;
     }
 
-    public B getMusicAlbum() {
+    public Album getMusicAlbum() {
         return mMusicAlbum;
     }
 
-    public void setMusicAlbum(B musicAlbum) {
+    public void setMusicAlbum(Album musicAlbum) {
         this.mMusicAlbum = musicAlbum;
         mOriginPlayingList.clear();
         mOriginPlayingList.addAll(mMusicAlbum.getMusics());
         fitShuffle();
     }
 
-    public List<M> getPlayingList() {
+    public List<Music> getPlayingList() {
         if (mRepeatMode == RepeatMode.RANDOM) {
             return mShufflePlayingList;
         } else {
@@ -139,11 +137,11 @@ public class PlayingInfoManager<B extends BaseAlbumItem, M extends BaseMusicItem
         }
     }
 
-    public List<M> getOriginPlayingList() {
+    public List<Music> getOriginPlayingList() {
         return mOriginPlayingList;
     }
 
-    public M getCurrentPlayingMusic() {
+    public Music getCurrentPlayingMusic() {
         return getPlayingList().get(mPlayIndex);
     }
 
@@ -183,21 +181,16 @@ public class PlayingInfoManager<B extends BaseAlbumItem, M extends BaseMusicItem
     }
 
     public void saveRecords(Context context) {
-//        Gson gson = new Gson();
-//
-//        SharedPreferences sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-//
-//        sp.edit().putString(LAST_BOOK_DETAIL, gson.toJson(mMusicAlbum)).apply();
-//        sp.edit().putInt(LAST_CHAPTER_INDEX, mPlayIndex).apply();
-//
-//        int repeatMode = -1;
-//        if (RepeatMode.ONE_LOOP==mRepeatMode) {
-//            repeatMode=0;
-//        } else if (RepeatMode.RANDOM.equals(mRepeatMode)) {
-//            repeatMode=3;
-//        } else {
-//            repeatMode=1;
-//        }
-//        sp.edit().putInt(REPEAT_MODE, repeatMode).apply();
+
+        MmkvUtils.INSTANCE.put(LAST_BOOK_DETAIL, JsonUtils.objectToString(mMusicAlbum));
+        MmkvUtils.INSTANCE.put(LAST_CHAPTER_INDEX, mPlayIndex);
+
+        int repeatMode = 1;
+        if (RepeatMode.ONE_LOOP == mRepeatMode) {
+            repeatMode = 0;
+        } else if (RepeatMode.RANDOM.equals(mRepeatMode)) {
+            repeatMode = 3;
+        }
+        MmkvUtils.INSTANCE.put(REPEAT_MODE, repeatMode);
     }
 }

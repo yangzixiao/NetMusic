@@ -42,12 +42,12 @@ public class PlayerManager implements IPlayController<Album, Music> {
 
     private static final PlayerManager S_MANAGER = new PlayerManager();
 
-    private final PlayerController<Album, Music> mController;
+    private final PlayerController mController;
 
     private Context mContext;
 
     private PlayerManager() {
-        mController = new PlayerController<>();
+        mController = new PlayerController();
     }
 
     public static PlayerManager getInstance() {

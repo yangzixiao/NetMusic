@@ -18,15 +18,14 @@ package com.yzx.lib_play_client.client;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.yzx.lib_base.player.model.Album;
+import com.yzx.lib_base.player.model.Music;
 import com.yzx.lib_play_client.R;
-import com.yzx.lib_play_client.client.bean.base.BaseAlbumItem;
-import com.yzx.lib_play_client.client.bean.base.BaseMusicItem;
 import com.yzx.lib_play_client.client.bean.dto.ChangeMusic;
 import com.yzx.lib_play_client.client.bean.dto.PlayingMusic;
 import com.yzx.lib_play_client.client.contract.IServiceNotifier;
@@ -40,10 +39,10 @@ import java.util.List;
 /**
  * Create by KunMinX at 18/9/25
  */
-public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> {
+public class PlayerController {
 
     private static String TAG = "PlayerController";
-    private PlayingInfoManager<B, M> mPlayingInfoManager = new PlayingInfoManager<>();
+    private PlayingInfoManager mPlayingInfoManager = new PlayingInfoManager();
     private boolean mIsPaused;
     private boolean mIsChangingPlayingMusic;
 
@@ -62,6 +61,10 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
     public void init(Context context, List<String> extraFormatList, IServiceNotifier iServiceNotifier) {
 
         mPlayingInfoManager.init(context.getApplicationContext());
+        Album musicAlbum = mPlayingInfoManager.getMusicAlbum();
+        if (musicAlbum!=null){
+            setAlbum(context,musicAlbum,mPlayingInfoManager.getAlbumIndex());
+        }
 
         proxy = new HttpProxyCacheServer.Builder(context.getApplicationContext())
                 .fileNameGenerator(new PlayerFileNameGenerator())
@@ -79,17 +82,17 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
         return mPlayingInfoManager.isInited();
     }
 
-    public void loadAlbum(Context context, B musicAlbum) {
+    public void loadAlbum(Context context, Album musicAlbum) {
         setAlbum(context, musicAlbum, 0);
     }
 
-    private void setAlbum(Context context, B musicAlbum, int albumIndex) {
+    private void setAlbum(Context context, Album musicAlbum, int albumIndex) {
         mPlayingInfoManager.setMusicAlbum(musicAlbum);
         mPlayingInfoManager.setAlbumIndex(albumIndex);
         setChangingPlayingMusic(context, true);
     }
 
-    public void loadAlbum(Context context, B musicAlbum, int albumIndex) {
+    public void loadAlbum(Context context, Album musicAlbum, int albumIndex) {
         setAlbum(context, musicAlbum, albumIndex);
 //        playAudio(context);
     }
@@ -133,7 +136,7 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
 
     private void getUrlAndPlay(Context context) {
         String url = null;
-        M freeMusic = null;
+        Music freeMusic = null;
         freeMusic = mPlayingInfoManager.getCurrentPlayingMusic();
         url = freeMusic.getUrl();
 
@@ -307,12 +310,12 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
         playModeLiveData.setValue(mPlayingInfoManager.changeMode());
     }
 
-    public B getAlbum() {
+    public Album getAlbum() {
         return mPlayingInfoManager.getMusicAlbum();
     }
 
     //播放列表展示用
-    public List<M> getAlbumMusics() {
+    public List<Music> getAlbumMusics() {
         return mPlayingInfoManager.getOriginPlayingList();
     }
 
@@ -363,7 +366,7 @@ public class PlayerController<B extends BaseAlbumItem, M extends BaseMusicItem> 
         }
     }
 
-    public M getCurrentPlayingMusic() {
+    public Music getCurrentPlayingMusic() {
         return mPlayingInfoManager.getCurrentPlayingMusic();
     }
 
